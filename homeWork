@@ -1,18 +1,17 @@
 using System;
-namespace homework
-{
+namespace homework{
     internal class Program{
         static void Main(string[] args){
             uint countMoney = 10000000;
             int chancesWinningCasino = -9999999;
             sbyte chapterLife = 20;
-            byte homeWork = 1;       
-            long OilRussia = long.MaxValue;
+            byte numberHomeWork = 1;       
+            long oilRussia = long.MaxValue;
             float timeMatchHour = 2.5f;
             double ageChapter = 16.3;
-            String leftVariables = "2";
+            string leftVariables = "2";
             char actionLeft = '5';
             bool canEndHomeWork = true;
-
- }}}
-//без пустых строчек не красиво, и как то в куче всё, не понятно, я пустыми строчками делил переменные разных типов
+         }
+     }
+ }
