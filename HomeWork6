@@ -1,0 +1,26 @@
+using System;
+
+namespace HomeWork2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int countGold;
+            int countBuyCrystal;
+            int engeGold;
+
+            Console.WriteLine("Текущая цена одного кристалла составляет 10 золота за 1 штуку");
+            Console.Write("сколько у вас золота? ");
+            countGold = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("какое кол-во кристаллов вы хотели бы приобрести? ");
+            countBuyCrystal = Convert.ToInt32(Console.ReadLine());
+
+            engeGold = countGold / countBuyCrystal;
+            
+            Console.WriteLine("Кол-во кристаллов в сумке: " + countBuyCrystal + " " +
+                "Остаток золота: " + engeGold);
+        }
+    }
+}
