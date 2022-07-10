@@ -1,28 +1,18 @@
 using System;
-
 namespace homework
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
+    internal class Program{
+        static void Main(string[] args){
             uint countMoney = 10000000;
-            int ChancesOfWinningAtTheCasino = -9999999;
-
-            sbyte mySalaryInFactory = 20;//thousand
-            byte homeWork = 1;
-
-            bool imBeautiful = true;
-
-            long OilInRussia = long.MaxValue;
-
-            float timeMatch = 2.5f;//hour
-            double myAge = 16.3;
-
-            String leftVariables = "1";
+            int chancesWinningCasino = -9999999;
+            sbyte chapterLife = 20;
+            byte homeWork = 1;       
+            long OilRussia = long.MaxValue;
+            float timeMatchHour = 2.5f;
+            double ageChapter = 16.3;
+            String leftVariables = "2";
             char actionLeft = '5';
+            bool canEndHomeWork = true;
 
-
-        }
-    }
-}
+ }}}
+//без пустых строчек не красиво, и как то в куче всё, не понятно, я пустыми строчками делил переменные разных типов
