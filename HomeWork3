@@ -1,10 +1,13 @@
 using System;
 
-namespace homework{
-    internal class Program{
-        static void Main(string[] args){
-            String name;
-            String city;
+namespace homework
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string name;
+            string city;
             string adressHome;
 
             Console.Write("Здравствуйте, вы находитесь в онлайн магазине 'NateHiggers'," +
