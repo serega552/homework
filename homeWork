@@ -1,12 +1,16 @@
 using System;
-namespace homework{
-    internal class Program{
-        static void Main(string[] args){
+
+namespace homework
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
             uint countMoney = 10000000;
             int chancesWinningCasino = -9999999;
             sbyte chapterLife = 20;
             byte numberHomeWork = 1;       
-            long oilRussia = long.MaxValue;
+            long countStepChapter = long.MaxValue;
             float timeMatchHour = 2.5f;
             double ageChapter = 16.3;
             string leftVariables = "2";
