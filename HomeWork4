@@ -1,0 +1,21 @@
+using System;
+
+namespace homework
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int maxCountPictureInRow = 3;
+            int countPicture = 52;
+            int fullRow;
+            int notFullRow;
+
+            fullRow = countPicture / maxCountPictureInRow;
+            notFullRow = countPicture % maxCountPictureInRow;
+
+            Console.WriteLine("кол-во полностью заполненных рядов:" + fullRow + ". " +
+                "Кол-во картинок в не полном ряду: " + notFullRow);
+        }
+    }
+}
