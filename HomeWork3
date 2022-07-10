@@ -1,0 +1,26 @@
+using System;
+
+namespace homework{
+    internal class Program{
+        static void Main(string[] args){
+            String name;
+            String city;
+            string adressHome;
+
+            Console.Write("Здравствуйте, вы находитесь в онлайн магазине 'NateHiggers'," +
+                " для пользования сайтом пройдите регистрацию: введите имя:");
+            name = Console.ReadLine();
+
+            Console.Write("введите ваш город:");
+            city = Console.ReadLine();
+
+            Console.Write("введите адрес проживания:");
+            adressHome = Console.ReadLine();
+
+            Console.WriteLine("Поздравляю вы успешно закончили регистрацию. ваши регистрационные данные:");
+            Console.WriteLine("имя: " + name);
+            Console.WriteLine("город: " + city);
+            Console.WriteLine("адрес проживания: " + adressHome);
+        }
+    }
+}
