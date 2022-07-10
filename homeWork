@@ -1,0 +1,28 @@
+using System;
+
+namespace homework
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            uint countMoney = 10000000;
+            int ChancesOfWinningAtTheCasino = -9999999;
+
+            sbyte mySalaryInFactory = 20;//thousand
+            byte homeWork = 1;
+
+            bool imBeautiful = true;
+
+            long OilInRussia = long.MaxValue;
+
+            float timeMatch = 2.5f;//hour
+            double myAge = 16.3;
+
+            String leftVariables = "1";
+            char actionLeft = '5';
+
+
+        }
+    }
+}
