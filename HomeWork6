@@ -17,7 +17,7 @@ namespace HomeWork2
             Console.Write("какое кол-во кристаллов вы хотели бы приобрести? ");
             countCrystal = Convert.ToInt32(Console.ReadLine());
 
-            countGold = Convert.ToSingle(countGold) - (countCrystal * 10);
+            countGold = Convert.ToSingle(countGold) - (countCrystal * crystalPrice);
             
             Console.WriteLine("Кол-во кристаллов в сумке: " + countCrystal + " " +
                 "Остаток золота: " + countGold);
