@@ -1,0 +1,25 @@
+using System;
+
+namespace HomeWork2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string entryField;
+            int countRepeat;
+
+            Console.Write("Введите слово для многократного повторения: ");
+            entryField = Console.ReadLine();
+
+            Console.Write("Введите кол-во повторений: ");
+            countRepeat = Convert.ToInt32( Console.ReadLine());
+
+            for (int i = 0; i < countRepeat; i++)
+            {
+                Console.WriteLine(entryField);
+            }
+
+        }
+    }
+}
