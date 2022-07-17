@@ -19,7 +19,6 @@ namespace HomeWork2
             {
                 Console.WriteLine(entryField);
             }
-
         }
     }
 }
