@@ -7,18 +7,18 @@ namespace HomeWork2
         static void Main(string[] args)
         {
             int countOldPeople;
-            int timeReceptionMinute = 10;
+            int timeReceptionMinutes = 10;
             int waitingHours; 
-            int waitingMinute; 
-            int minuteInHour = 60;
+            int waitingMinutes; 
+            int minutesInHours = 60;
 
             Console.Write("Для подсчета времени ожидания напишите количество людей в очереди: ");
             countOldPeople = Convert.ToInt32(Console.ReadLine());
 
-            waitingHours = countOldPeople * timeReceptionMinute / minuteInHour;
-            waitingMinute = (countOldPeople * timeReceptionMinute - (minuteInHour - waitingHours)) - 1;
-
-            Console.WriteLine("время ожидания равно: " + waitingHours + " час(a)(ов) " + waitingMinute + " минут.");
+            waitingHours = countOldPeople * timeReceptionMinutes / minutesInHours;
+            waitingMinutes = (countOldPeople * timeReceptionMinutes - (waitingHours * minutesInHours) );
+            
+            Console.WriteLine("время ожидания равно: " + waitingHours + " час(a)(ов) " + waitingMinutes + " минут.");
         }
     }
 }
