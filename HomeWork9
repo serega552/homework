@@ -11,14 +11,12 @@ namespace HomeWork2
 
             Console.WriteLine("Если вы захотите покинуть цикл, то вы в любой момент сможете воспользоваться командой 'exit' ");
 
-            while (true)
-            {
-                inputExit = Console.ReadLine();
+            inputExit = Console.ReadLine();
 
-                if (inputExit == stopWord)
-                    break;
-
+            while (inputExit != stopWord)
+            {                              
                 Console.WriteLine("ааа");
+                inputExit = Console.ReadLine();
             }
         }
     }
