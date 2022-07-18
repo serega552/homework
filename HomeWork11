@@ -19,7 +19,7 @@ namespace HomeWork2
                     sumNumber = i + sumNumber;
                     Console.WriteLine(i);                    
                 }
-
+                
             }
             Console.WriteLine(sumNumber);
         }
