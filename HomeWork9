@@ -7,17 +7,18 @@ namespace HomeWork2
         static void Main(string[] args)
         {
             string inputExit;
+            string stopWord = "exit";
 
             Console.WriteLine("Если вы захотите покинуть цикл, то вы в любой момент сможете воспользоваться командой 'exit' ");
 
-            for(int i = 0; i < 1000000; i++)
+            while (true)
             {
-                inputExit = Console.ReadLine();              
-                if (inputExit == "exit")
-                {
+                inputExit = Console.ReadLine();
+
+                if (inputExit == stopWord)
                     break;
-                }
-                Console.WriteLine(i);
+
+                Console.WriteLine("ааа");
             }
         }
     }
