@@ -1,0 +1,21 @@
+using System;
+
+namespace HomeWork2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int minNumber = 5;
+            int maxNumber = 96;
+            int plusNumber = 7;
+            
+            //выбрал for вместо while, потому что for обозначает конкретные границы цикла, его использовать удобнее в данном случае
+            
+            for (int i = minNumber; i <= maxNumber; i += plusNumber ) 
+            {
+                Console.WriteLine(i);
+            }
+        }
+    }
+}
