@@ -1,0 +1,20 @@
+using System;
+
+namespace HomeWork2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string login = "123456";
+            string password = "FGDN52uhUID";
+            string temp = "";
+
+            temp = login;
+            login = password;
+            password = temp;
+
+            Console.WriteLine("логин - " + login + "\nпароль - " + password);
+        }
+    }
+}
