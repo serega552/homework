@@ -1,0 +1,24 @@
+using System;
+
+namespace HomeWork2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string inputExit;
+
+            Console.WriteLine("Если вы захотите покинуть цикл, то вы в любой момент сможете воспользоваться командой 'exit' ");
+
+            for(int i = 0; i < 1000000; i++)
+            {
+                inputExit = Console.ReadLine();              
+                if (inputExit == "exit")
+                {
+                    break;
+                }
+                Console.WriteLine(i);
+            }
+        }
+    }
+}
