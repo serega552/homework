@@ -6,15 +6,13 @@ namespace HomeWork2
     {
         static void Main(string[] args)
         {
-            string inputExit;
+            string inputExit = "";
             string stopWord = "exit";
 
-            Console.WriteLine("Если вы захотите покинуть цикл, то вы в любой момент сможете воспользоваться командой 'exit' ");
-
-            inputExit = Console.ReadLine();
+            Console.WriteLine("Если вы захотите покинуть цикл, то вы в любой момент сможете воспользоваться командой 'exit' ");            
 
             while (inputExit != stopWord)
-            {                              
+            {
                 Console.WriteLine("ааа");
                 inputExit = Console.ReadLine();
             }
