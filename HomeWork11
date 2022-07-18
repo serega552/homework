@@ -1,0 +1,27 @@
+using System;
+
+namespace HomeWork2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Random rand = new Random();
+
+            int sumNumber = 0;
+            int number = rand.Next(0,100);
+
+            for (int i = 0; i <= number; i++)
+            {
+
+                if (i % 3 == 0 || i % 5 == 0)
+                {
+                    sumNumber = i + sumNumber;
+                    Console.WriteLine(i);                    
+                }
+
+            }
+            Console.WriteLine(sumNumber);
+        }
+    }
+}
