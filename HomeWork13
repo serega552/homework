@@ -1,0 +1,65 @@
+using System;
+
+namespace HomeWork2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string setName;
+            string setSurname;
+            string setGender;
+            int setAge;
+            int setNumberCard;
+            int setCvcCode;
+            string setDateCard;
+            string inputExit = "";
+            string exitProgram = "exit";
+            int admissibleAge = 18;
+
+            Console.WriteLine("Вы на сайте казино, сейчас вам предстоит пройти регистрацию, после вы сможете пользоваться сайтом.");
+            while (inputExit != exitProgram)
+            {
+                Console.Write("Введите ваше имя: ");
+                setName = Console.ReadLine();
+
+                Console.Write("Введите ваше фамилие: ");
+                setSurname = Console.ReadLine();
+
+                Console.Write("Введите ваш пол (мужской, женский): ");
+                setGender = Console.ReadLine();
+
+                if (setGender == "мужской" || setGender == "женский") {  }
+                else
+                {
+                    Console.WriteLine("Вы ввели не коректные, досвидания.");
+                    break;
+                }
+                Console.Write("Введите ваш возраст: ");
+                setAge = Convert.ToInt32(Console.ReadLine());
+
+                if (setAge < admissibleAge) 
+                {
+                    Console.WriteLine("Маленьких не пускаем досвидания.");
+                    break;
+                }
+                Console.Write("Введите номер вашей карты: ");
+                setNumberCard = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("Введите CVC код карты: ");
+                setCvcCode = Convert.ToInt32(Console.ReadLine());
+                if (setCvcCode < 100 && setCvcCode > 999) 
+                {
+                    Console.WriteLine("Вы ввели не коректные, досвидания.");
+                    break;
+                }
+                Console.Write("Введите срок карты (07/23): ");
+                setDateCard = Console.ReadLine();
+
+                Console.WriteLine("Регистрация законченна, вы можете изменить свои данные, либо прописать команду " + exitProgram + " и покинуть окно регистрации");
+                inputExit = Console.ReadLine();
+            }
+            Console.WriteLine("Спасибо, что предоставили свои данные нашему казино, досвидания хихихи.");
+        }
+    }
+}
