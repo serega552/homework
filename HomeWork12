@@ -1,0 +1,122 @@
+using System;
+
+namespace HomeWork2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            float rub; 
+            float usd;
+            float bts;
+            float currencyCount;
+            float rubToUsd = 56, rubToBts = 1200000, usdToRub = 53, usdToBts = 22000, btsToRub = 1150000, btsToUsd = 21000;                     
+            string userInputExchange;
+            string exitProgram = "exit";
+            string inputExit = "";
+
+            Console.Write("Сколько у вас рублей: ");
+            rub = Convert.ToSingle(Console.ReadLine());
+
+            Console.Write("Сколько у вас долларов: ");
+            usd = Convert.ToSingle(Console.ReadLine());
+
+            Console.Write("Сколько у вас биткоинов: ");
+            bts = Convert.ToSingle(Console.ReadLine());
+
+            Console.WriteLine("Ваш баланс: " + rub + " рублей, " + usd + " долларов, " + bts + " биткоинов. ");
+
+            while (inputExit != exitProgram)
+            {
+
+                Console.WriteLine("Какую валюту вы хотите обменять? \n 1 - рубли на доллары " +
+                    "\n 2 - рубли на биткоины \n 3 - доллары на рубли \n 4 - доллары на биткоины \n" +
+                    " 5 - биткоины на рубли \n 6 - биткоины на доллары");
+                userInputExchange = Console.ReadLine();
+
+
+                switch (userInputExchange)
+                {
+                    case "1":
+                        Console.WriteLine("Обмен рублей на доллары");
+                        Console.WriteLine("Сколько рублей вы хотите обменять: ");
+                        currencyCount = Convert.ToSingle(Console.ReadLine());
+
+                        if (rub >= currencyCount)
+                        {
+                            rub -= currencyCount;
+                            usd += currencyCount / rubToUsd;
+                        }
+
+
+                        break;
+                    case "2":
+                        Console.WriteLine("Обмен рублей на биткоины");
+                        Console.WriteLine("Сколько рублей вы хотите обменять: ");
+                        currencyCount = Convert.ToSingle(Console.ReadLine());
+
+                        if (rub >= currencyCount)
+                        {
+                            rub -= currencyCount;
+                            bts += currencyCount / rubToBts;
+                        }
+
+                        break;
+                    case "3":
+                        Console.WriteLine("Обмен долларов на рубли");
+                        Console.WriteLine("Сколько долларов вы хотите обменять: ");
+                        currencyCount = Convert.ToSingle(Console.ReadLine());
+
+                        if (usd >= currencyCount)
+                        {
+                            usd -= currencyCount;
+                            rub += currencyCount * usdToRub;
+                        }
+
+                        break;
+                    case "4":
+                        Console.WriteLine("Обмен долларов на биткоины");
+                        Console.WriteLine("Сколько долларов вы хотите обменять: ");
+                        currencyCount = Convert.ToSingle(Console.ReadLine());
+
+                        if (usd >= currencyCount)
+                        {
+                            usd -= currencyCount;
+                            bts += currencyCount / usdToBts;
+                        }
+
+                        break;
+                    case "5":
+                        Console.WriteLine("Обмен биткоинов на рубли");
+                        Console.WriteLine("Сколько биткоинов вы хотите обменять: ");
+                        currencyCount = Convert.ToSingle(Console.ReadLine());
+
+                        if (bts >= currencyCount)
+                        {
+                            bts -= currencyCount;
+                            rub += currencyCount * btsToRub;
+                        }
+
+                        break;
+                    case "6":
+                        Console.WriteLine("Обмен биткоины на доллары");
+                        Console.WriteLine("Сколько биткоинов вы хотите обменять: ");
+                        currencyCount = Convert.ToSingle(Console.ReadLine());
+
+                        if (bts >= currencyCount)
+                        {
+                            bts -= currencyCount;
+                            usd += currencyCount * btsToUsd;
+                        }
+
+                        break;
+
+                }
+                Console.WriteLine("Ваш баланс: " + rub + " рублей, " + usd + " долларов, " + bts + " биткоинов. ");
+
+                Console.WriteLine("Если желаете выйти из программы введите команду " + exitProgram + " если не желаете выходить ничего не пишите.");
+                inputExit = Console.ReadLine();
+            }
+        }
+    }
+}
