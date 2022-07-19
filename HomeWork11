@@ -9,23 +9,21 @@ namespace HomeWork2
             Random random = new Random();
 
             int cutNumberThree = 3;
-            int cutNumberfive = 5;
+            int cutNumberFive = 5;
             int minNumberRandom = 0;
             int maxNumberRandom = 100;
             int sumNumber = 0;
             int number = random.Next(minNumberRandom, maxNumberRandom);
-            
 
             for (int i = 0; i <= number; i++)
             {
-
-                if (i % cutNumberThree == 0 || i % cutNumberfive == 0)
+                if (i % cutNumberThree == 0 || i % cutNumberFive == 0)
                 {
-                    sumNumber = i + sumNumber;//как ставить пустые строки если в цикле есть условный оператор, так?
+                    sumNumber = i + sumNumber;
                     Console.WriteLine(i);
                 }
             }
-            
+
             Console.WriteLine("Сумма равна - " + sumNumber);
         }
     }
