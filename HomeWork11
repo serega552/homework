@@ -8,8 +8,8 @@ namespace HomeWork2
         {
             Random random = new Random();
 
-            int cutNumberThree = 3;
-            int cutNumberFive = 5;
+            int cutNumber1 = 3;
+            int cutNumber2 = 5;
             int minNumberRandom = 0;
             int maxNumberRandom = 100;
             int sumNumber = 0;
