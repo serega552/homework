@@ -17,7 +17,7 @@ namespace HomeWork2
 
             for (int i = 0; i <= number; i++)
             {
-                if (i % cutNumberThree == 0 || i % cutNumberFive == 0)
+                if (i % cutNumber1 == 0 || i % cutNumber2 == 0)
                 {
                     sumNumber = i + sumNumber;
                     Console.WriteLine(i);
