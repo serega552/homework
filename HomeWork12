@@ -110,8 +110,7 @@ namespace HomeWork2
                             bts -= currencyCount;
                             usd += btsToUsd / currencyCount;
                         }
-                        break;
-                        
+                        break;                       
                 }
 
                 Console.WriteLine("Ваш баланс: " + rub + " рублей, " + usd + " долларов, " + bts + " биткоинов. ");
