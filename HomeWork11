@@ -6,22 +6,27 @@ namespace HomeWork2
     {
         static void Main(string[] args)
         {
-            Random rand = new Random();
+            Random random = new Random();
 
+            int cutNumberThree = 3;
+            int cutNumberfive = 5;
+            int minNumberRandom = 0;
+            int maxNumberRandom = 100;
             int sumNumber = 0;
-            int number = rand.Next(0,100);
+            int number = random.Next(minNumberRandom, maxNumberRandom);
+            
 
             for (int i = 0; i <= number; i++)
             {
 
-                if (i % 3 == 0 || i % 5 == 0)
+                if (i % cutNumberThree == 0 || i % cutNumberfive == 0)
                 {
-                    sumNumber = i + sumNumber;
-                    Console.WriteLine(i);                    
+                    sumNumber = i + sumNumber;//как ставить пустые строки если в цикле есть условный оператор, так?
+                    Console.WriteLine(i);
                 }
-                
             }
-            Console.WriteLine(sumNumber);
+            
+            Console.WriteLine("Сумма равна - " + sumNumber);
         }
     }
 }
