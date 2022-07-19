@@ -6,60 +6,67 @@ namespace HomeWork2
     {
         static void Main(string[] args)
         {
-            string setName;
-            string setSurname;
-            string setGender;
-            int setAge;
-            int setNumberCard;
-            int setCvcCode;
-            string setDateCard;
-            string inputExit = "";
+            string chooseCommand = "";
+            int setColor;
+            string setName = "";
+            string setSurname = "";
+            int showSmiley;
+            string showInfo;
+            string setPassword = "";
             string exitProgram = "exit";
-            int admissibleAge = 18;
+            string inputExit = "";
 
-            Console.WriteLine("Вы на сайте казино, сейчас вам предстоит пройти регистрацию, после вы сможете пользоваться сайтом.");
             while (inputExit != exitProgram)
             {
-                Console.Write("Введите ваше имя: ");
-                setName = Console.ReadLine();
+                Console.WriteLine("\n 1 - установить имя \n 2 - установить фамилию \n 3 - установить пароль " +
+                    "\n 4 - изменить цвет текста \n 5 - показать информацию \n 6 - вывести в консоль смайлик \n 7 - выйти");
+                chooseCommand = Console.ReadLine();
 
-                Console.Write("Введите ваше фамилие: ");
-                setSurname = Console.ReadLine();
-
-                Console.Write("Введите ваш пол (мужской, женский): ");
-                setGender = Console.ReadLine();
-
-                if (setGender == "мужской" || setGender == "женский") {  }
-                else
+                switch (chooseCommand)
                 {
-                    Console.WriteLine("Вы ввели не коректные, досвидания.");
-                    break;
-                }
-                Console.Write("Введите ваш возраст: ");
-                setAge = Convert.ToInt32(Console.ReadLine());
+                    case "1":
+                        Console.Write("Введите ваше имя: ");
+                        setName = Console.ReadLine();
+                        break;
 
-                if (setAge < admissibleAge) 
-                {
-                    Console.WriteLine("Маленьких не пускаем досвидания.");
-                    break;
-                }
-                Console.Write("Введите номер вашей карты: ");
-                setNumberCard = Convert.ToInt32(Console.ReadLine());
+                    case "2":
+                        Console.Write("Введите ваше фамилие: ");
+                        setSurname = Console.ReadLine();    
+                        break;
 
-                Console.Write("Введите CVC код карты: ");
-                setCvcCode = Convert.ToInt32(Console.ReadLine());
-                if (setCvcCode < 100 && setCvcCode > 999) 
-                {
-                    Console.WriteLine("Вы ввели не коректные, досвидания.");
-                    break;
-                }
-                Console.Write("Введите срок карты (07/23): ");
-                setDateCard = Console.ReadLine();
+                    case "3":
+                        Console.Write("Введите пароль: ");
+                        setPassword = Console.ReadLine();
+                        break;
 
-                Console.WriteLine("Регистрация законченна, вы можете изменить свои данные, либо прописать команду " + exitProgram + " и покинуть окно регистрации");
-                inputExit = Console.ReadLine();
+                    case "4":
+                        Console.WriteLine(" На выбор 3 цвета\n 1 - зелёный \n 2 - голубой \n 3 - дефолт");
+                        chooseCommand= Console.ReadLine();
+
+                        if (Convert.ToInt32(chooseCommand) == 1)
+                            Console.ForegroundColor = ConsoleColor.Green;
+
+                        else if (Convert.ToInt32(chooseCommand) == 2)
+                            Console.ForegroundColor = ConsoleColor.Blue;
+
+                        else if (Convert.ToInt32(chooseCommand) == 3)
+                            Console.ForegroundColor = ConsoleColor.White;
+                        break;
+
+                    case "5":
+                        Console.WriteLine("Имя: " + setName + "\nФамилие: " + setSurname + "\nПароль: " + setPassword );
+                        break;
+
+                    case "6":
+                        Console.WriteLine("=)");
+                        break;
+
+                    case "7":
+                        Console.WriteLine("Для выхода напишите: " + exitProgram + " для возврата нажмите enter");
+                        inputExit = Console.ReadLine();
+                        break;
+                }
             }
-            Console.WriteLine("Спасибо, что предоставили свои данные нашему казино, досвидания хихихи.");
         }
     }
 }
