@@ -1,0 +1,31 @@
+using System;
+
+namespace HomeWork_12
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string password = "123";
+            string inputPassword = "";
+            int tryCount = 3;
+
+            while (tryCount != 0)
+            {
+                Console.Write("Введите пароль: ");
+                inputPassword = Console.ReadLine();
+
+                if(inputPassword != password)
+                {
+                    tryCount--;
+                    Console.WriteLine("Осталось попыток: " + tryCount);
+                }
+                else
+                {
+                    Console.WriteLine("Правильно!!!");
+                    break;
+                }
+            }
+        }
+    }
+}
