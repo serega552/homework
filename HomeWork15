@@ -6,26 +6,23 @@ namespace HomeWork_12
     {
         static void Main(string[] args)
         {
-            string password = "123";           
-            int tryCount = 3;
+            string password = "123";            
             string inputPassword = "";
-            bool passwordWrittenRight = false;
             int minCountTry = 0;
 
-            while (tryCount > minCountTry && passwordWrittenRight == false)
+            for (int tryCount = 2; tryCount >= minCountTry; tryCount--)
             {
                 Console.Write("Введите пароль: ");
                 inputPassword = Console.ReadLine();
 
                 if (inputPassword != password)
                 {
-                    tryCount--;
                     Console.WriteLine("Осталось попыток: " + tryCount);
                 }
-                else if (inputPassword == password)
+                else
                 {
                     Console.WriteLine("Вау наверное был очень сложный пароль, ПОКА!!!");
-                    passwordWrittenRight = true;
+                    break;
                 }
             }
         }
