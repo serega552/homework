@@ -1,0 +1,26 @@
+using System;
+
+namespace HomeWork_12
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n;
+            int minNumber = 0;
+            int maxNumber = 999;
+            int countNumber = 0;
+
+            Console.WriteLine("Введите число 1 меньше либо равно N меньше либо равно 27: ");
+            n = Convert.ToInt32(Console.ReadLine());
+            for (minNumber = 0; minNumber < maxNumber;minNumber += n) 
+            {
+                if (minNumber >= 100 && minNumber <= 999)
+                {
+                    countNumber++;
+                }
+            }
+            Console.Write("кратных трёхзначных чисел найдено: " + countNumber + "\n");
+        }
+    }
+}
