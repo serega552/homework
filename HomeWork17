@@ -1,0 +1,24 @@
+using System;
+
+namespace HomeWork_12
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int ansver = 1;
+            int number;
+            Console.Write("Введите число: ");
+            number = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 1; i < number; i++)
+            {             
+                if (ansver <= number)
+                {
+                    Console.WriteLine(ansver);
+                    ansver *= 2;
+                }              
+            }
+        }
+    }
+}
