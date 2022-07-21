@@ -6,19 +6,23 @@ namespace HomeWork_12
     {
         static void Main(string[] args)
         {
-            int ansver = 1;
-            int number;
-            Console.Write("Введите число: ");
-            number = Convert.ToInt32(Console.ReadLine());
+            Random random = new Random();
+            int minRandomNumber = 0;
+            int maxRandomNumber = int.MaxValue;
+            int randomNumber = random.Next(minRandomNumber, maxRandomNumber);
+            int countSecondDegree = 1;
+            int secondDegree = 2;
+            int countDegree = 0;
 
-            for (int i = 1; i < number; i++)
-            {             
-                if (ansver <= number)
-                {
-                    Console.WriteLine(ansver);
-                    ansver *= 2;
-                }              
+            Console.WriteLine("Рандомное число: " + randomNumber);
+
+            while (countSecondDegree <= randomNumber)
+            {              
+                    countSecondDegree *= secondDegree;
+                    countDegree++;               
             }
+
+            Console.WriteLine(secondDegree + " в " + countDegree + " степени.");
         }
     }
 }
