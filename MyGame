@@ -7,16 +7,13 @@ namespace TheGame
         static void Main(string[] args)
         {
             Random random = new Random();
-            string nameMagician;
-            string nameBoss = "Большой краб";
-            string nameBoss2 = "Большим крабом";
+            string magicianName;
+            string bossName = "Большой краб";
+            string bossName2 = "Большим крабом";
             double magicianHp = 500;
-            int maxMagicianHp = 500;
-            int minMagicianHpRegeneration = 350;
             int bossHp = 1000;
-            int minCountHp = 0;
             int minDamageBoss = 20;
-            int maxDamageBoss = 81;           
+            int maxDamageBoss = 81;
             string castSpell = "";
             int damageMagicianHand = 20;
             int damageFireBall = 70;
@@ -34,10 +31,10 @@ namespace TheGame
             int countMaxRoundFireBall = 2;
 
             Console.Write("Введите имя вашего персонажа: ");
-            nameMagician = Console.ReadLine();
+            magicianName = Console.ReadLine();
 
             Console.WriteLine("-------------------------------------------------------");
-            Console.WriteLine("Привет " + nameMagician + ". Тебе предстоит сражение с " + nameBoss2 + " и это не его имя, он правда большой.");
+            Console.WriteLine("Привет " + magicianName + ". Тебе предстоит сражение с " + bossName2 + " и это не его имя, он правда большой.");
             Console.WriteLine("-------------------------------------------------------");
 
             Console.ReadKey();
@@ -58,22 +55,22 @@ namespace TheGame
 
             Console.ReadKey();
 
-            while (magicianHp >= minCountHp && bossHp >= minCountHp) 
+            while (magicianHp >= 0 && bossHp >= 0)
             {
                 int damageBoss = random.Next(minDamageBoss, maxDamageBoss);
 
                 Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine(nameMagician + " имеет " + Convert.ToSingle(magicianHp) + " здоровья");
-                Console.WriteLine(nameBoss + " имеет " + bossHp + " здоровья");
+                Console.WriteLine(magicianName + " имеет " + Convert.ToSingle(magicianHp) + " здоровья");
+                Console.WriteLine(bossName + " имеет " + bossHp + " здоровья");
                 Console.WriteLine("-------------------------------------------------------");
 
                 Console.ReadKey();
 
-                Console.WriteLine("Атакует " + nameMagician );
+                Console.WriteLine("Атакует " + magicianName);
 
                 Console.WriteLine("1 - удар рукой.");
 
-                if(waitingTimeFireBall == 0) 
+                if (waitingTimeFireBall == 0)
                 {
                     Console.WriteLine("2 - фаербол.");
                 }
@@ -82,7 +79,7 @@ namespace TheGame
                     Console.WriteLine("2 - Фаербол ещё не готов");
                 }
 
-                if(waitingTimeFreezingEnemy == 0)
+                if (waitingTimeFreezingEnemy == 0)
                 {
                     Console.WriteLine("3 - заморозка.");
                 }
@@ -93,7 +90,7 @@ namespace TheGame
 
                 Console.WriteLine("4 - ударная волна.");
 
-                if(waitingTimeRegenerationHp == 0)
+                if (waitingTimeRegenerationHp == 0)
                 {
                     Console.WriteLine("5 - регенирация.");
                 }
@@ -112,17 +109,17 @@ namespace TheGame
                     case "1":
                         bossHp -= damageMagicianHand;
                         Console.WriteLine("-------------------------------------------------------");
-                        Console.WriteLine(nameBoss + " получил удар рукой.");
+                        Console.WriteLine(bossName + " получил удар рукой.");
                         Console.WriteLine("-------------------------------------------------------");
                         Console.ReadKey();
                         break;
 
                     case "2":
-                        if(waitingTimeFireBall == 0)
+                        if (waitingTimeFireBall == 0)
                         {
                             bossHp -= damageFireBall;
                             Console.WriteLine("-------------------------------------------------------");
-                            Console.WriteLine(nameBoss + " поймал  фаербол своим лицом.");
+                            Console.WriteLine(bossName + " поймал  фаербол своим лицом.");
                             Console.WriteLine("-------------------------------------------------------");
                             waitingTimeFireBall++;
                             Console.ReadKey();
@@ -133,15 +130,15 @@ namespace TheGame
                             Console.WriteLine("-------------------------------------------------------");
                             Console.ReadKey();
                             continue;
-                        }                       
+                        }
                         break;
 
                     case "3":
-                        if(waitingTimeFreezingEnemy == 0)
+                        if (waitingTimeFreezingEnemy == 0)
                         {
                             bossHp -= damageFreezingEnemy;
                             Console.WriteLine("-------------------------------------------------------");
-                            Console.WriteLine(nameBoss + " был заморожен, его урон снижен");
+                            Console.WriteLine(bossName + " был заморожен, его урон снижен");
                             Console.WriteLine("-------------------------------------------------------");
                             waitingTimeFreezingEnemy++;
                             Console.ReadKey();
@@ -159,31 +156,31 @@ namespace TheGame
                         bossHp -= damageWaweBlow;
                         magicianHp -= damageWaweMagician;
                         Console.WriteLine("-------------------------------------------------------");
-                        Console.WriteLine(nameBoss + " упал на землю.");
+                        Console.WriteLine(bossName + " упал на землю.");
                         Console.WriteLine("-------------------------------------------------------");
 
-                        if(waitingTimeFreezingEnemy > 0 && waitingTimeFreezingEnemy <= countMaxRoundFreezing)
+                        if (waitingTimeFreezingEnemy > 0 && waitingTimeFreezingEnemy <= countMaxRoundFreezing)
                         {
                             bringDownFreezing++;
-                            Console.WriteLine(nameBoss + " больше не заморожен, урон прежний.");
+                            Console.WriteLine(bossName + " больше не заморожен, урон прежний.");
                         }
                         Console.ReadKey();
                         break;
 
                     case "5":
-                        if(waitingTimeRegenerationHp == 0 && magicianHp <= minMagicianHpRegeneration)
-                        {                           
-                                magicianHp += regenerationHp;
+                        if (waitingTimeRegenerationHp == 0 && magicianHp <= 350)
+                        {
+                            magicianHp += regenerationHp;
                             Console.WriteLine("-------------------------------------------------------");
                             Console.WriteLine("Регенерация прошла успешно");
                             Console.WriteLine("-------------------------------------------------------");
-                            waitingTimeRegenerationHp++;                          
-                        }
-                        else if (magicianHp > minMagicianHpRegeneration && waitingTimeRegenerationHp == 0)
-                        {
-                            magicianHp = maxMagicianHp;
                             waitingTimeRegenerationHp++;
-                        }       
+                        }
+                        else if (magicianHp > 350 && waitingTimeRegenerationHp == 0)
+                        {
+                            magicianHp = 500;
+                            waitingTimeRegenerationHp++;
+                        }
                         else
                         {
                             Console.WriteLine("У вас больше нет камней регенирации.");
@@ -198,21 +195,21 @@ namespace TheGame
                 if (bossHp >= 1 && waitingTimeFreezingEnemy == 0)
                 {
                     Console.WriteLine("-------------------------------------------------------");
-                    Console.WriteLine(nameBoss + " наносит вам удар в " + damageBoss + " урона");
+                    Console.WriteLine(bossName + " наносит вам удар в " + damageBoss + " урона");
                     Console.WriteLine("-------------------------------------------------------");
                     magicianHp -= damageBoss;
                 }
                 else if (bossHp >= 1 && waitingTimeFreezingEnemy > 0 && waitingTimeFreezingEnemy <= countMaxRoundFreezing && bringDownFreezing == 0)
                 {
                     Console.WriteLine("-------------------------------------------------------");
-                    Console.WriteLine(nameBoss + " наносит вам удар в " + damageBoss * damagePercentFreezing + " урона");
+                    Console.WriteLine(bossName + " наносит вам удар в " + damageBoss * damagePercentFreezing + " урона");
                     Console.WriteLine("-------------------------------------------------------");
                     Convert.ToDouble(magicianHp -= damageBoss * damagePercentFreezing);
                 }
                 else if (bringDownFreezing == 1)
                 {
                     Console.WriteLine("-------------------------------------------------------");
-                    Console.WriteLine(nameBoss + " наносит вам удар в " + damageBoss + " урона");
+                    Console.WriteLine(bossName + " наносит вам удар в " + damageBoss + " урона");
                     Console.WriteLine("-------------------------------------------------------");
                     magicianHp -= damageBoss;
                     bringDownFreezing--;
@@ -220,12 +217,12 @@ namespace TheGame
                 else
                 {
                     Console.WriteLine("-------------------------------------------------------");
-                    Console.WriteLine(nameBoss + " наносит вам удар в " + damageBoss + " урона");
+                    Console.WriteLine(bossName + " наносит вам удар в " + damageBoss + " урона");
                     Console.WriteLine("-------------------------------------------------------");
                     magicianHp -= damageBoss;
                 }
-                
-                if(waitingTimeFireBall > 0 && waitingTimeFireBall <= countMaxRoundFireBall)
+
+                if (waitingTimeFireBall > 0 && waitingTimeFireBall <= countMaxRoundFireBall)
                 {
                     waitingTimeFireBall++;
                     bossHp -= Convert.ToInt32(damageFireBall * damagePercentFireBall);
@@ -235,7 +232,7 @@ namespace TheGame
                     waitingTimeFireBall = 0;
                 }
 
-                if(waitingTimeFreezingEnemy > 0 && waitingTimeFreezingEnemy <= countMaxRoundFreezing)
+                if (waitingTimeFreezingEnemy > 0 && waitingTimeFreezingEnemy <= countMaxRoundFreezing)
                 {
                     waitingTimeFreezingEnemy++;
                 }
@@ -247,16 +244,16 @@ namespace TheGame
                 Console.ReadKey();
             }
 
-            if(bossHp <= 0)
+            if (bossHp <= 0)
             {
                 Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine(nameBoss + " проиграл");
+                Console.WriteLine(bossName + " проиграл");
                 Console.WriteLine("-------------------------------------------------------");
             }
             else
             {
                 Console.WriteLine("-------------------------------------------------------");
-                Console.WriteLine(nameMagician + " был повержен");
+                Console.WriteLine(magicianName + " был повержен");
                 Console.WriteLine("-------------------------------------------------------");
             }
         }
