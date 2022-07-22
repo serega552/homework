@@ -9,12 +9,11 @@ namespace TheGame
             Random random = new Random();
             string magicianName;
             string bossName = "Большой краб";
-            string bossName2 = "Большим крабом";
             double magicianHp = 500;
             int bossHp = 1000;
             int minDamageBoss = 20;
             int maxDamageBoss = 81;
-            string castSpell = "";
+            string useSpells = "";
             int damageMagicianHand = 20;
             int damageFireBall = 70;
             int damageFreezingEnemy = 40;
@@ -34,7 +33,7 @@ namespace TheGame
             magicianName = Console.ReadLine();
 
             Console.WriteLine("-------------------------------------------------------");
-            Console.WriteLine("Привет " + magicianName + ". Тебе предстоит сражение с " + bossName2 + " и это не его имя, он правда большой.");
+            Console.WriteLine("Привет " + magicianName + ". Тебе предстоит сражение с " + bossName + ", а ещё его имя нельзя склонять, а то плохо будет.");
             Console.WriteLine("-------------------------------------------------------");
 
             Console.ReadKey();
@@ -102,9 +101,9 @@ namespace TheGame
                 Console.WriteLine("Enter - пропустить ход и получить по лбу...");
 
                 Console.WriteLine("Какое заклинания вы используйте: ");
-                castSpell = Console.ReadLine();
+                useSpells = Console.ReadLine();
 
-                switch (castSpell)
+                switch (useSpells)
                 {
                     case "1":
                         bossHp -= damageMagicianHand;
