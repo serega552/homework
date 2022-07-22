@@ -6,7 +6,7 @@ namespace HomeWork_12
     {
         static void Main(string[] args)
         {
-            int[,] array = {{ 1, 9, 3 },{ 3, 6, 3 },{ 1, 2, 3 }};
+            int[,] array = {{ 1, 9, 3 },{ 3, 6, 3 },{ 1, 2, 3 },{ 1, 2, 3 }};
             int sum = 0;
             int multiplication = 1;
 
