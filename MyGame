@@ -13,7 +13,7 @@ namespace TheGame
             int bossHp = 1000;
             int minDamageBoss = 20;
             int maxDamageBoss = 81;
-            string useSpells = "";
+            string inputSpells = "";
             int damageMagicianHand = 20;
             int damageFireBall = 70;
             int damageFreezingEnemy = 40;
