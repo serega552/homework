@@ -8,19 +8,10 @@ namespace HomeWork_15
         {
             int[,] array = {
                 {1,2,3,4,5 },
-                {6,7,8,9,10 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },
-                {11,12,13,14,15 },               
-                {11,12,13,14,15 },
-                {16,17,18,19,20 } };
+                {2,7,8,9,10 },
+                {3,12,13,14,15 },              
+                {2,17,18,19,20 },
+                {2,17,18,19,20 } };
             int sum = 0;
             int multiplication = 1;
 
@@ -36,14 +27,14 @@ namespace HomeWork_15
                 Console.WriteLine();
             }
 
-            for (int i = 0; i < array.GetLength(1); i++)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                sum += array[0, i];
+                sum += array[1, i];
             }
 
-            for (int j = 0; j < array.GetLength(1); j++)
+            for (int j = 0; j < array.GetLength(0); j++)
             {
-                multiplication *= array[1, j];
+                multiplication *= array[j, 0];
             }
 
             Console.WriteLine("\nСумма = " + sum);
