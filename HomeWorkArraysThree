@@ -8,10 +8,12 @@ namespace HomeWork_17
         {
             Random random = new Random();
             int[] array = new int[30];
+            int minNumberRandomInArray = 1;
+            int maxNumberRandomInArray = 50;
 
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = random.Next(1, 50);
+                array[i] = random.Next(minNumberRandomInArray, maxNumberRandomInArray);
                 Console.Write(" " + array[i] + " ");
             }
 
@@ -28,12 +30,7 @@ namespace HomeWork_17
                 {
                     Console.Write(" " + array[i] + " ");
                     i++;
-                }
-                else if (array[i] == array[i + 1] || array[i] == array[i - 1])
-                {
-                    Console.Write(" " + array[i] + " ");
-                    i++;
-                }
+                }                
             }
 
             if (array[array.Length - 1] > array[array.Length - 2])
