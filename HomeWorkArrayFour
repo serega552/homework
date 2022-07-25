@@ -7,41 +7,41 @@ namespace HomeWork_15
         static void Main(string[] args)
         {
             string userInput = "";
-            int sum = 0;
-            bool IsExitProgram = true;
-            int[] sumNumbers = new int[1];
+            bool isWorkProgram = true;
+            int[] numbers = new int[0];
 
             Console.WriteLine("Чтобы записать числа - 'число' + 'enter', чтобы сложить - 'sum', чтобы выйти из программы - 'exit'");
 
-            while (IsExitProgram)
+            while (isWorkProgram)
             {
                 userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
                     case "exit":
-                        IsExitProgram = false;
+                        isWorkProgram = false;
                         break;
 
                     case "sum":
-                        for (int i = 0; i < sumNumbers.Length; i++)
+                        int sum = 0;
+                        for (int i = 0; i < numbers.Length; i++)
                         {
-                            sum += sumNumbers[i];
+                            sum += numbers[i];
                         }
                         Console.WriteLine("Сумма числел = " + sum);
                         sum = 0;
                         break;
 
                     default:
-                        int[] dopArray = new int[sumNumbers.Length + 1];
+                        int[] tempArray = new int[numbers.Length + 1];
 
-                        for (int i = 0; i < sumNumbers.Length; i++)
+                        for (int i = 0; i < numbers.Length; i++)
                         {
-                            dopArray[i] = sumNumbers[i];
+                            tempArray[i] = numbers[i];
                         }
 
-                        dopArray[dopArray.Length - 1] = Convert.ToInt32(userInput);
-                        sumNumbers = dopArray;
+                        tempArray[tempArray.Length - 1] = Convert.ToInt32(userInput);
+                        numbers = tempArray;
                         break;
                 }
             }
