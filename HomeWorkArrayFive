@@ -11,11 +11,10 @@ namespace HomeWork_15
             int minCountRepeat = 0;
             int maxCountRepeat = 0;
             int number = 0;
-            int rememberNumber = 0;
             int minNumber = 0;
             int maxNumber = 10;
 
-            for(int i = 0; i < numberRepeat.Length; i++)
+            for (int i = 0; i < numberRepeat.Length; i++)
             {
                 numberRepeat[i] = random.Next(minNumber, maxNumber);
                 Console.Write(numberRepeat[i] + " ");
@@ -23,27 +22,26 @@ namespace HomeWork_15
 
             Console.WriteLine();
 
-            for (int j = 0; j < numberRepeat.Length; j++)
+            for (int i = 0; i < numberRepeat.Length - 2; i++)
             {
-                number = numberRepeat[j];
 
-                for (int i = 0; i < numberRepeat.Length; i++)
+                if (numberRepeat[i] == numberRepeat[i + 1])
                 {
-                    if (number == numberRepeat[i])
-                    {
-                        minCountRepeat++;
-                        if (minCountRepeat > maxCountRepeat)
-                        {
-                            maxCountRepeat = minCountRepeat;
-                            rememberNumber = numberRepeat[i];
-                        }
-                    }
+                    minCountRepeat++;
                 }
 
-                minCountRepeat = 0;               
+                if (minCountRepeat > maxCountRepeat)
+                {
+                    maxCountRepeat = minCountRepeat;
+                    number = numberRepeat[i];
+                }
+                
+                else if(numberRepeat[i] != numberRepeat[i + 1])
+                {
+                    minCountRepeat = 0;
+                }
             }
-
-            Console.WriteLine("число " + rememberNumber + " имеет " + maxCountRepeat + " повторений.");
+            Console.WriteLine("число " + number + " имеет " + maxCountRepeat + " повторений подряд");
         }
     }
-}
+}        
