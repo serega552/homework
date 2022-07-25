@@ -6,38 +6,43 @@ namespace HomeWork_15
     {
         static void Main(string[] args)
         {
-            int[] numberRepeat = { 1,1,2 };
+            Random random = new Random();
+            int[] numberRepeat = new int[30];
             int minCountRepeat = 0;
             int maxCountRepeat = 0;
             int number = 0;
             int rememberNumber = 0;
-            int countRepeatArray = 0;
             int minNumber = 0;
-            int maxNumber = 2;
-            bool IsExitProgram = true; 
+            int maxNumber = 10;
 
-            while (IsExitProgram)
+            for(int i = 0; i < numberRepeat.Length; i++)
             {
-                number = numberRepeat[countRepeatArray];
+                numberRepeat[i] = random.Next(minNumber, maxNumber);
+                Console.Write(numberRepeat[i] + " ");
+            }
+
+            Console.WriteLine();
+
+            for (int j = 0; j < numberRepeat.Length; j++)
+            {
+                number = numberRepeat[j];
 
                 for (int i = 0; i < numberRepeat.Length; i++)
                 {
-                    if(number == numberRepeat[i])
+                    if (number == numberRepeat[i])
                     {
                         minCountRepeat++;
-                        if(minCountRepeat > maxCountRepeat)
+                        if (minCountRepeat > maxCountRepeat)
                         {
                             maxCountRepeat = minCountRepeat;
                             rememberNumber = numberRepeat[i];
                         }
                     }
                 }
-                minCountRepeat = 0;
-                if(countRepeatArray < numberRepeat.Length)
-                countRepeatArray++;
-                else
-                    IsExitProgram = false;
+
+                minCountRepeat = 0;               
             }
+
             Console.WriteLine("число " + rememberNumber + " имеет " + maxCountRepeat + " повторений.");
         }
     }
