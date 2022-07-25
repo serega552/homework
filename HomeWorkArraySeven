@@ -1,0 +1,19 @@
+using System;
+
+namespace HomeWork_15
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            char divideText = ' ';
+            string text = "помидоры огурцы арбузы бананы";
+            string[] words = text.Split(divideText);
+
+            foreach(string word in words)
+            {
+                Console.WriteLine(word);
+            }
+        }
+    }
+}        
