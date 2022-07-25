@@ -7,32 +7,31 @@ namespace HomeWork_15
         static void Main(string[] args)
         {
             int[,] array = {
-                {1,2,3,4,5 },
-                {2,7,8,9,10 },
-                {3,12,13,14,15 },              
-                {2,17,18,19,20 },
-                {2,17,18,19,20 } };
+                {2,2,3 },
+                {2,2,3 },
+                {2,2,3 }, 
+                {2,2,3 }, };
             int sum = 0;
             int multiplication = 1;
 
             Console.WriteLine("\nМатрица:\n");
 
-            for(int i = 0; i < array.GetLength(0); i++)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                for(int j = 0; j < array.GetLength(1); j++)
+                for (int j = 0; j < array.GetLength(1); j++)
                 {
-                    Console.Write(array[i,j] + " ");
+                    Console.Write(array[i, j] + " ");
                 }
 
                 Console.WriteLine();
             }
 
-            for (int i = 0; i < array.GetLength(0); i++)
+            for (int i = 0; i < array.GetLength(0) - 1; i++)
             {
                 sum += array[1, i];
             }
 
-            for (int j = 0; j < array.GetLength(0); j++)
+            for (int j = 0; j < array.GetLength(1) + 1; j++)
             {
                 multiplication *= array[j, 0];
             }
