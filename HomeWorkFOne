@@ -1,15 +1,16 @@
 using System;
-
+//доп массив, цикл по старому, за циклом присваивание инпута к темпу у него вычет из длины, старый равен темпу
 namespace HomeWork_15
 {
     class Program
     {
         static void Main(string[] args)
         {
+            string[] initials = new string[0];
+            string[] positions = new string[0];
+
             bool isProgramOpen = true;
             string userInput = "";
-            string[] addDossier = new string[0];
-            string[,] listDossier = new string[10, 1];
 
             while (isProgramOpen)
             {
@@ -28,17 +29,14 @@ namespace HomeWork_15
                 switch (userInput)
                 {
                     case "1":
-                        Dossier(addDossier, listDossier);
+                        AddDossier(initials, positions);
                         break;
 
-                    case "2":                      
-                       
+                    case "2":
+                        ShowListDossier(initials, positions);
                         break;
                     case "3":
-                        for (int i = 0; i < addDossier.Length; i++)
-                        {
-                            Console.WriteLine(addDossier[i]);
-                        }
+
                         break;
                     case "4":
 
@@ -50,22 +48,74 @@ namespace HomeWork_15
             }
         }
 
-        static void Dossier(string[] addDossier, string[,] listDossier)
+        static void AddDossier(string[] initials, string[] positions)
         {
-            string[] tempAddDossier = new string[addDossier.Length + 1];
-            string userInputDossier;
             int id = 0;
-            userInputDossier = Console.ReadLine();
+            bool isProgramOpen = true;
 
-            for (int i = 0; i < tempAddDossier.Length; i++)
+            while (isProgramOpen)
             {
-                addDossier = tempAddDossier;
-                tempAddDossier[id] = userInputDossier;
-                Console.WriteLine(tempAddDossier[i]);
+                Console.WriteLine("Для выхода введите 'exit'");
+
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "exit":
+                        isProgramOpen = false;
+                        break;
+
+                    default:
+
+                        Console.WriteLine("Добавление досье");
+
+                        Console.WriteLine($"{initials.Length + 1} ФИО: ");
+                        string inputInitials = Console.ReadLine();
+
+                        Console.WriteLine($"{positions.Length + 1} Должность: ");
+                        string inputPositions = Console.ReadLine();
+
+                        AddArrayElement(initials, inputInitials, positions, inputPositions);
+
+
+                        Console.WriteLine($"{inputInitials}, успешно добавлен.");
+                        break;
+                }
+            }
+        }
+
+        static void AddArrayElement(string[] initials, string inputInitials, string[] positions, string inputPositions)
+        {
+            string[] tempInitials = new string[initials.Length + 1];
+
+            for (int i = 0; i < initials.Length; i++)
+            {
+                tempInitials = initials;
+            }
+            tempInitials[tempInitials.Length - 1] = inputInitials;
+            initials = tempInitials;
+
+            string[] tempPositions = new string[positions.Length + 1];
+
+            for (int i = 0; i < positions.Length; i++)
+            {
+                tempPositions = positions;
+            }
+            tempPositions[tempPositions.Length - 1] = inputPositions;
+            positions = tempPositions;
+        }
+
+        static void ShowListDossier(string[] initials, string[] positions)
+        {
+            for (int i = 0; i < initials.Length; i++)
+            {
+                Console.WriteLine("ФИО: " + initials[i]);
             }
 
-            addDossier = tempAddDossier;
-            id++;
+            for (int i = 0; i < initials.Length; i++)
+            {
+                Console.WriteLine("Должность: " + positions[i]);
+            }
         }
     }
 }
