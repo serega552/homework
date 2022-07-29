@@ -1,0 +1,71 @@
+using System;
+
+namespace HomeWork_15
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool isProgramOpen = true;
+            string userInput = "";
+            string[] addDossier = new string[0];
+            string[,] listDossier = new string[10, 1];
+
+            while (isProgramOpen)
+            {
+                Console.WriteLine("1 - добавить досье");
+
+                Console.WriteLine("2 - вывести все досье");
+
+                Console.WriteLine("3 - удалить досье");
+
+                Console.WriteLine("4 - поиск по фамилии");
+
+                Console.WriteLine("5 - выход");
+
+                userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        Dossier(addDossier, listDossier);
+                        break;
+
+                    case "2":                      
+                       
+                        break;
+                    case "3":
+                        for (int i = 0; i < addDossier.Length; i++)
+                        {
+                            Console.WriteLine(addDossier[i]);
+                        }
+                        break;
+                    case "4":
+
+                        break;
+                    case "5":
+                        isProgramOpen = false;
+                        break;
+                }
+            }
+        }
+
+        static void Dossier(string[] addDossier, string[,] listDossier)
+        {
+            string[] tempAddDossier = new string[addDossier.Length + 1];
+            string userInputDossier;
+            int id = 0;
+            userInputDossier = Console.ReadLine();
+
+            for (int i = 0; i < tempAddDossier.Length; i++)
+            {
+                addDossier = tempAddDossier;
+                tempAddDossier[id] = userInputDossier;
+                Console.WriteLine(tempAddDossier[i]);
+            }
+
+            addDossier = tempAddDossier;
+            id++;
+        }
+    }
+}
