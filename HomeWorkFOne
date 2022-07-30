@@ -33,7 +33,7 @@ namespace HomeWork_15
                         break;
 
                     case "2":
-                        ShowListDossier(initials, positions);
+
                         break;
                     case "3":
 
@@ -67,55 +67,54 @@ namespace HomeWork_15
 
                     default:
 
-                        Console.WriteLine("Добавление досье");
+                        AddArrayElement(ref initials,ref positions);
 
-                        Console.WriteLine($"{initials.Length + 1} ФИО: ");
-                        string inputInitials = Console.ReadLine();
+                        break;
 
-                        Console.WriteLine($"{positions.Length + 1} Должность: ");
-                        string inputPositions = Console.ReadLine();
+                    case "1":
+                        for(int i = 0; i < initials.Length; i++)
+                        {
+                            Console.WriteLine("ФИО: " + initials[i]);
+                        }
 
-                        AddArrayElement(initials, inputInitials, positions, inputPositions);
-
-
-                        Console.WriteLine($"{inputInitials}, успешно добавлен.");
+                        for (int i = 0; i < positions.Length; i++)
+                        {
+                            Console.WriteLine("должность: " + positions[i]);
+                        }
                         break;
                 }
             }
-        }
-
-        static void AddArrayElement(string[] initials, string inputInitials, string[] positions, string inputPositions)
+        }      
+        
+        static void AddArrayElement(ref string[] initials, ref string[] positions)
         {
+            Console.WriteLine("Добавление досье");
+
+            Console.WriteLine("ФИО: ");
+            string inputInitials = Console.ReadLine();
+
+            Console.WriteLine("Должность: ");
+            string inputPositions = Console.ReadLine();
+
             string[] tempInitials = new string[initials.Length + 1];
 
             for (int i = 0; i < initials.Length; i++)
             {
-                tempInitials = initials;
+                tempInitials[i] = initials[i];
             }
             tempInitials[tempInitials.Length - 1] = inputInitials;
             initials = tempInitials;
 
-            string[] tempPositions = new string[positions.Length + 1];
+            string[] tempPosition = new string[positions.Length + 1];
 
             for (int i = 0; i < positions.Length; i++)
             {
-                tempPositions = positions;
+                tempPosition[i] = positions[i];
             }
-            tempPositions[tempPositions.Length - 1] = inputPositions;
-            positions = tempPositions;
-        }
+            tempPosition[tempPosition.Length - 1] = inputPositions;
+            positions = tempPosition;
 
-        static void ShowListDossier(string[] initials, string[] positions)
-        {
-            for (int i = 0; i < initials.Length; i++)
-            {
-                Console.WriteLine("ФИО: " + initials[i]);
-            }
-
-            for (int i = 0; i < initials.Length; i++)
-            {
-                Console.WriteLine("Должность: " + positions[i]);
-            }
+            Console.WriteLine($"{inputInitials}, успешно добавлен.");
         }
     }
 }
