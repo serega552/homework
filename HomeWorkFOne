@@ -30,16 +30,17 @@ namespace HomeWork_15
                         break;
 
                     case "2":
-                        ShowListDossier( fullNames,  positions);
+                        ShowListDossier(fullNames, positions);
                         break;
-                    case "3":
 
+                    case "3":
                         RemoveDossier(ref fullNames, ref positions);
                         break;
 
                     case "4":
                         SearchSurname(ref fullNames, ref positions);
                         break;
+
                     case "5":
                         isProgramOpen = false;
                         break;
@@ -94,34 +95,9 @@ namespace HomeWork_15
 
         static void ShowListDossier( string[] fullNames,  string[] positions)
         {
-            int id = 0;
-            bool canShow = true;
-
-            while (id < positions.Length)
+            for (int i = 0; i < fullNames.Length; i++)
             {
-
-                for (int i = 0; i < fullNames.Length; i++)
-                {
-                    if (canShow)
-                    {
-                        Console.WriteLine($"{id + 1} ФИО: {fullNames[id]}");
-                        canShow = false;
-                    }
-                }
-
-                canShow = true;
-
-                for (int j = 0; j < positions.Length; j++)
-                {
-                    if (canShow)
-                    {
-                        Console.WriteLine($"Должность: {positions[id]}");
-                        canShow &= false;
-                    }
-                }
-
-                canShow = true;
-                id++;
+                Console.WriteLine($"{i + 1} ФИО: {fullNames[i]}\nДолжность: {positions[i]}");
             }
 
             Console.WriteLine();
@@ -129,76 +105,62 @@ namespace HomeWork_15
 
         static void RemoveDossier(ref string[] fullNames, ref string[] positions)
         {
-            bool isMenuOpen = true;
             int inputId = 0;
-            string userInput = "";
+           
+            ShowListDossier( fullNames, positions);
 
-            while (isMenuOpen)
+            Console.Write("Кого вы хотите удалить: ");
+            inputId = Convert.ToInt32(Console.ReadLine());
+
+            RemoveEllement(ref fullNames, ref positions, ref inputId);
+
+        }
+
+        static void RemoveEllement(ref string[] fullNames, ref string[] positions, ref int inputId)
+        {
+            if (inputId > 0 && inputId <= fullNames.Length)
             {
-                Console.WriteLine("Для выхода введите 'exit'");
-                userInput = Console.ReadLine();
+                inputId--;
 
-                switch (userInput)
+                string[] tempInitialsFullNames = new string[fullNames.Length - 1];
+
+                for (int i = 0; i < inputId; i++)
                 {
-                    case "exit":
-                        isMenuOpen = false;
-                        Console.Clear();
-                        break;
-
-                    default:
-
-                        ShowListDossier( fullNames, positions);
-
-                        Console.WriteLine();
-                        Console.ReadKey();
-
-                        Console.WriteLine("Кого вы хотите удалить: ");
-                        inputId = Convert.ToInt32(Console.ReadLine());
-
-                        if (inputId > 0 && inputId < int.MaxValue)
-                        {
-                            inputId--;
-
-                            string[] tempInitials = new string[fullNames.Length - 1];
-
-                            for (int i = 0; i < inputId; i++)
-                            {
-                                tempInitials[i] = fullNames[i];
-                            }
-
-                            for (int i = inputId + 1; i < positions.Length; i++)
-                            {
-                                tempInitials[i - 1] = fullNames[i];
-                            }
-
-                            fullNames = tempInitials;
-
-                            string[] tempPositions = new string[positions.Length - 1];
-
-                            for (int i = 0; i < inputId; i++)
-                            {
-                                tempPositions[i] = positions[i];
-                            }
-
-                            for (int i = inputId + 1; i < positions.Length; i++)
-                            {
-                                tempPositions[i - 1] = positions[i];
-                            }
-
-                            positions = tempPositions;
-
-                            ShowListDossier(fullNames,  positions);
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
-
-                        else
-                            Console.WriteLine("Некоректные данные попробуйте ещё раз");
-
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
+                    tempInitialsFullNames[i] = fullNames[i];
                 }
+
+                for (int i = inputId + 1; i < positions.Length; i++)
+                {
+                    tempInitialsFullNames[i - 1] = fullNames[i];
+                }
+
+                fullNames = tempInitialsFullNames;
+
+                string[] tempPositions = new string[positions.Length - 1];
+
+                for (int i = 0; i < inputId; i++)
+                {
+                    tempPositions[i] = positions[i];
+                }
+
+                for (int i = inputId + 1; i < positions.Length; i++)
+                {
+                    tempPositions[i - 1] = positions[i];
+                }
+
+                positions = tempPositions;
+
+                ShowListDossier(fullNames, positions);
+
+                Console.ReadKey();
+                Console.Clear();
+            }
+
+            else
+            {
+                Console.WriteLine("Некоректные данные попробуйте ещё раз");
+                Console.ReadKey();
+                Console.Clear();
             }
         }
 
