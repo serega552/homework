@@ -26,20 +26,24 @@ namespace HomeWork_15
 
                 userInput = Console.ReadLine();
 
+                Console.Clear();
+
                 switch (userInput)
                 {
                     case "1":
-                        AddDossier(initials, positions);
+                        AddDossier(ref initials, ref positions);
                         break;
 
                     case "2":
-
+                        ShowListDossier(ref initials, ref positions);
                         break;
                     case "3":
 
+                        RemoveDossier(ref initials, ref positions);
                         break;
-                    case "4":
 
+                    case "4":
+                        SearchSurname(ref initials, ref positions);
                         break;
                     case "5":
                         isProgramOpen = false;
@@ -48,9 +52,8 @@ namespace HomeWork_15
             }
         }
 
-        static void AddDossier(string[] initials, string[] positions)
+        static void AddDossier(ref string[] initials, ref string[] positions)
         {
-            int id = 0;
             bool isProgramOpen = true;
 
             while (isProgramOpen)
@@ -63,58 +66,199 @@ namespace HomeWork_15
                 {
                     case "exit":
                         isProgramOpen = false;
+                        Console.Clear();
                         break;
 
                     default:
 
-                        AddArrayElement(ref initials,ref positions);
+                        Console.WriteLine("Добавление досье");
 
-                        break;
+                        Console.WriteLine("ФИО: ");
+                        string inputInitials = Console.ReadLine();
 
-                    case "1":
-                        for(int i = 0; i < initials.Length; i++)
+                        Console.WriteLine();
+
+                        Console.WriteLine("Должность: ");
+                        string inputPositions = Console.ReadLine();
+
+                        string[] tempInitials = new string[initials.Length + 1];
+
+                        for (int i = 0; i < initials.Length; i++)
                         {
-                            Console.WriteLine("ФИО: " + initials[i]);
+                            tempInitials[i] = initials[i];
                         }
+
+                        tempInitials[tempInitials.Length - 1] = inputInitials;
+                        initials = tempInitials;
+
+                        string[] tempPosition = new string[positions.Length + 1];
 
                         for (int i = 0; i < positions.Length; i++)
                         {
-                            Console.WriteLine("должность: " + positions[i]);
+                            tempPosition[i] = positions[i];
                         }
+
+                        tempPosition[tempPosition.Length - 1] = inputPositions;
+                        positions = tempPosition;
+
+                        Console.WriteLine();
+
+                        Console.WriteLine($"{inputInitials}, успешно добавлен.");
+
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
                 }
             }
-        }      
-        
-        static void AddArrayElement(ref string[] initials, ref string[] positions)
+        }
+
+        static void ShowListDossier(ref string[] initials, ref string[] positions)
         {
-            Console.WriteLine("Добавление досье");
+            int id = 0;
+            bool canShow = true;
 
-            Console.WriteLine("ФИО: ");
-            string inputInitials = Console.ReadLine();
-
-            Console.WriteLine("Должность: ");
-            string inputPositions = Console.ReadLine();
-
-            string[] tempInitials = new string[initials.Length + 1];
-
-            for (int i = 0; i < initials.Length; i++)
+            while (id < positions.Length)
             {
-                tempInitials[i] = initials[i];
+
+                for (int i = 0; i < initials.Length; i++)
+                {
+                    if (canShow)
+                    {
+                        Console.WriteLine($"{id + 1} ФИО: {initials[id]}");
+                        canShow = false;
+                    }
+                }
+
+                canShow = true;
+
+                for (int j = 0; j < positions.Length; j++)
+                {
+                    if (canShow)
+                    {
+                        Console.WriteLine($"Должность: {positions[id]}");
+                        canShow &= false;
+                    }
+                }
+
+                canShow = true;
+                id++;
             }
-            tempInitials[tempInitials.Length - 1] = inputInitials;
-            initials = tempInitials;
 
-            string[] tempPosition = new string[positions.Length + 1];
+            Console.WriteLine();
+        }
 
-            for (int i = 0; i < positions.Length; i++)
+        static void RemoveDossier(ref string[] initials, ref string[] positions)
+        {
+            bool isMenuOpen = true;
+            int inputId = 0;
+            string userInput = "";
+
+            while (isMenuOpen)
             {
-                tempPosition[i] = positions[i];
-            }
-            tempPosition[tempPosition.Length - 1] = inputPositions;
-            positions = tempPosition;
+                Console.WriteLine("Для выхода введите 'exit'");
+                userInput = Console.ReadLine();
 
-            Console.WriteLine($"{inputInitials}, успешно добавлен.");
+                switch (userInput)
+                {
+                    case "exit":
+                        isMenuOpen = false;
+                        Console.Clear();
+                        break;
+
+                    default:
+
+                        ShowListDossier(ref initials, ref positions);
+
+                        Console.WriteLine();
+                        Console.ReadKey();
+
+                        Console.WriteLine("Кого вы хотите удалить: ");
+                        inputId = Convert.ToInt32(Console.ReadLine());
+
+                        if (inputId > 0 && inputId < int.MaxValue)
+                        {
+                            inputId--;
+
+                            string[] tempInitials = new string[initials.Length - 1];
+
+                            for (int i = 0; i < inputId; i++)
+                            {
+                                tempInitials[i] = initials[i];
+                            }
+
+                            for (int i = inputId + 1; i < positions.Length; i++)
+                            {
+                                tempInitials[i - 1] = initials[i];
+                            }
+
+                            initials = tempInitials;
+
+                            string[] tempPositions = new string[positions.Length - 1];
+
+                            for (int i = 0; i < inputId; i++)
+                            {
+                                tempPositions[i] = positions[i];
+                            }
+
+                            for (int i = inputId + 1; i < positions.Length; i++)
+                            {
+                                tempPositions[i - 1] = positions[i];
+                            }
+
+                            positions = tempPositions;
+
+                            ShowListDossier(ref initials, ref positions);
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+
+                        else
+                            Console.WriteLine("Некоректные данные попробуйте ещё раз");
+
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+
+        static void SearchSurname(ref string[] initials, ref string[] positions)
+        {
+            string userInput = "";
+            bool isMenuOpen = true;
+
+            while (isMenuOpen)
+            {
+                Console.WriteLine("Для выхода введите 'exit'");
+                userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                case "exit":
+                    isMenuOpen = false;
+                    break;
+
+                default:
+                    bool isHumanFound = false;
+
+                    Console.Write("Введите фамилию человека, которого вы хотите найти: ");
+                    userInput = Console.ReadLine();
+   
+                        for (int i = 0; i < initials.Length; i++)
+                        {
+                            if (initials[i].ToLower() == userInput.ToLower())
+                            {
+                                Console.WriteLine($"Номер - {i + 1}");
+                                isHumanFound = true;
+                            }     
+                        }
+
+                        if (isHumanFound == false)
+                            Console.WriteLine("Человек не найден");
+                        break;
+                    
+                }
+            }
         }
     }
 }
