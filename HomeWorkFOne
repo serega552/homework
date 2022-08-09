@@ -61,8 +61,7 @@ namespace HomeWork_15
             Console.WriteLine("Должность: ");
             string inputPositions = Console.ReadLine();
 
-            AddElementNames(ref fullNames, ref inputFullName);
-            AddElementPositions(ref positions, ref inputPositions);
+            AddElement(ref fullNames, ref inputFullName, ref positions, ref inputPositions);
 
             Console.WriteLine();
 
@@ -72,7 +71,7 @@ namespace HomeWork_15
             Console.Clear();
         }
 
-        static void AddElementNames(ref string[] fullNames,  ref string inputFullName)
+        static void AddElement(ref string[] fullNames,  ref string inputFullName, ref string[] positions, ref string inputPositions)
         {
             string[] tempFullNames = new string[fullNames.Length + 1];
 
@@ -83,10 +82,7 @@ namespace HomeWork_15
 
             tempFullNames[tempFullNames.Length - 1] = inputFullName;
             fullNames = tempFullNames;
-        }
 
-        static void AddElementPositions(ref string[] positions, ref string inputPositions)
-        {
             string[] tempPosition = new string[positions.Length + 1];
 
             for (int i = 0; i < positions.Length; i++)
@@ -111,7 +107,6 @@ namespace HomeWork_15
         static void RemoveDossier(ref string[] fullNames, ref string[] positions)
         {
             int inputId = 0;
-            int tempInputId = 0;
 
             ShowListDossier( fullNames, positions);
 
@@ -120,11 +115,7 @@ namespace HomeWork_15
 
             if (inputId > 0 && inputId <= fullNames.Length)
             {
-                tempInputId = inputId;
-                RemoveEllementNames(ref fullNames, ref inputId);
-                inputId = tempInputId;
-                RemoveEllementPositions(ref positions, ref inputId);
-                inputId = 0;
+                RemoveEllement(ref fullNames, ref inputId, ref positions);
                 ShowListDossier(fullNames, positions);
             }
             else
@@ -135,7 +126,7 @@ namespace HomeWork_15
             }
         }
 
-        static void RemoveEllementNames(ref string[] fullNames, ref int inputId)
+        static void RemoveEllement(ref string[] fullNames, ref int inputId, ref string[] positions)
         {
                 inputId--;
 
@@ -152,11 +143,7 @@ namespace HomeWork_15
                 }
 
                 fullNames = tempFullNames;
-        }
 
-        static void RemoveEllementPositions(ref string[] positions, ref int inputId)
-        {         
-                inputId--;
                 string[] tempPositions = new string[positions.Length - 1];
 
                 for (int i = 0; i < inputId; i++)
