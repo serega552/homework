@@ -1,21 +1,208 @@
 using System;
 
-namespace homework
+namespace HomeWork_15
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            uint countMoney = 10000000;
-            int chancesWinningCasino = -9999999;
-            sbyte chapterLife = 20;
-            byte numberHomeWork = 1;       
-            long countStepChapter = long.MaxValue;
-            float timeMatchHour = 2.5f;
-            double ageChapter = 16.3;
-            string leftVariables = "2";
-            char actionLeft = '5';
-            bool canEndHomeWork = true;
-         }
-     }
- }
+            string[] fullNames = new string[0];
+            string[] positions = new string[0];
+
+            bool isProgramOpen = true;
+            string userInput = "";
+
+            while (isProgramOpen)
+            {
+                Console.WriteLine("1 - добавить досье");
+                Console.WriteLine("2 - вывести все досье");
+                Console.WriteLine("3 - удалить досье");
+                Console.WriteLine("4 - поиск по фамилии");
+                Console.WriteLine("5 - выход");
+                userInput = Console.ReadLine();
+
+                Console.Clear();
+
+                switch (userInput)
+                {
+                    case "1":
+                        AddDossier(ref fullNames, ref positions);
+                        break;
+
+                    case "2":
+                        ShowListDossier(fullNames, positions);
+                        break;
+
+                    case "3":
+                        RemoveDossier(ref fullNames, ref positions);
+                        break;
+
+                    case "4":
+
+                        SearchSurname(fullNames, positions);
+                        break;
+
+                    case "5":
+                        isProgramOpen = false;
+                        break;
+                }
+            }
+        }
+
+        static void AddDossier(ref string[] fullNames, ref string[] positions)
+        {
+            Console.WriteLine("Добавление досье");
+
+            Console.WriteLine("ФИО: ");
+            string inputFullName = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.WriteLine("Должность: ");
+            string inputPositions = Console.ReadLine();
+
+            AddElementNames(ref fullNames, ref inputFullName);
+            AddElementPositions(ref positions, ref inputPositions);
+
+            Console.WriteLine();
+
+            Console.WriteLine($"{inputFullName}, успешно добавлен.");
+
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        static void AddElementNames(ref string[] fullNames,  ref string inputFullName)
+        {
+            string[] tempFullNames = new string[fullNames.Length + 1];
+
+            for (int i = 0; i < fullNames.Length; i++)
+            {
+                tempFullNames[i] = fullNames[i];
+            }
+
+            tempFullNames[tempFullNames.Length - 1] = inputFullName;
+            fullNames = tempFullNames;
+        }
+
+        static void AddElementPositions(ref string[] positions, ref string inputPositions)
+        {
+            string[] tempPosition = new string[positions.Length + 1];
+
+            for (int i = 0; i < positions.Length; i++)
+            {
+                tempPosition[i] = positions[i];
+            }
+
+            tempPosition[tempPosition.Length - 1] = inputPositions;
+            positions = tempPosition;
+        }
+
+        static void ShowListDossier( string[] fullNames,  string[] positions)
+        {
+            for (int i = 0; i < fullNames.Length; i++)
+            {
+                Console.WriteLine($"{i + 1} ФИО: {fullNames[i]}\nДолжность: {positions[i]}");
+            }
+
+            Console.WriteLine();
+        }
+
+        static void RemoveDossier(ref string[] fullNames, ref string[] positions)
+        {
+            int inputId = 0;
+            int tempInputId = 0;
+
+            ShowListDossier( fullNames, positions);
+
+            Console.Write("Кого вы хотите удалить: ");
+            inputId = Convert.ToInt32(Console.ReadLine());
+
+            if (inputId > 0 && inputId <= fullNames.Length)
+            {
+                tempInputId = inputId;
+                RemoveEllementNames(ref fullNames, ref inputId);
+                inputId = tempInputId;
+                RemoveEllementPositions(ref positions, ref inputId);
+                inputId = 0;
+                ShowListDossier(fullNames, positions);
+            }
+            else
+            {
+                Console.WriteLine("Некоректные данные");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+
+        static void RemoveEllementNames(ref string[] fullNames, ref int inputId)
+        {
+                inputId--;
+
+                string[] tempFullNames = new string[fullNames.Length - 1];
+
+                for (int i = 0; i < inputId; i++)
+                {
+                    tempFullNames[i] = fullNames[i];
+                }
+
+                for (int i = inputId + 1; i < fullNames.Length; i++)
+                {
+                    tempFullNames[i - 1] = fullNames[i];
+                }
+
+                fullNames = tempFullNames;
+        }
+
+        static void RemoveEllementPositions(ref string[] positions, ref int inputId)
+        {         
+                inputId--;
+                string[] tempPositions = new string[positions.Length - 1];
+
+                for (int i = 0; i < inputId; i++)
+                {
+                    tempPositions[i] = positions[i];
+                }
+
+                for (int i = inputId + 1; i < positions.Length; i++)
+                {
+                    tempPositions[i - 1] = positions[i];
+                }
+
+                positions = tempPositions;
+
+                Console.Clear();
+        }
+
+        static void SearchSurname(string[] fullNames, string[] positions)
+        {
+            char divideText = ' ';
+            string inputSurname = "";
+            string inputFullName = "";
+            string[] fullName = new string[0];
+            bool isSurnameFound = false;
+
+            Console.Write("Введите фамилию человека, которого хотите найти: ");
+            inputSurname = Console.ReadLine();
+
+            for (int i = 0; i < fullNames.Length; i++)
+            {
+                inputFullName = fullNames[i];
+                fullName = inputFullName.Split(divideText);
+
+                if (fullName[0].ToLower() == inputSurname.ToLower())
+                {
+                    Console.WriteLine($"{i + 1} Имя: {fullNames[i]}\nДолжность:{positions[i]}");
+                    isSurnameFound = true;
+                }
+            }
+
+            if (isSurnameFound == false)
+            {
+                Console.WriteLine("Человек не найден");
+                Console.WriteLine();
+                Console.ReadKey();
+            }
+        }
+    }
+}
