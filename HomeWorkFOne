@@ -54,54 +54,43 @@ namespace HomeWork_15
             Console.WriteLine("Добавление досье");
 
             Console.WriteLine("ФИО: ");
-            string inputFullName = Console.ReadLine();
+            string fullName = Console.ReadLine();
 
             Console.WriteLine();
 
             Console.WriteLine("Должность: ");
-            string inputPositions = Console.ReadLine();
+            string position = Console.ReadLine();
 
-            AddElement(ref fullNames, ref inputFullName, ref positions, ref inputPositions);
+            AddElement(ref fullNames, fullName);
+            AddElement(ref positions, position);
 
             Console.WriteLine();
 
-            Console.WriteLine($"{inputFullName}, успешно добавлен.");
+            Console.WriteLine($"{fullName}, успешно добавлен.");
 
             Console.ReadKey();
             Console.Clear();
         }
 
-        static void AddElement(ref string[] fullNames,  ref string inputFullName, ref string[] positions, ref string inputPositions)
+        static void AddElement(ref string[] listData, string userInput)
         {
-            string[] tempFullNames = new string[fullNames.Length + 1];
+            string[] tempListData = new string[listData.Length + 1];
 
-            for (int i = 0; i < fullNames.Length; i++)
+            for (int i = 0; i < listData.Length; i++)
             {
-                tempFullNames[i] = fullNames[i];
+                tempListData[i] = listData[i];
             }
 
-            tempFullNames[tempFullNames.Length - 1] = inputFullName;
-            fullNames = tempFullNames;
-
-            string[] tempPosition = new string[positions.Length + 1];
-
-            for (int i = 0; i < positions.Length; i++)
-            {
-                tempPosition[i] = positions[i];
-            }
-
-            tempPosition[tempPosition.Length - 1] = inputPositions;
-            positions = tempPosition;
+            tempListData[tempListData.Length - 1] = userInput;
+            listData = tempListData;
         }
 
         static void ShowListDossier( string[] fullNames,  string[] positions)
         {
             for (int i = 0; i < fullNames.Length; i++)
             {
-                Console.WriteLine($"{i + 1} ФИО: {fullNames[i]}\nДолжность: {positions[i]}");
+                Console.WriteLine($"{i + 1} ФИО: {fullNames[i]}\nДолжность: {positions[i]}\n");
             }
-
-            Console.WriteLine();
         }
 
         static void RemoveDossier(ref string[] fullNames, ref string[] positions)
@@ -115,7 +104,8 @@ namespace HomeWork_15
 
             if (inputId > 0 && inputId <= fullNames.Length)
             {
-                RemoveEllement(ref fullNames, ref inputId, ref positions);
+                RemoveEllement(ref fullNames, inputId);
+                RemoveEllement(ref positions, inputId);
                 ShowListDossier(fullNames, positions);
             }
             else
@@ -126,37 +116,23 @@ namespace HomeWork_15
             }
         }
 
-        static void RemoveEllement(ref string[] fullNames, ref int inputId, ref string[] positions)
+        static void RemoveEllement(ref string[] listDate, int inputId)
         {
                 inputId--;
 
-                string[] tempFullNames = new string[fullNames.Length - 1];
+                string[] tempListDate = new string[listDate.Length - 1];
 
                 for (int i = 0; i < inputId; i++)
                 {
-                    tempFullNames[i] = fullNames[i];
+                    tempListDate[i] = listDate[i];
                 }
 
-                for (int i = inputId + 1; i < fullNames.Length; i++)
+                for (int i = inputId + 1; i < listDate.Length; i++)
                 {
-                    tempFullNames[i - 1] = fullNames[i];
+                    tempListDate[i - 1] = listDate[i];
                 }
 
-                fullNames = tempFullNames;
-
-                string[] tempPositions = new string[positions.Length - 1];
-
-                for (int i = 0; i < inputId; i++)
-                {
-                    tempPositions[i] = positions[i];
-                }
-
-                for (int i = inputId + 1; i < positions.Length; i++)
-                {
-                    tempPositions[i - 1] = positions[i];
-                }
-
-                positions = tempPositions;
+                listDate = tempListDate;
 
                 Console.Clear();
         }
