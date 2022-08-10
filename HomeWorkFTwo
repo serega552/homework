@@ -1,0 +1,105 @@
+using System;
+
+namespace HomeWorkF2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string inputUser = "";
+            bool isProgramOpen = true;
+            int positions = 0;
+
+            while (isProgramOpen)
+            {
+                Console.WriteLine("Значение чего, вы бы хотели изменить\n1 - Здоровья\n2 - Маны\n3 - выход");
+                inputUser = Console.ReadLine();
+                Console.Clear();
+
+                switch (inputUser)
+                {
+                    case "1":
+                        int valueHealth = 0;
+                        int maxValueHealth = 100;
+                        positions = 3;
+                        char symbolHealth = ' ';
+
+                        Console.Write("кол-во вашего хп(не более 100): ");
+                        valueHealth = Convert.ToInt32( Console.ReadLine());
+
+                        Console.Write("Любой символ: ");
+                        symbolHealth = Convert.ToChar(Console.ReadLine());
+
+                        if (valueHealth <= 100 && valueHealth >= 0)
+                        {
+                            DrawBar(ref valueHealth, maxValueHealth, positions, ref symbolHealth, ConsoleColor.Red, ConsoleColor.White);
+                        }
+                        else
+                            Console.WriteLine("Некоректные данные");
+
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+
+                    case "2":
+                        int valueMana = 0;
+                        int maxValueMana = 10;
+                        positions = 3;
+                        char symbolMana = ' ';
+
+                        Console.Write("кол-во вашей маны(не более 10): ");
+                        valueMana = Convert.ToInt32( Console.ReadLine());
+
+                        Console.Write("Любой символ: ");
+                        symbolMana = Convert.ToChar(Console.ReadLine());
+
+                        if (valueMana <= 10 && valueMana >= 0)
+                        {
+                            DrawBar(ref valueMana, maxValueMana, positions, ref symbolMana, ConsoleColor.Blue, ConsoleColor.White);
+                        }
+                        else
+                            Console.WriteLine("Некоректные данные");
+
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+
+                    case "3":
+                        isProgramOpen = false;
+                        break;
+                }
+            }
+        }
+
+        static void DrawBar(ref int value, int maxValue, int positions,ref char symbol,ConsoleColor colorValue, ConsoleColor colorMaxValue)
+        {
+            ConsoleColor DefaultColor = Console.BackgroundColor;
+            string bar = "";
+
+            for (int i = 0; i < value; i++)
+            {
+                bar += symbol;
+            }
+
+            Console.SetCursorPosition(0, 3);
+            Console.Write('[');
+            Console.BackgroundColor = colorValue;
+            Console.Write(bar);
+            Console.BackgroundColor = DefaultColor;
+            colorValue = DefaultColor;
+
+            bar = "";
+
+            for (int i = Convert.ToInt32(value); i < maxValue; i++)
+            {
+                bar += ' ';
+            }
+
+            Console.BackgroundColor = colorMaxValue;
+            Console.Write(bar);
+            Console.BackgroundColor = DefaultColor;
+            colorMaxValue = DefaultColor;
+            Console.Write("]\n");
+        }
+    }
+}
