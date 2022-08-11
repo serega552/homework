@@ -8,74 +8,119 @@ namespace HomeWorkF3
         {
             Console.CursorVisible = false;
 
-            int userX = 5;
-            int userY = 5;
+            bool isTreasureSearch = true;
+            int userPositionsX = 5;
+            int userPositionsY = 5;
+            int countTreasure = 0;
             char[,] map =
                 {
                 {'#','#','#','#','#','#','#','#','#','#', },
                 {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ','&',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ','#',' ',' ',' ','#', },
+                {'#',' ','&',' ',' ','#',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ','#',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ',' ',' ','&',' ','#', },
                 {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ','&',' ','&',' ',' ',' ','#', },
+                {'#','&',' ','#',' ','#',' ',' ',' ','#', },
                 {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
                 {'#','#','#','#','#','#','#','#','#','#', },
                 };
-
-            DrawMap(ref map, ref userX, ref userY);
+          
+            DrawMap(ref map, ref userPositionsX, ref userPositionsY, countTreasure, isTreasureSearch);
         }
-  
-        static void Character(ref char[,] map, ref int userX, ref int userY)
+
+        static void DrawCharacter(ref char[,] map, ref int userPositionsX, ref int userPositionsY)
         {
-            Console.SetCursorPosition(userY,userX);
+            Console.SetCursorPosition(userPositionsY, userPositionsX);
             Console.Write("@");
 
-            ChangeDirection( ref map, ref userX, ref userY);
+            ChangeDirection(ref map, ref userPositionsX, ref userPositionsY);
         }
 
-        static void ChangeDirection( ref char[,] map , ref int userX, ref int userY)
+        static void ChangeDirection(ref char[,] map, ref int userPositionsX, ref int userPositionsY)
         {
             ConsoleKeyInfo charKey = Console.ReadKey();
 
             switch (charKey.Key)
             {
                 case ConsoleKey.UpArrow:
-                        if (map[userX - 1, userY] != '#')
-                        {
-                            userX--;
-                        }
+                    MoveUp(ref map, ref userPositionsX, ref userPositionsY);
                     break;
 
                 case ConsoleKey.DownArrow:
-                        if (map[userX + 1, userY] != '#')
-                        {
-                            userX++;
-                        }
-                        break;
+                    MoveDown(ref map, ref userPositionsX, ref userPositionsY);
+                    break;
 
                 case ConsoleKey.LeftArrow:
-                        if (map[userX, userY - 1] != '#')
-                        {
-                            userY--;
-                        }
-                        break;
+                    MoveLeft(ref map, ref userPositionsX, ref userPositionsY);
+                    break;
 
                 case ConsoleKey.RightArrow:
-                        if (map[userX, userY + 1] != '#')
-                        {
-                            userY++;
-                        }
-                        break;
+                    MoveRight(ref map, ref userPositionsX, ref userPositionsY);
+                    break;
             }
         }
 
-        static void DrawMap(ref char[,] map, ref int userX, ref int userY)
+        static void MoveUp(ref char[,] map, ref int userPositionsX, ref int userPositionsY)
         {
-            int countHoards = 0;
+            if (map[userPositionsX - 1, userPositionsY] != '#')
+            {
+                userPositionsX--;
+            }
+        }
 
-            while (countHoards < 3)
+        static void MoveDown(ref char[,] map, ref int userPositionsX, ref int userPositionsY)
+        {
+            if (map[userPositionsX + 1, userPositionsY] != '#')
+            {
+                userPositionsX++;
+            }
+        }
+
+        static void MoveLeft(ref char[,] map, ref int userPositionsX, ref int userPositionsY)
+        {
+            if (map[userPositionsX, userPositionsY - 1] != '#')
+            {
+                userPositionsY--;
+            }
+        }
+
+        static void MoveRight(ref char[,] map, ref int userPositionsX, ref int userPositionsY)
+        {
+            if (map[userPositionsX, userPositionsY + 1] != '#')
+            {
+                userPositionsY++;
+            }
+        }
+
+        static void GatherTreasure(ref char[,] map, int userPositionsX, int userPositionsY, ref int countTreasure, ref bool isTreasureSearch)
+        {
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    if (map[i,j] == '&') 
+                    {
+                        countTreasure++;
+                    }
+                }
+            }
+            int tempCountTreasure = countTreasure;
+
+            if (map[userPositionsX, userPositionsY] == '&')
+            {
+                map[userPositionsX, userPositionsY] = ' ';
+            }   
+
+            if (countTreasure == 0)
+                isTreasureSearch = false;
+
+            countTreasure = 0;
+        }
+
+        static void DrawMap(ref char[,] map, ref int userPositionsX, ref int userPositionsY, int countTreasure, bool isTreasureSearch)
+        {
+            while (isTreasureSearch)
             {
                 for (int i = 0; i < map.GetLength(0); i++)
                 {
@@ -86,14 +131,8 @@ namespace HomeWorkF3
                     Console.WriteLine();
                 }
 
-                Character(ref map, ref userX, ref userY);
-
-                if (map[userX,userY] == '&')
-                {
-                    countHoards++;
-                    map[userX, userY] = ' ';
-                }
-
+                GatherTreasure(ref map, userPositionsX, userPositionsY, ref countTreasure, ref isTreasureSearch);
+                DrawCharacter(ref map, ref userPositionsX, ref userPositionsY);
                 Console.Clear();
             }
         }
