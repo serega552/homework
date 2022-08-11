@@ -1,40 +1,101 @@
 using System;
 
-namespace HomeWork_17
+namespace HomeWorkF3
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
-            int[] array = new int[30];
-            int minNumberRandomInArray = 1;
-            int maxNumberRandomInArray = 50;
+            Console.CursorVisible = false;
 
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = random.Next(minNumberRandomInArray, maxNumberRandomInArray);
-                Console.Write(" " + array[i] + " ");
-            }
-
-            Console.WriteLine("\nЛокальные максимумы: ");
-
-            if (array[0] >= array[1])
-            {
-                Console.Write(" " + array[0] + " ");
-            }
-
-            for (int i = 1; i < array.Length - 1; i++)
-            {
-                if (array[i] > array[i - 1] && array[i] > array[i + 1])
+            int userX = 5;
+            int userY = 5;
+            char[,] map =
                 {
-                    Console.Write(" " + array[i] + " ");
-                    i++;
-                }                
-            }
+                {'#','#','#','#','#','#','#','#','#','#', },
+                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ','&',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+                {'#',' ',' ','&',' ','&',' ',' ',' ','#', },
+                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+                {'#','#','#','#','#','#','#','#','#','#', },
+                };
 
-            if (array[array.Length - 1] > array[array.Length - 2])
-                Console.Write(" " +array[array.Length - 1] + " ");
+            DrawMap(ref map, ref userX, ref userY);
+        }
+  
+        static void Character(ref char[,] map, ref int userX, ref int userY)
+        {
+            Console.SetCursorPosition(userY,userX);
+            Console.Write("@");
+
+            ChangeDirection( ref map, ref userX, ref userY);
+        }
+
+        static void ChangeDirection( ref char[,] map , ref int userX, ref int userY)
+        {
+            ConsoleKeyInfo charKey = Console.ReadKey();
+
+            switch (charKey.Key)
+            {
+                case ConsoleKey.UpArrow:
+                        if (map[userX - 1, userY] != '#')
+                        {
+                            userX--;
+                        }
+                    break;
+
+                case ConsoleKey.DownArrow:
+                        if (map[userX + 1, userY] != '#')
+                        {
+                            userX++;
+                        }
+                        break;
+
+                case ConsoleKey.LeftArrow:
+                        if (map[userX, userY - 1] != '#')
+                        {
+                            userY--;
+                        }
+                        break;
+
+                case ConsoleKey.RightArrow:
+                        if (map[userX, userY + 1] != '#')
+                        {
+                            userY++;
+                        }
+                        break;
+            }
+        }
+
+        static void DrawMap(ref char[,] map, ref int userX, ref int userY)
+        {
+            int countHoards = 0;
+
+            while (countHoards < 3)
+            {
+                for (int i = 0; i < map.GetLength(0); i++)
+                {
+                    for (int j = 0; j < map.GetLength(1); j++)
+                    {
+                        Console.Write(map[i, j]);
+                    }
+                    Console.WriteLine();
+                }
+
+                Character(ref map, ref userX, ref userY);
+
+                if (map[userX,userY] == '&')
+                {
+                    countHoards++;
+                    map[userX, userY] = ' ';
+                }
+
+                Console.Clear();
+            }
         }
     }
 }
