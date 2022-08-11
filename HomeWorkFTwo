@@ -6,56 +6,29 @@ namespace HomeWorkF2
     {
         static void Main(string[] args)
         {
-            string inputUser = "";
-            bool isProgramOpen = true;
-            int positions = 0;
+            int valueHealth = 0;
+            int maxValueHealth = 100;
+            int valueMana = 0;
+            int maxValueMana = 10;
+            int positionsHealth = 3;
+            int positionsMana = 4;
+            char symbol = '-';
 
-            while (isProgramOpen)
-            {
-                Console.WriteLine("Значение чего, вы бы хотели изменить\n1 - Здоровья\n2 - Маны\n3 - выход");
-                inputUser = Console.ReadLine();
-                Console.Clear();
+            Console.Write("Введите кол-во здоровья: ");
+            valueHealth = Convert.ToInt32(Console.ReadLine());
+                            
+            Console.Write("Введите кол-во маны: ");
+            valueMana = Convert.ToInt32(Console.ReadLine());
 
-                switch (inputUser)
-                {
-                    case "1":
-                        int valueHealth = 0;
-                        int maxValueHealth = 100;
-                        char symbolHealth = ' ';
-                        string health = "здоровья";
+            DrawBar(valueHealth, maxValueHealth, positionsHealth,symbol, ConsoleColor.Red, ConsoleColor.White);
+            DrawBar(valueMana, maxValueMana, positionsMana,symbol, ConsoleColor.Blue, ConsoleColor.White);
 
-                            DrawBar(ref valueHealth, maxValueHealth, positions, ref symbolHealth, ConsoleColor.Red, ConsoleColor.White, health);
-
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
-
-                    case "2":
-                        int valueMana = 0;
-                        int maxValueMana = 10;
-                        char symbolMana = ' ';
-                        string mana = "маны";
-
-                            DrawBar(ref valueMana, maxValueMana, positions, ref symbolMana, ConsoleColor.Blue, ConsoleColor.White, mana);
-
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
-
-                    case "3":
-                        isProgramOpen = false;
-                        break;
-                }
-            }
+            Console.ReadKey();
+            Console.Clear();
         }
 
-        static void DrawBar(ref int value, int maxValue, int positions,ref char symbol,ConsoleColor colorValue, ConsoleColor colorMaxValue, string titleBar)
+        static void DrawBar(int value, int maxValue, int positions,char symbol,ConsoleColor colorValue, ConsoleColor colorMaxValue)
         {
-            Console.Write($"кол-во вашей {titleBar}(не более {maxValue}): ");
-            value = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Любой символ: ");
-            symbol = Convert.ToChar(Console.ReadLine());
 
             if (value <= maxValue && value >= 0)
             {
@@ -67,7 +40,7 @@ namespace HomeWorkF2
                     bar += symbol;
                 }
 
-                Console.SetCursorPosition(0, 3);
+                Console.SetCursorPosition(0, positions);
                 Console.Write('[');
                 Console.BackgroundColor = colorValue;
                 Console.Write(bar);
@@ -94,3 +67,4 @@ namespace HomeWorkF2
         }
     }
 }
+
