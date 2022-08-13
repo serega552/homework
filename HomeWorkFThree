@@ -8,94 +8,89 @@ namespace HomeWorkF3
         {
             Console.CursorVisible = false;
 
-            int userX = 5;
-            int userY = 5;
+            int userPositionsX = 5;
+            int userPositionsY = 5;
+            int userDirectionX = 0;
+            int userDirectionY = 0;
             char[,] map =
                 {
-                {'#','#','#','#','#','#','#','#','#','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ','&',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#',' ',' ','&',' ','&',' ',' ',' ','#', },
-                {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
-                {'#','#','#','#','#','#','#','#','#','#', },
-                };
+            {'#','#','#','#','#','#','#','#','#','#', },
+            {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+            {'#',' ',' ',' ',' ','#',' ',' ',' ','#', },
+            {'#',' ',' ',' ',' ','#',' ',' ',' ','#', },
+            {'#',' ',' ',' ',' ','#',' ',' ',' ','#', },
+            {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+            {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+            {'#',' ',' ','#',' ','#',' ',' ',' ','#', },
+            {'#',' ',' ',' ',' ',' ',' ',' ',' ','#', },
+            {'#','#','#','#','#','#','#','#','#','#', },
+            };
 
-            DrawMap(ref map, ref userX, ref userY);
+            while (true)
+            {
+                DrawMap(ref map);
+                DrawCharacter(ref map, ref userPositionsX, ref userPositionsY, ref userDirectionX, ref userDirectionY);            
+                ChangeDirection(ref userDirectionX, ref userDirectionY);
+               
+                Console.Clear();
+            }
         }
-  
-        static void Character(ref char[,] map, ref int userX, ref int userY)
+
+        static void DrawCharacter(ref char[,] map, ref int userPositionsX, ref int userPositionsY, ref int userDirectionX, ref int userDirectionY)
         {
-            Console.SetCursorPosition(userY,userX);
-            Console.Write("@");
+            if (map[userPositionsY + userDirectionY, userPositionsX + userDirectionX] != '#')
+            {
+                Console.SetCursorPosition(userPositionsX, userPositionsY);
+                Console.WriteLine(' ');
 
-            ChangeDirection( ref map, ref userX, ref userY);
+                userPositionsX += userDirectionX;
+                userPositionsY += userDirectionY;
+
+                Console.SetCursorPosition(userPositionsX, userPositionsY);
+                Console.WriteLine('@');
+            }
+            else
+            {
+                Console.SetCursorPosition(userPositionsX, userPositionsY);
+                Console.WriteLine('@');
+            }
         }
 
-        static void ChangeDirection( ref char[,] map , ref int userX, ref int userY)
+        static void ChangeDirection(ref int userDirectionX, ref int userDirectionY)
         {
             ConsoleKeyInfo charKey = Console.ReadKey();
 
             switch (charKey.Key)
             {
                 case ConsoleKey.UpArrow:
-                        if (map[userX - 1, userY] != '#')
-                        {
-                            userX--;
-                        }
+                    userDirectionX = 0; userDirectionY = -1;
                     break;
 
                 case ConsoleKey.DownArrow:
-                        if (map[userX + 1, userY] != '#')
-                        {
-                            userX++;
-                        }
-                        break;
+                    userDirectionX = 0; userDirectionY = 1;
+                    break;
 
                 case ConsoleKey.LeftArrow:
-                        if (map[userX, userY - 1] != '#')
-                        {
-                            userY--;
-                        }
-                        break;
+                    userDirectionX = -1; userDirectionY = 0;
+                    break;
 
                 case ConsoleKey.RightArrow:
-                        if (map[userX, userY + 1] != '#')
-                        {
-                            userY++;
-                        }
-                        break;
+                    userDirectionX = 1; userDirectionY = 0;
+                    break;
             }
         }
 
-        static void DrawMap(ref char[,] map, ref int userX, ref int userY)
+        static void DrawMap(ref char[,] map)
         {
-            int countHoards = 0;
-
-            while (countHoards < 3)
+            for (int i = 0; i < map.GetLength(0); i++)
             {
-                for (int i = 0; i < map.GetLength(0); i++)
+                for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    for (int j = 0; j < map.GetLength(1); j++)
-                    {
-                        Console.Write(map[i, j]);
-                    }
-                    Console.WriteLine();
+
+                    Console.Write(map[i, j]);
                 }
-
-                Character(ref map, ref userX, ref userY);
-
-                if (map[userX,userY] == '&')
-                {
-                    countHoards++;
-                    map[userX, userY] = ' ';
-                }
-
-                Console.Clear();
-            }
+                Console.WriteLine();
+            } 
         }
     }
 }
