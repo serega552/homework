@@ -12,8 +12,7 @@ namespace HomeWorkF3
             int userPositionsY = 5;
             int userDirectionX = 0;
             int userDirectionY = 0;
-            int numberTry = 0;
-            int maxNumberTry = int.MaxValue;
+            bool isWork = true;
             char[,] map =
                 {
             {'#','#','#','#','#','#','#','#','#','#', },
@@ -28,25 +27,24 @@ namespace HomeWorkF3
             {'#','#','#','#','#','#','#','#','#','#', },
             };
 
-            while (numberTry != maxNumberTry)
+            while (isWork)
             {
-                DrawMap(ref map);
-                DrawCharacter( userPositionsX,  userPositionsY);
-                ChangeDirection(map, ref userDirectionX, ref userDirectionY, ref userPositionsX, ref userPositionsY);
-                Move(map,  userDirectionX,  userDirectionY, ref userPositionsX, ref userPositionsY);
+                DrawMap( map);
+                DrawCharacter(userPositionsX, userPositionsY);
+                ChangeDirection(map, ref userDirectionX, ref userDirectionY);
+                Move(map, userDirectionX, userDirectionY, ref userPositionsX, ref userPositionsY);
 
                 Console.Clear();
-                numberTry++;
             }
         }
 
-        static void DrawCharacter( int userPositionsX,  int userPositionsY)
+        static void DrawCharacter(int userPositionsX, int userPositionsY)
         {
             Console.SetCursorPosition(userPositionsX, userPositionsY);
             Console.WriteLine('@');
         }
 
-        static void ChangeDirection(char[,] map, ref int userDirectionX, ref int userDirectionY, ref int userPositionsX, ref int userPositionsY)
+        static void ChangeDirection(char[,] map, ref int userDirectionX, ref int userDirectionY)
         {
             ConsoleKeyInfo charKey = Console.ReadKey();
 
@@ -74,24 +72,16 @@ namespace HomeWorkF3
             }
         }
 
-        static void Move(char[,] map, int userDirectionX, int userDirectionY, ref  int userPositionsX, ref  int userPositionsY)
+        static void Move(char[,] map, int userDirectionX, int userDirectionY, ref int userPositionsX, ref int userPositionsY)
         {
             if (map[userPositionsY + userDirectionY, userPositionsX + userDirectionX] != '#')
             {
-                Console.SetCursorPosition(userPositionsX, userPositionsY);
-                Console.WriteLine(' ');
-
                 userPositionsX += userDirectionX;
                 userPositionsY += userDirectionY;
             }
-            else
-            {
-                Console.SetCursorPosition(userPositionsX, userPositionsY);
-                Console.WriteLine('@');
-            }
         }
 
-        static void DrawMap(ref char[,] map)
+        static void DrawMap(char[,] map)
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
