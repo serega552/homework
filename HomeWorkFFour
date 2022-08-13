@@ -6,30 +6,29 @@ namespace HomeWorkF3
     {
         static void Main(string[] args)
         {
-            int[] array = {1,2,3,4,5,6,7,8,9};
+            int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             string userInput = "";
 
             while (userInput != "exit")
             {
                 Console.WriteLine("Enter - перемешать\nExit - выйти");
                 userInput = Console.ReadLine();
-                ShuffleArray(ref array);
+                ShuffleArray(array);
             }
         }
 
-        static void ShuffleArray(ref int[] array)
+        static void ShuffleArray(int[] array)
         {
             Random random = new Random();
-            int randomNumberOne = random.Next(0, array.Length);
-            int randomNumberTwo = random.Next(0, array.Length);
-            int temp = 0;
-
-            temp = array[randomNumberOne];
-            array[randomNumberOne] = array[randomNumberTwo];
-            array[randomNumberTwo] = temp;
+            int tempNumber = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
+                int randomNumberOne = random.Next(0, array.Length);
+                tempNumber = array[i];
+                array[i] = array[randomNumberOne];
+                array[randomNumberOne] = tempNumber;
+
                 Console.Write(array[i] + " ");
             }
 
