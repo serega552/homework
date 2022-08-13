@@ -12,6 +12,8 @@ namespace HomeWorkF3
             int userPositionsY = 5;
             int userDirectionX = 0;
             int userDirectionY = 0;
+            int numberTry = 0;
+            int maxNumberTry = int.MaxValue;
             char[,] map =
                 {
             {'#','#','#','#','#','#','#','#','#','#', },
@@ -26,18 +28,50 @@ namespace HomeWorkF3
             {'#','#','#','#','#','#','#','#','#','#', },
             };
 
-            while (true)
+            while (numberTry != maxNumberTry)
             {
                 DrawMap(ref map);
-                DrawCharacter(ref map, ref userPositionsX, ref userPositionsY, ref userDirectionX, ref userDirectionY);            
-                ChangeDirection(ref userDirectionX, ref userDirectionY);
-               
+                DrawCharacter(ref userPositionsX, ref userPositionsY);
+                ChangeDirection(map, ref userDirectionX, ref userDirectionY, ref userPositionsX, ref userPositionsY);
+
                 Console.Clear();
+                numberTry++;
             }
         }
 
-        static void DrawCharacter(ref char[,] map, ref int userPositionsX, ref int userPositionsY, ref int userDirectionX, ref int userDirectionY)
+        static void DrawCharacter( ref int userPositionsX, ref int userPositionsY)
+        {            
+                Console.SetCursorPosition(userPositionsX, userPositionsY);
+                Console.WriteLine('@');          
+        }
+
+        static void ChangeDirection(char[,] map, ref int userDirectionX, ref int userDirectionY, ref int userPositionsX, ref int userPositionsY)
         {
+            ConsoleKeyInfo charKey = Console.ReadKey();
+
+            switch (charKey.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    userDirectionX = 0;
+                    userDirectionY = -1;
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    userDirectionX = 0;
+                    userDirectionY = 1;
+                    break;
+
+                case ConsoleKey.LeftArrow:
+                    userDirectionX = -1;
+                    userDirectionY = 0;
+                    break;
+
+                case ConsoleKey.RightArrow:
+                    userDirectionX = 1;
+                    userDirectionY = 0;
+                    break;
+            }
+
             if (map[userPositionsY + userDirectionY, userPositionsX + userDirectionX] != '#')
             {
                 Console.SetCursorPosition(userPositionsX, userPositionsY);
@@ -45,38 +79,11 @@ namespace HomeWorkF3
 
                 userPositionsX += userDirectionX;
                 userPositionsY += userDirectionY;
-
-                Console.SetCursorPosition(userPositionsX, userPositionsY);
-                Console.WriteLine('@');
             }
             else
             {
                 Console.SetCursorPosition(userPositionsX, userPositionsY);
                 Console.WriteLine('@');
-            }
-        }
-
-        static void ChangeDirection(ref int userDirectionX, ref int userDirectionY)
-        {
-            ConsoleKeyInfo charKey = Console.ReadKey();
-
-            switch (charKey.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    userDirectionX = 0; userDirectionY = -1;
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    userDirectionX = 0; userDirectionY = 1;
-                    break;
-
-                case ConsoleKey.LeftArrow:
-                    userDirectionX = -1; userDirectionY = 0;
-                    break;
-
-                case ConsoleKey.RightArrow:
-                    userDirectionX = 1; userDirectionY = 0;
-                    break;
             }
         }
 
@@ -90,7 +97,7 @@ namespace HomeWorkF3
                     Console.Write(map[i, j]);
                 }
                 Console.WriteLine();
-            } 
+            }
         }
     }
 }
