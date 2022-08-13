@@ -31,18 +31,19 @@ namespace HomeWorkF3
             while (numberTry != maxNumberTry)
             {
                 DrawMap(ref map);
-                DrawCharacter(ref userPositionsX, ref userPositionsY);
+                DrawCharacter( userPositionsX,  userPositionsY);
                 ChangeDirection(map, ref userDirectionX, ref userDirectionY, ref userPositionsX, ref userPositionsY);
+                Move(map,  userDirectionX,  userDirectionY, ref userPositionsX, ref userPositionsY);
 
                 Console.Clear();
                 numberTry++;
             }
         }
 
-        static void DrawCharacter( ref int userPositionsX, ref int userPositionsY)
-        {            
-                Console.SetCursorPosition(userPositionsX, userPositionsY);
-                Console.WriteLine('@');          
+        static void DrawCharacter( int userPositionsX,  int userPositionsY)
+        {
+            Console.SetCursorPosition(userPositionsX, userPositionsY);
+            Console.WriteLine('@');
         }
 
         static void ChangeDirection(char[,] map, ref int userDirectionX, ref int userDirectionY, ref int userPositionsX, ref int userPositionsY)
@@ -71,7 +72,10 @@ namespace HomeWorkF3
                     userDirectionY = 0;
                     break;
             }
+        }
 
+        static void Move(char[,] map, int userDirectionX, int userDirectionY, ref  int userPositionsX, ref  int userPositionsY)
+        {
             if (map[userPositionsY + userDirectionY, userPositionsX + userDirectionX] != '#')
             {
                 Console.SetCursorPosition(userPositionsX, userPositionsY);
