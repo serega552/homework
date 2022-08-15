@@ -54,7 +54,6 @@ namespace HomeWorkF3
 
             Console.WriteLine("Сумма: " + sum);
 
-            sum = 0;
             numbers.Clear();
         }
     }
