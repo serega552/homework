@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWorkF3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Random random = new Random();
+            Queue<int> clients = new Queue<int>();
+
+            clients.Enqueue(1);
+            clients.Enqueue(2);
+            clients.Enqueue(3);
+            clients.Enqueue(4);
+            clients.Enqueue(5);
+
+            int sum = 0;
+
+            while(clients.Count > 0)
+            {
+                Console.WriteLine(clients.Dequeue() + " покупатель");
+                int price = random.Next(50, 1000);
+
+                Console.WriteLine($"Сумма покупки - {price}");
+
+                sum += price;
+
+                Console.WriteLine("В кассе " + sum);
+
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+    }
