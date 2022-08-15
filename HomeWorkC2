@@ -8,29 +8,25 @@ namespace HomeWorkF3
         static void Main(string[] args)
         {
             Random random = new Random();
-            Queue<int> clients = new Queue<int>();
-
-            clients.Enqueue(1);
-            clients.Enqueue(2);
-            clients.Enqueue(3);
-            clients.Enqueue(4);
-            clients.Enqueue(5);
-
+            Queue<int> countMoney = new Queue<int>();
+            
+            int randomNumber = random.Next(5, 11);
             int sum = 0;
 
-            while(clients.Count > 0)
+            for (int i = 0; i <= randomNumber; i++)
             {
-                Console.WriteLine(clients.Dequeue() + " покупатель");
-                int price = random.Next(50, 1000);
+                int price = random.Next(100, 1000);
+                countMoney.Enqueue(price);
 
-                Console.WriteLine($"Сумма покупки - {price}");
+                Console.WriteLine($"Стоимость покупки {countMoney.Dequeue()} рублей");
 
                 sum += price;
 
-                Console.WriteLine("В кассе " + sum);
+                Console.WriteLine($"В кассе {sum}");
 
                 Console.ReadKey();
                 Console.Clear();
             }
         }
     }
+}
