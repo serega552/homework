@@ -10,7 +10,6 @@ namespace HomeWorkF3
             List<int> numbers = new List<int>();
 
             string userInput = "";
-            int sum = 0;
             bool isWork = true;
 
             while (isWork)
@@ -21,11 +20,11 @@ namespace HomeWorkF3
                 switch (userInput)
                 {
                     case "sum":
-                        SumNumbers(sum, numbers);
+                        SumNumbers(numbers);
                         break;
 
                     case "exit":
-                        ExitProgram(ref isWork);
+                        isWork = false;
                         break;
 
                     default:
@@ -35,17 +34,19 @@ namespace HomeWorkF3
             }
         }
 
-        static void WriteDownNumbers(List<int> numbers, string userInput )
+        static void WriteDownNumbers(List<int> numbers, string userInput)
         {
             if (int.TryParse(userInput, out int inputNumber))
-                numbers.Add(Convert.ToInt32(userInput));
+                numbers.Add(inputNumber);
 
             else
                 Console.WriteLine("Некорректные данные");
         }
 
-        static void SumNumbers(int sum, List<int> numbers)
+        static void SumNumbers(List<int> numbers)
         {
+            int sum = 0;
+
             for (int i = 0; i < numbers.Count; i++)
             {
                 sum += numbers[i];
@@ -56,8 +57,5 @@ namespace HomeWorkF3
             sum = 0;
             numbers.Clear();
         }
-
-        static void ExitProgram(ref bool isWork)
-        {
-            isWork = false;
-        }
+    }
+}
