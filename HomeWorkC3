@@ -9,18 +9,21 @@ namespace HomeWorkF3
         {
             List<int> numbers = new List<int>();
 
-            string userInput = "";
             bool isWork = true;
 
             while (isWork)
             {
-                Console.WriteLine($"Пишите любые числа, sum - сложить, exit - Выход");
+                string inputSum = "sum";
+                string inputExit = "exit";
+                string userInput;
+
+                Console.WriteLine($"Пишите любые числа, {inputSum} - сложить, {inputExit} - Выход");
                 userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
                     case "sum":
-                        SumNumbers(numbers);
+                        SummationNumbers(numbers);
                         break;
 
                     case "exit":
@@ -43,7 +46,7 @@ namespace HomeWorkF3
                 Console.WriteLine("Некорректные данные");
         }
 
-        static void SumNumbers(List<int> numbers)
+        static void SummationNumbers(List<int> numbers)
         {
             int sum = 0;
 
