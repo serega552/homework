@@ -50,7 +50,7 @@ namespace HomeWorkF3
             Console.WriteLine("Введите должность");
             inputPosition = Console.ReadLine();
 
-            if (!fullNames.ContainsKey(inputFullName))
+            if (fullNames.ContainsKey(inputFullName) == false)
                 fullNames.Add(inputFullName, inputPosition);
 
             else
