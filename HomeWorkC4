@@ -50,8 +50,13 @@ namespace HomeWorkF3
             Console.WriteLine("Введите должность");
             inputPosition = Console.ReadLine();
 
-            fullNames.Add(inputFullName, inputPosition);
+            if (!fullNames.ContainsKey(inputFullName))
+                fullNames.Add(inputFullName, inputPosition);
 
+            else
+                Console.WriteLine("Повторение не доспускается");
+
+            Console.ReadKey();
             Console.Clear();
         }
 
