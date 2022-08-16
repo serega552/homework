@@ -9,20 +9,22 @@ namespace HomeWorkF3
         {
             Random random = new Random();
             Queue<int> countMoney = new Queue<int>();
-            
-            int randomNumber = random.Next(5, 11);
+
             int sum = 0;
 
-            for (int i = 0; i <= randomNumber; i++)
+            countMoney.Enqueue(150);
+            countMoney.Enqueue(1500);
+            countMoney.Enqueue(120);
+            countMoney.Enqueue(1000);
+            countMoney.Enqueue(9000);
+
+           while(countMoney.Count > 0)
             {
-                int price = random.Next(100, 1000);
-                countMoney.Enqueue(price);
+                Console.WriteLine($"Покупка на {countMoney.Peek()} рублей");
 
-                Console.WriteLine($"Стоимость покупки {countMoney.Dequeue()} рублей");
-
-                sum += price;
-
-                Console.WriteLine($"В кассе {sum}");
+                sum += countMoney.Dequeue();
+                
+                Console.WriteLine("В кассе " + sum + " рублей");
 
                 Console.ReadKey();
                 Console.Clear();
