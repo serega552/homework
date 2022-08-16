@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWorkF3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, string> fullNames = new Dictionary<string, string>();
+
+            bool isWork = true;
+            string userInput = "";
+
+            while (isWork)
+            {
+                Console.WriteLine("1 - добавить досье\n2 - вывести все досье\n3 - удалить досье\n4 - выход");
+                userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        AddDosier(fullNames);
+                        break;
+
+                    case "2":
+                        ShowDossier(fullNames);
+                        break;
+
+                    case "3":
+                        RemoveDossier(fullNames);
+                        break;
+
+                    case "4":
+                        isWork = false;
+                        break;
+                }
+                Console.Clear();
+            }
+        }
+
+        static void AddDosier(Dictionary<string, string> fullNames)
+        {
+            string inputFullName = "";
+            string inputPosition = "";
+
+            Console.WriteLine("Введите полное имя (ФИО)");
+            inputFullName = Console.ReadLine();
+
+            Console.WriteLine("Введите должность");
+            inputPosition = Console.ReadLine();
+
+            fullNames.Add(inputFullName, inputPosition);
+
+            Console.Clear();
+        }
+
+        static void ShowDossier(Dictionary<string, string> fullNames)
+        {
+            foreach (var fullName in fullNames)
+            {
+                Console.WriteLine(fullName.Key + " - " + fullName.Value);
+            }
+            Console.WriteLine();
+            Console.ReadKey();
+        }
+
+        static void RemoveDossier(Dictionary<string, string> fullNames)
+        {
+            ShowDossier(fullNames);
+
+            string inputRemoveFullName = "";
+
+            Console.Write("Введите полное имя человека которого хотите удалить: ");
+            inputRemoveFullName = Console.ReadLine();
+
+            if(fullNames.ContainsKey(inputRemoveFullName))
+            fullNames.Remove(inputRemoveFullName);
+
+            Console.Clear();
+        }
+    }
+}
