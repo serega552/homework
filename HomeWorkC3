@@ -20,33 +20,24 @@ namespace HomeWorkF3
                 Console.WriteLine($"Пишите любые числа, {inputSum} - сложить, {inputExit} - Выход");
                 userInput = Console.ReadLine();
 
-                switch (userInput)
-                {
-                    case "sum":
-                        SummationNumbers(numbers);
-                        break;
-
-                    case "exit":
+                if (userInput == inputSum)
+                    ShowSumNumbers(numbers);
+                else if (userInput == inputExit)
                         isWork = false;
-                        break;
-
-                    default:
-                        WriteDownNumbers(numbers, userInput);
-                        break;
-                }
+                else
+                    AddNumber(numbers, userInput);
             }
         }
 
-        static void WriteDownNumbers(List<int> numbers, string userInput)
+        static void AddNumber(List<int> numbers, string userInput)
         {
             if (int.TryParse(userInput, out int inputNumber))
                 numbers.Add(inputNumber);
-
             else
                 Console.WriteLine("Некорректные данные");
         }
 
-        static void SummationNumbers(List<int> numbers)
+        static void ShowSumNumbers(List<int> numbers)
         {
             int sum = 0;
 
@@ -56,8 +47,6 @@ namespace HomeWorkF3
             }
 
             Console.WriteLine("Сумма: " + sum);
-
-            numbers.Clear();
         }
     }
 }
