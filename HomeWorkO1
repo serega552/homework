@@ -1,0 +1,32 @@
+using System;
+
+namespace HomeWorkF3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Player player = new Player("Валера", 24, 5000);
+
+            player.ShowInfo();
+        }
+    }
+
+    class Player
+    {
+        public string Name;
+        public int Age;
+        private int _money { get;  set;}
+
+        public Player(string name, int age, int money)
+        {
+            Name = name;
+            Age = age;
+            _money = money;
+        }
+        public void ShowInfo()
+        {
+            Console.WriteLine($"Имя - {Name}\nлет - {Age}\nденег - {_money}" );
+        }
+    }
+}
