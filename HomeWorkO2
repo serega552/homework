@@ -15,20 +15,17 @@ namespace HomeWorkF3
 
     class Render
     {
-        public void DrawChapter(int x, int y, char symbol ='@')
+        public void DrawChapter(int positionsX, int positionsY, char symbol = '@')
         {
-            if (x >= 0 && y >= 0 && x <= 100 && y <= 100)
-            {
-                Console.SetCursorPosition(x, y);
+                Console.SetCursorPosition(positionsX, positionsY);
                 Console.WriteLine(symbol);
-            }
         }
     }
 
     class Player
     {
-        public int PositionsX { get;private set; }
-        public int PositionsY { get;private set; }
+        public int PositionsX { get; private set; }
+        public int PositionsY { get; private set; }
 
         public Player(int positionsX, int positionsY)
         {
