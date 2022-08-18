@@ -14,19 +14,19 @@ namespace HomeWorkF3
 
     class Player
     {
-        public string Name;
-        public int Age;
-        private int _money { get;  set;}
+        private string _name;
+        private int _age;
+        private int _money;
 
         public Player(string name, int age, int money)
         {
-            Name = name;
-            Age = age;
+            _name = name;
+            _age = age;
             _money = money;
         }
         public void ShowInfo()
         {
-            Console.WriteLine($"Имя - {Name}\nлет - {Age}\nденег - {_money}" );
+            Console.WriteLine($"Имя - {_name}\nлет - {_age}\nденег - {_money}");
         }
     }
 }
