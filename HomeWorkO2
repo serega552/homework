@@ -1,0 +1,39 @@
+using System;
+
+namespace HomeWorkF3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Render render = new Render();
+            Player player = new Player(15, 15);
+
+            render.DrawChapter(player.PositionsX, player.PositionsY);
+        }
+    }
+
+    class Render
+    {
+        public void DrawChapter(int x, int y, char symbol ='@')
+        {
+            if (x >= 0 && y >= 0 && x <= 100 && y <= 100)
+            {
+                Console.SetCursorPosition(x, y);
+                Console.WriteLine(symbol);
+            }
+        }
+    }
+
+    class Player
+    {
+        public int PositionsX { get;private set; }
+        public int PositionsY { get;private set; }
+
+        public Player(int positionsX, int positionsY)
+        {
+            PositionsX = positionsX;
+            PositionsY = positionsY;
+        }
+    }
+}
