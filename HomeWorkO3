@@ -1,0 +1,156 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            WorkProgram();
+        }
+
+        static void WorkProgram()
+        {
+            DateBase dateBase = new DateBase();
+
+            bool isWork = true;
+
+            while (isWork)
+            {
+                Console.WriteLine("1 - добавить\n2 - удалить\n3 - забанить\n4 - разбанить\n5 - показать\n6 - выйти");
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        dateBase.AddPlayer();
+                        break;
+                    case "2":
+                        dateBase.RemovePlayer();
+                        break;
+                    case "3":
+                        dateBase.BanPlayer();
+                        break;
+                    case "4":
+                        dateBase.UnBanPlayer();
+                        break;
+                    case "5":
+                        dateBase.ShowInfo();
+                        break;
+                    case "6":
+                        isWork = false;
+                        break;
+                }
+                Console.ReadKey();
+                Console.Clear();
+
+            }
+        }
+
+        class DateBase
+        {
+            private List<Player> _listPlayer = new List<Player>();
+
+            public bool BanPlayer()
+            {
+                Console.WriteLine("Введите номер пользователя, которого хотите забанить");
+                int id = Convert.ToInt32(Console.ReadLine());
+
+                if(id >= 1 && id <= _listPlayer.Count)
+                {
+                    _listPlayer[id - 1].SetBan();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public bool UnBanPlayer()
+            {
+                Console.WriteLine("Введите номер пользователя, которого хотите разбанить");
+                int id = Convert.ToInt32(Console.ReadLine());
+
+                if (id >= 1 && id <= _listPlayer.Count)
+                {
+                    _listPlayer[id - 1].UnBan();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public void AddPlayer()
+            {
+                Random random = new Random();
+
+                int id = random.Next(5, 19090);
+
+                Console.Write("Введите имя: ");
+                string name = Console.ReadLine();
+
+                Console.Write("Введите уровень: ");
+                int level = Convert.ToInt32(Console.ReadLine());
+
+                _listPlayer.Add(new Player(id, name, level));
+
+            }
+
+            public void RemovePlayer()
+            {
+                Console.WriteLine("Введите номер человека, которого хотите удалить");
+                int id = Convert.ToInt32(Console.ReadLine());
+
+                if( id >= 1 && id <= _listPlayer.Count)
+                _listPlayer.RemoveAt(id - 1);
+            }
+
+            public void ShowInfo()
+            {
+                int id = 0;
+                foreach (Player player in _listPlayer)
+                {
+                    Console.WriteLine(id + 1 + " " + player);
+                    id++;
+                }
+            }
+            public DateBase() { }
+        }
+
+        class Player
+        {
+            public int Id { get; private set; }
+            public string Name { get; private set; }
+            public int Level { get; private set; }
+            public bool IsBaned { get; private set; }
+
+            public void SetBan()
+            {
+                IsBaned = true;
+            }
+
+            public void UnBan()
+            {
+                IsBaned = false;
+            }
+
+            public override string ToString()
+            {
+                return "ID: " + Id + "   Name: " + Name + "   Level: " + Level + "   Flag: " + IsBaned;
+            }
+
+            public Player( int id, string name, int level)
+            {
+                Name = name;
+                Id = id;
+                Level = level;
+                IsBaned = false;
+            }
+
+            public Player() { }
+        }
+    }
