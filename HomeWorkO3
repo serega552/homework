@@ -44,7 +44,6 @@ namespace HomeWork_30
                 }
                 Console.ReadKey();
                 Console.Clear();
-
             }
         }
 
@@ -78,8 +77,6 @@ namespace HomeWork_30
             {
                 Random random = new Random();
 
-                int id = random.Next(5, 19090);
-
                 Console.Write("Введите имя: ");
                 string name = Console.ReadLine();
 
@@ -87,8 +84,7 @@ namespace HomeWork_30
                 string level = Console.ReadLine();
                 int.TryParse(level, out int inputLevel);
 
-                _player.Add(new Player(id, name, inputLevel));
-
+                _player.Add(new Player( name, inputLevel));
             }
 
             public void RemovePlayer()
@@ -113,29 +109,35 @@ namespace HomeWork_30
 
             private bool TryGetPlayer(out Player player)
             {
+                player = null;
                 string id = Console.ReadLine();
 
                 int.TryParse(id, out int inputId);
 
                 if (inputId >= 1 && inputId <= _player.Count)
                 {
-                    player = _player[inputId];
+                    player = _player[inputId - 1];
                     return true;
                 }
+                else
+                {
+                    return false;
+                }      
             }
         }
 
         class Player
         {
-            public static int Id { get; private set; }
+            public int Id { get; private set; }
+            public static int Ids { get; private set; }
             public string Name { get; private set; }
             public int Level { get; private set; }
             public bool IsBaned { get; private set; }
 
-            public Player(int id, string name, int level)
+            public Player( string name, int level)
             {
                 Name = name;
-                Id = id;
+                Id = ++Ids;
                 Level = level;
                 IsBaned = false;
             }
