@@ -50,18 +50,16 @@ namespace HomeWork_30
 
         class DateBase
         {
-            private List<Player> _listPlayer = new List<Player>();
+            private List<Player> _player = new List<Player>();
 
             public DateBase() { }
 
             public void BanPlayer()
             {
                 Console.WriteLine("Введите номер пользователя, которого хотите забанить");
-                string id = Console.ReadLine();
-                int.TryParse(id, out int inputId);
 
-                if (TryGetPlayer(inputId))
-                    _listPlayer[inputId - 1].SetBan();
+                if (TryGetPlayer(out Player player))
+                    player.SetBan();
                 else
                     Console.WriteLine("нельзя");
             }
@@ -69,12 +67,9 @@ namespace HomeWork_30
             public void UnBanPlayer()
             {
                 Console.WriteLine("Введите номер пользователя, которого хотите разбанить");
-                string id = Console.ReadLine();
 
-                int.TryParse(id, out int inputId);
-
-                if (TryGetPlayer(inputId))
-                    _listPlayer[inputId - 1].UnBan();
+                if (TryGetPlayer(out Player player))
+                    player.UnBan();
                 else
                     Console.WriteLine("нельзя");
             }
@@ -92,19 +87,16 @@ namespace HomeWork_30
                 string level = Console.ReadLine();
                 int.TryParse(level, out int inputLevel);
 
-                _listPlayer.Add(new Player(id, name, inputLevel));
+                _player.Add(new Player(id, name, inputLevel));
 
             }
 
             public void RemovePlayer()
             {
                 Console.WriteLine("Введите номер человека, которого хотите удалить");
-                string id = Console.ReadLine();
 
-                int.TryParse(id, out int inputId);
-
-                if(TryGetPlayer(inputId))
-                    _listPlayer.RemoveAt(inputId - 1);
+                if (TryGetPlayer(out Player player))
+                    _player.Remove(player);
                 else
                     Console.WriteLine("нельзя");
             }
@@ -112,19 +104,24 @@ namespace HomeWork_30
             public void ShowInfo()
             {
                 int id = 0;
-                foreach (Player player in _listPlayer)
+                foreach (Player player in _player)
                 {
                     Console.WriteLine(id + 1 + " " + player);
                     id++;
                 }
             }
 
-            private bool TryGetPlayer(int id)
+            private bool TryGetPlayer(out Player player)
             {
-                if (id >= 1 && id <= _listPlayer.Count)
+                string id = Console.ReadLine();
+
+                int.TryParse(id, out int inputId);
+
+                if (inputId >= 1 && inputId <= _player.Count)
+                {
+                    player = _player[inputId];
                     return true;
-                else
-                    return false;
+                }
             }
         }
 
@@ -135,7 +132,7 @@ namespace HomeWork_30
             public int Level { get; private set; }
             public bool IsBaned { get; private set; }
 
-            public Player( int id, string name, int level)
+            public Player(int id, string name, int level)
             {
                 Name = name;
                 Id = id;
