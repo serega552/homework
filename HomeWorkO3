@@ -7,14 +7,15 @@ namespace HomeWork_30
     {
         static void Main(string[] args)
         {
-            WorkProgram();
-        }
-
-        static void WorkProgram()
-        {
-            DateBase dateBase = new DateBase();
+            Datebase dateBase = new Datebase();
 
             bool isWork = true;
+            const string OneCommand = "1";
+            const string TwoCommand = "2";
+            const string ThreeCommand = "3";
+            const string FourCommand = "4";
+            const string FiveCommand = "5";
+            const string SixCommand = "6";
 
             while (isWork)
             {
@@ -23,22 +24,22 @@ namespace HomeWork_30
 
                 switch (userInput)
                 {
-                    case "1":
+                    case OneCommand:
                         dateBase.AddPlayer();
                         break;
-                    case "2":
+                    case TwoCommand:
                         dateBase.RemovePlayer();
                         break;
-                    case "3":
+                    case ThreeCommand:
                         dateBase.BanPlayer();
                         break;
-                    case "4":
+                    case FourCommand:
                         dateBase.UnBanPlayer();
                         break;
-                    case "5":
+                    case FiveCommand:
                         dateBase.ShowInfo();
                         break;
-                    case "6":
+                    case SixCommand:
                         isWork = false;
                         break;
                 }
@@ -47,18 +48,18 @@ namespace HomeWork_30
             }
         }
 
-        class DateBase
+        class Datebase
         {
             private List<Player> _player = new List<Player>();
 
-            public DateBase() { }
+            public Datebase() { }
 
             public void BanPlayer()
             {
                 Console.WriteLine("Введите номер пользователя, которого хотите забанить");
 
                 if (TryGetPlayer(out Player player))
-                    player.SetBan();
+                    player.Ban();
                 else
                     Console.WriteLine("нельзя");
             }
@@ -142,9 +143,7 @@ namespace HomeWork_30
                 IsBaned = false;
             }
 
-            public Player() { }
-
-            public void SetBan()
+            public void Ban()
             {
                 IsBaned = true;
             }
