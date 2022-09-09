@@ -1,0 +1,133 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Deсk deck = new Deсk();
+            Player player = new Player();
+
+            deck.AddCards();
+
+            while (true)
+            {                
+                player.GetCard();
+                deck.ShowInfo();
+
+                Console.ReadKey();
+            }
+        }
+
+        class Card
+        {
+            public string Suit { get;private set; }
+            public string JobTitle { get;private set; }
+
+            public Card (string suit, string jobTitle)
+            {
+                Suit = suit;
+                JobTitle = jobTitle;
+            }
+
+            public override string ToString()
+            {
+                return $"Масть: {Suit}    Должность: {JobTitle}";
+            }
+        }
+
+        class Deсk
+        {
+            private List<Card> _cards = new List<Card>();
+
+            public void AddCards()
+            {
+                _cards.Add(new Card ("Пики", "6"));
+                _cards.Add(new Card ("Пики", "7"));
+                _cards.Add(new Card ("Пики", "8"));
+                _cards.Add(new Card ("Пики", "9"));
+                _cards.Add(new Card ("Пики", "10"));
+                _cards.Add(new Card ("Пики", "Валет"));
+                _cards.Add(new Card ("Пики", "Дама"));
+                _cards.Add(new Card ("Пики", "Король"));
+                _cards.Add(new Card ("Пики", "Туз"));
+
+                _cards.Add(new Card ("Черви", "6"));
+                _cards.Add(new Card ("Черви", "7"));
+                _cards.Add(new Card ("Черви", "8"));
+                _cards.Add(new Card ("Черви", "9"));
+                _cards.Add(new Card ("Черви", "10"));
+                _cards.Add(new Card ("Черви", "Валет"));
+                _cards.Add(new Card ("Черви", "Дама"));
+                _cards.Add(new Card ("Черви", "Король"));
+                _cards.Add(new Card ("Черви", "Туз"));
+
+                _cards.Add(new Card ("Крест", "6"));
+                _cards.Add(new Card ("Крест", "7"));
+                _cards.Add(new Card ("Крест", "8"));
+                _cards.Add(new Card ("Крест", "9"));
+                _cards.Add(new Card ("Крест", "10"));
+                _cards.Add(new Card ("Крест", "Валет"));
+                _cards.Add(new Card ("Крест", "Дама"));
+                _cards.Add(new Card ("Крест", "Король"));
+                _cards.Add(new Card ("Крест", "Туз"));
+
+                _cards.Add(new Card ("Трефы", "6"));
+                _cards.Add(new Card ("Трефы", "7"));
+                _cards.Add(new Card ("Трефы", "8"));
+                _cards.Add(new Card ("Трефы", "9"));
+                _cards.Add(new Card ("Трефы", "10"));
+                _cards.Add(new Card ("Трефы", "Валет"));
+                _cards.Add(new Card ("Трефы", "Дама"));
+                _cards.Add(new Card ("Трефы", "Король"));
+                _cards.Add(new Card ("Трефы", "Туз"));
+            }
+
+            public void ShowInfo()
+            {
+                foreach (Card card in _cards)
+                {
+                    Console.WriteLine(card);
+                }
+
+                Console.WriteLine("Карт в колоде: " + _cards.Count);
+            }
+
+            public bool TryGetCard(out Card card)
+            {
+                Random random = new Random();
+                card = null;
+
+                int randomIndex = random.Next(0, _cards.Count);
+
+                card = _cards[randomIndex];
+                _cards.RemoveAt(randomIndex);
+                return true;
+            }
+        }
+
+        class Player
+        {
+            private List<Card> _cardsPlayer = new List<Card>();
+
+            public void GetCard()
+            {
+                Deсk deck = new Deсk();
+
+                deck.TryGetCard(out Card card);
+
+                _cardsPlayer.Add(card);
+            }
+
+            public void ShowInfo()
+            {
+                foreach (Card card in _cardsPlayer)
+                {
+                    Console.WriteLine(card);
+                }
+            }
+        }
+    }
+}
