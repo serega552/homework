@@ -7,7 +7,7 @@ namespace HomeWork_30
     {
         static void Main(string[] args)
         {
-            Database dateBase = new Database();
+            Database database = new Database();
 
             const string AddCommand = "1";
             const string RemoveCommand = "2";
@@ -25,19 +25,19 @@ namespace HomeWork_30
                 switch (userInput)
                 {
                     case AddCommand:
-                        dateBase.AddPlayer();
+                        database.AddPlayer();
                         break;
                     case RemoveCommand:
-                        dateBase.RemovePlayer();
+                        database.RemovePlayer();
                         break;
                     case BanCommand:
-                        dateBase.BanPlayer();
+                        database.BanPlayer();
                         break;
                     case UnBanCommand:
-                        dateBase.UnBanPlayer();
+                        database.UnBanPlayer();
                         break;
                     case ShowInfoCommand:
-                        dateBase.ShowInfo();
+                        database.ShowInfo();
                         break;
                     case ExitCommand:
                         isWork = false;
