@@ -7,15 +7,15 @@ namespace HomeWork_30
     {
         static void Main(string[] args)
         {
-            Datebase dateBase = new Datebase();
+            Database dateBase = new Database();
 
+            const string AddCommand = "1";
+            const string RemoveCommand = "2";
+            const string BanCommand = "3";
+            const string UnBanCommand = "4";
+            const string ShowInfoCommand = "5";
+            const string ExitCommand = "6";
             bool isWork = true;
-            const string OneCommand = "1";
-            const string TwoCommand = "2";
-            const string ThreeCommand = "3";
-            const string FourCommand = "4";
-            const string FiveCommand = "5";
-            const string SixCommand = "6";
 
             while (isWork)
             {
@@ -24,22 +24,22 @@ namespace HomeWork_30
 
                 switch (userInput)
                 {
-                    case OneCommand:
+                    case AddCommand:
                         dateBase.AddPlayer();
                         break;
-                    case TwoCommand:
+                    case RemoveCommand:
                         dateBase.RemovePlayer();
                         break;
-                    case ThreeCommand:
+                    case BanCommand:
                         dateBase.BanPlayer();
                         break;
-                    case FourCommand:
+                    case UnBanCommand:
                         dateBase.UnBanPlayer();
                         break;
-                    case FiveCommand:
+                    case ShowInfoCommand:
                         dateBase.ShowInfo();
                         break;
-                    case SixCommand:
+                    case ExitCommand:
                         isWork = false;
                         break;
                 }
@@ -48,12 +48,10 @@ namespace HomeWork_30
             }
         }
 
-        class Datebase
+        class Database
         {
             private List<Player> _player = new List<Player>();
-
-            public Datebase() { }
-
+                
             public void BanPlayer()
             {
                 Console.WriteLine("Введите номер пользователя, которого хотите забанить");
@@ -130,15 +128,15 @@ namespace HomeWork_30
         class Player
         {
             public int Id { get; private set; }
-            public static int Ids { get; private set; }
             public string Name { get; private set; }
             public int Level { get; private set; }
             public bool IsBaned { get; private set; }
+            private static int _ids;
 
             public Player( string name, int level)
             {
                 Name = name;
-                Id = ++Ids;
+                Id = ++_ids;
                 Level = level;
                 IsBaned = false;
             }
