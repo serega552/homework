@@ -7,17 +7,31 @@ namespace HomeWork_30
     {
         static void Main(string[] args)
         {
-            Deсk deck = new Deсk();
+            const string TakeCardCommand = "1";
+            const string ExitCommand = "2";
+
+            Deck deck = new Deck();
             Player player = new Player();
+
+            bool isWork = true;
 
             deck.AddCards();
 
-            while (true)
-            {                
-                player.GetCard();
-                deck.ShowInfo();
+            while (isWork)
+            {
+                Console.WriteLine($"{TakeCardCommand} - взять карту\n{ExitCommand} - выйти");
+                string userInput = Console.ReadLine();
 
-                Console.ReadKey();
+                switch (userInput)
+                {
+                    case TakeCardCommand:
+                        player.GetCard(deck);
+                        break;
+
+                    case ExitCommand:
+                        isWork = false;
+                        break;
+                }
             }
         }
 
@@ -38,7 +52,7 @@ namespace HomeWork_30
             }
         }
 
-        class Deсk
+        class Deck
         {
             private List<Card> _cards = new List<Card>();
 
@@ -95,35 +109,50 @@ namespace HomeWork_30
                 Console.WriteLine("Карт в колоде: " + _cards.Count);
             }
 
+            public void RemoveCard( Card card)
+            {
+                _cards.Remove(card);
+            }
+
             public bool TryGetCard(out Card card)
             {
                 Random random = new Random();
-                card = null;
 
                 int randomIndex = random.Next(0, _cards.Count);
 
-                card = _cards[randomIndex];
-                _cards.RemoveAt(randomIndex);
-                return true;
+                if (randomIndex > 0)
+                {
+                    card = _cards[randomIndex];
+
+                    _cards.Remove(card);
+
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Вы забрали все карты...");
+                    card = null;
+                    return false;
+                }
             }
         }
 
         class Player
         {
-            private List<Card> _cardsPlayer = new List<Card>();
+            private List<Card> _playerCard = new List<Card>(); 
 
-            public void GetCard()
+            public void GetCard(Deck deck)
             {
-                Deсk deck = new Deсk();
-
-                deck.TryGetCard(out Card card);
-
-                _cardsPlayer.Add(card);
+                if(deck.TryGetCard(out Card card))
+                {
+                    _playerCard.Add(card);
+                    ShowInfo();
+                }
             }
 
             public void ShowInfo()
             {
-                foreach (Card card in _cardsPlayer)
+                foreach (Card card in _playerCard)
                 {
                     Console.WriteLine(card);
                 }
