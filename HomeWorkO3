@@ -7,19 +7,21 @@ namespace HomeWork_30
     {
         static void Main(string[] args)
         {
-            Database database = new Database();
-
             const string AddCommand = "1";
             const string RemoveCommand = "2";
             const string BanCommand = "3";
             const string UnBanCommand = "4";
             const string ShowInfoCommand = "5";
             const string ExitCommand = "6";
+
+            Database database = new Database();
+
             bool isWork = true;
 
             while (isWork)
             {
-                Console.WriteLine("1 - добавить\n2 - удалить\n3 - забанить\n4 - разбанить\n5 - показать\n6 - выйти");
+                Console.WriteLine($"{AddCommand} - добавить\n{RemoveCommand} - удалить\n{BanCommand} - забанить\n" +
+                    $"{UnBanCommand} - разбанить\n{ShowInfoCommand} - показать\n{ExitCommand} - выйти");
                 string userInput = Console.ReadLine();
 
                 switch (userInput)
@@ -47,114 +49,111 @@ namespace HomeWork_30
                 Console.Clear();
             }
         }
+    }
+    class Database
+    {
+        private List<Player> _players = new List<Player>();
 
-        class Database
+        public void BanPlayer()
         {
-            private List<Player> _player = new List<Player>();
-                
-            public void BanPlayer()
+            Console.WriteLine("Введите номер пользователя, которого хотите забанить");
+
+            if (TryGetPlayer(out Player player))
+                player.Ban();
+            else
+                Console.WriteLine("нельзя");
+        }
+
+        public void UnBanPlayer()
+        {
+            Console.WriteLine("Введите номер пользователя, которого хотите разбанить");
+
+            if (TryGetPlayer(out Player player))
+                player.UnBan();
+            else
+                Console.WriteLine("нельзя");
+        }
+
+        public void AddPlayer()
+        {
+            Console.Write("Введите имя: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Введите уровень: ");
+            string level = Console.ReadLine();
+            int.TryParse(level, out int inputLevel);
+
+            _players.Add(new Player(name, inputLevel));
+        }
+
+        public void RemovePlayer()
+        {
+            Console.WriteLine("Введите номер человека, которого хотите удалить");
+
+            if (TryGetPlayer(out Player player))
+                _players.Remove(player);
+            else
+                Console.WriteLine("нельзя");
+        }
+
+        public void ShowInfo()
+        {
+            int id = 0;
+            foreach (Player player in _players)
             {
-                Console.WriteLine("Введите номер пользователя, которого хотите забанить");
-
-                if (TryGetPlayer(out Player player))
-                    player.Ban();
-                else
-                    Console.WriteLine("нельзя");
-            }
-
-            public void UnBanPlayer()
-            {
-                Console.WriteLine("Введите номер пользователя, которого хотите разбанить");
-
-                if (TryGetPlayer(out Player player))
-                    player.UnBan();
-                else
-                    Console.WriteLine("нельзя");
-            }
-
-            public void AddPlayer()
-            {
-                Random random = new Random();
-
-                Console.Write("Введите имя: ");
-                string name = Console.ReadLine();
-
-                Console.Write("Введите уровень: ");
-                string level = Console.ReadLine();
-                int.TryParse(level, out int inputLevel);
-
-                _player.Add(new Player( name, inputLevel));
-            }
-
-            public void RemovePlayer()
-            {
-                Console.WriteLine("Введите номер человека, которого хотите удалить");
-
-                if (TryGetPlayer(out Player player))
-                    _player.Remove(player);
-                else
-                    Console.WriteLine("нельзя");
-            }
-
-            public void ShowInfo()
-            {
-                int id = 0;
-                foreach (Player player in _player)
-                {
-                    Console.WriteLine(id + 1 + " " + player);
-                    id++;
-                }
-            }
-
-            private bool TryGetPlayer(out Player player)
-            {
-                player = null;
-                string id = Console.ReadLine();
-
-                int.TryParse(id, out int inputId);
-
-                if (inputId >= 1 && inputId <= _player.Count)
-                {
-                    player = _player[inputId - 1];
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }      
+                Console.WriteLine(id + 1 + " " + player);
+                id++;
             }
         }
 
-        class Player
+        private bool TryGetPlayer(out Player player)
         {
-            public int Id { get; private set; }
-            public string Name { get; private set; }
-            public int Level { get; private set; }
-            public bool IsBaned { get; private set; }
-            private static int _ids;
+            player = null;
+            string id = Console.ReadLine();
 
-            public Player( string name, int level)
-            {
-                Name = name;
-                Id = ++_ids;
-                Level = level;
-                IsBaned = false;
-            }
+            int.TryParse(id, out int inputId);
 
-            public void Ban()
+            if (inputId >= 1 && inputId <= _players.Count)
             {
-                IsBaned = true;
+                player = _players[inputId - 1];
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
+    }
 
-            public void UnBan()
-            {
-                IsBaned = false;
-            }
+    class Player
+    {
+        private static int _ids;
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public int Level { get; private set; }
+        public bool IsBaned { get; private set; }
 
-            public override string ToString()
-            {
-                return "ID: " + Id + "   Name: " + Name + "   Level: " + Level + "   Flag: " + IsBaned;
-            }
+        public Player(string name, int level)
+        {
+            Name = name;
+            Id = ++_ids;
+            Level = level;
+            IsBaned = false;
+        }
+
+        public void Ban()
+        {
+            IsBaned = true;
+        }
+
+        public void UnBan()
+        {
+            IsBaned = false;
+        }
+
+        public override string ToString()
+        {
+            return "ID: " + Id + "   Name: " + Name + "   Level: " + Level + "   Flag: " + IsBaned;
         }
     }
 }
