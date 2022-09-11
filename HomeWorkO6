@@ -25,7 +25,7 @@ namespace HomeWork_30
                 switch (userInput)
                 {
                     case BuyCommand:
-
+                        player.BuyProduct(salesman);
                         break;
 
                     case ShowProduct:
@@ -40,6 +40,9 @@ namespace HomeWork_30
                         isWork = false;
                         break;
                 }
+
+                Console.ReadKey();
+                Console.Clear();
             }
         }
     }
@@ -47,8 +50,8 @@ namespace HomeWork_30
     class Person
     {
         protected List<Product> Inventory = new List<Product>();
-        public string Name { get;private set; }
-        public int Balance { get;private set; }
+        public string Name { get; protected set; }
+        public int Balance { get; protected set; }
 
         public Person(string name, int balance)
         {
@@ -58,21 +61,21 @@ namespace HomeWork_30
 
         public void ShowInventory()
         {
-            for (int i = 0;i < Inventory.Count;i++)
+            for (int i = 0; i < Inventory.Count; i++)
             {
-                Console.WriteLine($"{Inventory[i].Name}   {Inventory[i].Price}");
+                Console.WriteLine($"id: {i + 1} {Inventory[i].Name}   {Inventory[i].Price}");
             }
+
+            Console.WriteLine("Баланс: " + Balance);
         }
     }
 
     class Salesman : Person
     {
-        public Salesman(string name, int balanse) : base(name, balanse) 
+        public Salesman(string name, int balanse) : base(name, balanse)
         {
             Inventory = new List<Product>() { new Product("Арбуз", 400), new Product("Дыня", 300), new Product("Конфеты", 1), new Product("Чай", 5) };
         }
-
-        BuyPro
 
         public bool TryGetProduct(out Product product)
         {
@@ -80,14 +83,18 @@ namespace HomeWork_30
 
             int.TryParse(userInput, out int productId);
 
-            if(productId >= 0 && productId <= Inventory.Count )
+            if (productId >= 1 && productId <= Inventory.Count)
             {
-                product = Inventory[productId];
+                product = Inventory[productId - 1];
+
+                Balance += product.Price;
+
+                Inventory.RemoveAt(productId - 1);
                 return true;
             }
             else
             {
-                product=null;
+                product = null;
                 return false;
             }
         }
@@ -96,8 +103,24 @@ namespace HomeWork_30
     class Player : Person
     {
         public Player(string name, int balanse) : base(name, balanse) { }
-    }
 
+        public void BuyProduct(Salesman salesman)
+        {
+            salesman.ShowInventory();
+
+            if (salesman.TryGetProduct(out Product product) && Balance >= product.Price)
+            {
+                Inventory.Add(product);
+
+                Balance -= product.Price;
+            }
+
+            else
+            {
+                Console.WriteLine("Нужно больше золота");
+            }
+        }
+    }
 
     class Product
     {
@@ -107,7 +130,7 @@ namespace HomeWork_30
         public Product(string name, int price)
         {
             Name = name;
-            Price = price; 
+            Price = price;
         }
     }
 }
