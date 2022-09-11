@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            const string BuyCommand = "1";
+            const string ShowProduct = "2";
+            const string ShowBag = "3";
+            const string ExitCommand = "4";
+
+            Salesman salesman = new Salesman("Billy", 100);
+            Player player = new Player("Van", 500);
+
+            bool isWork = true;
+
+            while (isWork)
+            {
+                Console.WriteLine($"{BuyCommand} - купить\n{ShowProduct} - посмотреть товары\n{ShowBag} - инвентарь\n{ExitCommand} - уйти");
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case BuyCommand:
+
+                        break;
+
+                    case ShowProduct:
+                        salesman.ShowInventory();
+                        break;
+
+                    case ShowBag:
+                        player.ShowInventory();
+                        break;
+
+                    case ExitCommand:
+                        isWork = false;
+                        break;
+                }
+            }
+        }
+    }
+
+    class Person
+    {
+        protected List<Product> Inventory = new List<Product>();
+        public string Name { get;private set; }
+        public int Balance { get;private set; }
+
+        public Person(string name, int balance)
+        {
+            Name = name;
+            Balance = balance;
+        }
+
+        public void ShowInventory()
+        {
+            for (int i = 0;i < Inventory.Count;i++)
+            {
+                Console.WriteLine($"{Inventory[i].Name}   {Inventory[i].Price}");
+            }
+        }
+    }
+
+    class Salesman : Person
+    {
+        public Salesman(string name, int balanse) : base(name, balanse) 
+        {
+            Inventory = new List<Product>() { new Product("Арбуз", 400), new Product("Дыня", 300), new Product("Конфеты", 1), new Product("Чай", 5) };
+        }
+
+        BuyPro
+
+        public bool TryGetProduct(out Product product)
+        {
+            string userInput = Console.ReadLine();
+
+            int.TryParse(userInput, out int productId);
+
+            if(productId >= 0 && productId <= Inventory.Count )
+            {
+                product = Inventory[productId];
+                return true;
+            }
+            else
+            {
+                product=null;
+                return false;
+            }
+        }
+    }
+
+    class Player : Person
+    {
+        public Player(string name, int balanse) : base(name, balanse) { }
+    }
+
+
+    class Product
+    {
+        public string Name { get; private set; }
+        public int Price { get; private set; }
+
+        public Product(string name, int price)
+        {
+            Name = name;
+            Price = price; 
+        }
+    }
+}
