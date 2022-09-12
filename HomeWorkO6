@@ -77,6 +77,12 @@ namespace HomeWork_30
             Inventory = new List<Product>() { new Product("Арбуз", 400), new Product("Дыня", 300), new Product("Конфеты", 1), new Product("Чай", 5) };
         }
 
+        public void SellProduct(Product product)
+        {
+            Balance += product.Price;
+            Inventory.Remove(product);
+        }
+
         public bool TryGetProduct(out Product product)
         {
             string userInput = Console.ReadLine();
@@ -86,10 +92,6 @@ namespace HomeWork_30
             if (productId >= 1 && productId <= Inventory.Count)
             {
                 product = Inventory[productId - 1];
-
-                Balance += product.Price;
-
-                Inventory.RemoveAt(productId - 1);
                 return true;
             }
             else
@@ -110,11 +112,12 @@ namespace HomeWork_30
 
             if (salesman.TryGetProduct(out Product product) && Balance >= product.Price)
             {
+                salesman.SellProduct(product);
+
                 Inventory.Add(product);
 
                 Balance -= product.Price;
             }
-
             else
             {
                 Console.WriteLine("Нужно больше золота");
