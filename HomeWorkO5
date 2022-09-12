@@ -1,0 +1,136 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            const string AddCommand = "1";
+            const string RemoveCommand = "2";
+            const string ShowCommand = "3";
+            const string SearchCommand = "4";
+            const string ExitProgram = "5";
+
+            BookStorage bookStorage = new BookStorage();
+
+            bool isWork = true;
+
+            while (isWork)
+            {
+                Console.WriteLine($"{AddCommand} - добавить\n{RemoveCommand} - удалить\n{ShowCommand} - показать\n{SearchCommand} - найти\n{ExitProgram} - выйти");
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case AddCommand:
+                        bookStorage.AddBook();
+                        break;
+
+                    case RemoveCommand:
+                        bookStorage.RemoveBook();
+                        break;
+
+                    case ShowCommand:
+                        bookStorage.ShowInfo();
+                        break;
+
+                    case SearchCommand:
+                        bookStorage.SerchBook();
+                        break;
+
+                    case ExitProgram:
+                        isWork = false;
+                        break;
+                }
+
+                Console.ReadLine();
+                Console.Clear();
+            }
+        }
+    }
+
+    class BookStorage
+    {
+        private List<Book> _books = new List<Book>();
+
+        public void AddBook()
+        {
+            Console.Write("Название : ");
+            string name = Console.ReadLine();
+
+            Console.Write("Автор: ");
+            string author = Console.ReadLine();
+
+            Console.Write("Год: ");
+            string year = Console.ReadLine();
+
+            int.TryParse(year, out int inputYear);
+
+            _books.Add(new Book(name, author, inputYear));
+        }
+
+        public void RemoveBook()
+        {
+            ShowInfo();
+            Console.Write("Введите id книги: ");
+            TryGetBook(out Book book);
+            _books.Remove(book);
+        }
+
+        public void SerchBook()
+        {
+            Console.WriteLine("Введите название книги: ");
+            string userInput = Console.ReadLine();
+
+            for (int i = 0; i < _books.Count; i++)
+            {
+                if(userInput == _books[i].Name)
+                {
+                    Console.WriteLine("Id книги: " + (i + 1));
+                }
+            }
+        }
+
+        public void ShowInfo()
+        {
+            for (int i = 0; i < _books.Count; i++)
+            {
+                Console.WriteLine($"ID:  {i + 1}     {_books[i].Name}     {_books[i].Author}     {_books[i].Year}");
+            }
+        }
+
+        public bool TryGetBook(out Book book)
+        {
+            string id = Console.ReadLine();
+
+            int.TryParse(id, out int inputId);
+
+            if(inputId >= 1 && inputId <= _books.Count)
+            {
+                book = _books[inputId - 1];
+                return true;
+            }
+            else
+            {
+                book = null;
+                return false;
+            }
+        }
+    }
+
+    class Book
+    { 
+        public string Name { get;private set; }
+        public string Author { get;private set; }
+        public int Year { get;private set; }
+        
+        public Book(string name, string author, int year)
+        {
+            Name = name;
+            Author = author;    
+            Year = year;    
+        }
+    }
+}
