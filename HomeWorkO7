@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool isWork = true;
+
+            while (isWork)
+            {
+                Console.WriteLine("Выберите направление поезда: ");
+                
+            }
+        }
+    }
+
+    class Plan
+    {
+        private List<Train> _trains = new List<Train>();
+        
+        public void Directions()
+        {
+            string
+        }
+    }
+
+    class Train
+    {
+        public int Wagon { get;private set; }
+        public int Passenger { get;private set; }
+        public string Direction { get; private set; }
+
+        public Train (int wagon, int passenger, string direction)
+        {
+            Wagon = wagon;
+            Passenger = passenger;
+            Direction = direction;
+        }
+
+        public Train() { }
+    }
+}
