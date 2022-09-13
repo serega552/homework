@@ -81,12 +81,67 @@ namespace HomeWork_30
 
         public void SerchBook()
         {
+            const string NameCommand = "1";
+            const string AuthorCommand = "2";
+            const string YearCommand = "3";
+
+            Console.WriteLine($"Искать:\n{NameCommand} - по названию\n{AuthorCommand} - по автору\n{YearCommand} - по году");  
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case NameCommand:
+                    NameSearch();
+                    break;
+
+                case AuthorCommand:
+                    AuthorSearch();
+                    break;
+
+                case YearCommand:
+                    YearSearch();
+                    break;
+            }
+        }
+
+        public void NameSearch()
+        {
             Console.WriteLine("Введите название книги: ");
             string userInput = Console.ReadLine();
 
             for (int i = 0; i < _books.Count; i++)
             {
-                if(userInput == _books[i].Name)
+                if (userInput == _books[i].Name)
+                {
+                    Console.WriteLine("Id книги: " + (i + 1));
+                }
+            }
+        }
+
+        public void AuthorSearch()
+        {
+            Console.WriteLine("Введите автора книги: ");
+            string userInput = Console.ReadLine();
+
+            for (int i = 0; i < _books.Count; i++)
+            {
+                if (userInput == _books[i].Author)
+                {
+                    Console.WriteLine("Id книги: " + (i + 1));
+                }
+            }
+        }
+
+        public void YearSearch()
+        {
+            Console.WriteLine("Введите год книги: ");
+            string userInput = Console.ReadLine();
+
+            int.TryParse(userInput, out int year);
+
+            for (int i = 0; i < _books.Count; i++)
+            {
+                if (year == _books[i].Year)
                 {
                     Console.WriteLine("Id книги: " + (i + 1));
                 }
@@ -107,7 +162,7 @@ namespace HomeWork_30
 
             int.TryParse(id, out int inputId);
 
-            if(inputId >= 1 && inputId <= _books.Count)
+            if (inputId >= 1 && inputId <= _books.Count)
             {
                 book = _books[inputId - 1];
                 return true;
@@ -121,16 +176,16 @@ namespace HomeWork_30
     }
 
     class Book
-    { 
-        public string Name { get;private set; }
-        public string Author { get;private set; }
-        public int Year { get;private set; }
-        
+    {
+        public string Name { get; private set; }
+        public string Author { get; private set; }
+        public int Year { get; private set; }
+
         public Book(string name, string author, int year)
         {
             Name = name;
-            Author = author;    
-            Year = year;    
+            Author = author;
+            Year = year;
         }
     }
 }
