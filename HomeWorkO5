@@ -85,26 +85,26 @@ namespace HomeWork_30
             const string AuthorCommand = "2";
             const string YearCommand = "3";
 
-            Console.WriteLine($"Искать:\n{NameCommand} - по названию\n{AuthorCommand} - по автору\n{YearCommand} - по году");  
+            Console.WriteLine($"Искать:\n{NameCommand} - по названию\n{AuthorCommand} - по автору\n{YearCommand} - по году");
             string userInput = Console.ReadLine();
 
             switch (userInput)
             {
                 case NameCommand:
-                    NameSearch();
+                    UseNameFilter();
                     break;
 
                 case AuthorCommand:
-                    AuthorSearch();
+                    UseAuthorFilter();
                     break;
 
                 case YearCommand:
-                    YearSearch();
+                    UseYearFilter();
                     break;
             }
         }
 
-        public void NameSearch()
+        private void UseNameFilter()
         {
             Console.WriteLine("Введите название книги: ");
             string userInput = Console.ReadLine();
@@ -118,7 +118,7 @@ namespace HomeWork_30
             }
         }
 
-        public void AuthorSearch()
+        private void UseAuthorFilter()
         {
             Console.WriteLine("Введите автора книги: ");
             string userInput = Console.ReadLine();
@@ -132,7 +132,7 @@ namespace HomeWork_30
             }
         }
 
-        public void YearSearch()
+        private void UseYearFilter()
         {
             Console.WriteLine("Введите год книги: ");
             string userInput = Console.ReadLine();
