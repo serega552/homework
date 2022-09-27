@@ -104,6 +104,32 @@ namespace HomeWork_30
             }
         }
 
+
+        public void ShowInfo()
+        {
+            for (int i = 0; i < _books.Count; i++)
+            {
+                Console.WriteLine($"ID:  {i + 1}     {_books[i].Name}     {_books[i].Author}     {_books[i].Year}");
+            }
+        }
+
+        public bool TryGetBook(out Book book)
+        {
+            string id = Console.ReadLine();
+
+            int.TryParse(id, out int inputId);
+
+            if (inputId >= 1 && inputId <= _books.Count)
+            {
+                book = _books[inputId - 1];
+                return true;
+            }
+            else
+            {
+                book = null;
+                return false;
+            }
+        }
         private void UseNameFilter()
         {
             Console.WriteLine("Введите название книги: ");
@@ -145,32 +171,6 @@ namespace HomeWork_30
                 {
                     Console.WriteLine("Id книги: " + (i + 1));
                 }
-            }
-        }
-
-        public void ShowInfo()
-        {
-            for (int i = 0; i < _books.Count; i++)
-            {
-                Console.WriteLine($"ID:  {i + 1}     {_books[i].Name}     {_books[i].Author}     {_books[i].Year}");
-            }
-        }
-
-        public bool TryGetBook(out Book book)
-        {
-            string id = Console.ReadLine();
-
-            int.TryParse(id, out int inputId);
-
-            if (inputId >= 1 && inputId <= _books.Count)
-            {
-                book = _books[inputId - 1];
-                return true;
-            }
-            else
-            {
-                book = null;
-                return false;
             }
         }
     }
