@@ -1,0 +1,196 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Player player = new Player();
+            Battle battle = new Battle();
+
+            battle.AddFighter();
+            battle.ShowFighters();
+
+            battle.GoingOnBattle();
+        }
+
+        class Arena
+        {
+
+        }
+
+        class Battle
+        {
+            Player player = new Player();
+            private List<Player> _fighters = new List<Player>();
+
+            public void GoingOnBattle()
+            {
+                Player player = new Player();
+
+                int RoundCounter = 1;
+                bool isWork = true;
+
+                while (isWork)
+                {
+                    Console.Write("Вы:        ");
+                    if (TryGetFighter(out player))
+                        Console.WriteLine(player);
+
+                    Console.Write("Противник: ");
+                    if (TryGetFighter(out player))
+                        Console.WriteLine(player);
+
+                    Console.WriteLine("Первым атакуете вы");
+                }
+            }
+
+            public bool TryGetFighter(out Player player)
+            {
+                player = null;
+                string id = Console.ReadLine();
+
+                int.TryParse(id, out int inputId);
+
+                if (inputId > 0 && inputId <= _fighters.Count)
+                {
+                    player = _fighters[inputId - 1];
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public void AddFighter()
+            {
+                _fighters.Add(new Thief("Вор", 300, 50, 10, false));
+                _fighters.Add(new Warrior("Воин", 500, 150, 30, true));
+                _fighters.Add(new Magician("Маг", 300, 50, 5, true));
+                _fighters.Add(new Nomad("Кочевник", 400, 110, 1, true));
+                _fighters.Add(new Medic("Медик", 470, 50, 25, false));
+            }
+
+            public void ShowFighters()
+            {
+                for (int i = 0; i < _fighters.Count; i++)
+                {
+                    _fighters[i].ShowInfo();
+                }
+            }
+        }
+
+        class Player
+        {
+            public string Name { get; private set; }
+            public int Health { get; private set; }
+            public int Damage { get; private set; }
+            public int Armor { get; private set; }
+            public bool IsWeapon { get; private set; }
+            private int _handDamage = 50;
+
+            public Player(string name, int health, int damage, int armor, bool isWeapon)
+            {
+                Name = name;
+                Health = health;
+                Damage = damage;
+                Armor = armor;
+                IsWeapon = isWeapon;
+            }
+
+            public Player() { }
+
+            public void TakeDamage(int damage, bool isWeapon)
+            {
+                if (isWeapon == true)
+                    Health -= damage - Armor;
+                else
+                    Health -= _handDamage - Armor;
+            }
+
+            public void ShowInfo()
+            {
+                Console.WriteLine($"Класс: {Name}   Хп: {Health}   Урон: {Damage}   Броня: {Armor}   Оружие: {IsWeapon}");
+            }
+        }
+
+        class Thief : Player
+        {
+            public Thief(string name, int health, int damage, int armor, bool isWeapon) : base(name, health, damage, armor, isWeapon) { }
+
+            public void PickUpWeapon()
+            {
+
+            }
+
+            public void PoisonEnemy()
+            {
+
+            }
+        }
+
+        class Warrior : Player
+        {
+
+            public Warrior(string name, int health, int damage, int armor, bool isWeapon) : base(name, health, damage, armor, isWeapon) { }
+
+            public void BlockBlow()
+            {
+
+            }
+
+            public void UseComboHits()
+            {
+
+            }
+        }
+
+        class Magician : Player
+        {
+            public Magician(string name, int health, int damage, int armor, bool isWeapon) : base(name, health, damage, armor, isWeapon) { }
+
+            public void UseFireball()
+            {
+
+            }
+
+            public void UseFreeze()
+            {
+
+            }
+        }
+
+        class Nomad : Player
+        {
+            public Nomad(string name, int health, int damage, int armor, bool isWeapon) : base(name, health, damage, armor, isWeapon) { }
+
+            public void StunEnemy()
+            {
+
+            }
+
+            public void BreakLeg()
+            {
+
+            }
+        }
+
+        class Medic : Player
+        {
+            public Medic(string name, int health, int damage, int armor, bool isWeapon) : base(name, health, damage, armor, isWeapon) { }
+
+            public void StealHealth()
+            {
+
+            }
+
+            public void CutOffHand()
+            {
+
+            }
+        }
+    }
+}
