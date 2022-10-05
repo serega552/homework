@@ -17,19 +17,18 @@ namespace HomeWork_30
         class Arena
         {
             private List<Fighter> _fighters = new List<Fighter>();
-            private Fighter _fighter1;
-            private Fighter _fighter2;
-
+            public Fighter _fighter1 { get;private set; }
+            public Fighter _fighter2 { get; private set; }
             public void Fight()
             {
                 if (_fighter1 == null || _fighter2 == null)
                     SelectFighters();
 
-                while(_fighter1.Health > 0 && _fighter2.Health > 0)
+                while (_fighter1.Health > 0 && _fighter2.Health > 0)
                 {
                     _fighter1.TakeDamage(_fighter2.Damage, _fighter2.IsWeapon);
                     Console.WriteLine($"2 {_fighter1.Health} ХП У {_fighter1.Name}");
-                    
+
                     _fighter2.TakeDamage(_fighter1.Damage, _fighter1.IsWeapon);
                     Console.WriteLine($"1 {_fighter2.Health} ХП У {_fighter2.Name}");
 
@@ -40,13 +39,9 @@ namespace HomeWork_30
 
                 if (_fighter2.Health <= 0)
                     Console.WriteLine("1й крутой");
-                    
 
                 if (_fighter1.Health <= 0)
                     Console.WriteLine("2й крутой");
-                
-
-                
 
                 Console.WriteLine(_fighter1.Health + " " + _fighter2.Health);
             }
@@ -56,11 +51,14 @@ namespace HomeWork_30
                 ShowFighters();
 
                 Console.WriteLine("1й боец: ");
-                if(SelectFighter(out _fighter1))
-                _fighter1.ShowInfo();
+                if (SelectFighter(out Fighter fighter))
+                    _fighter1 = fighter;
+                    _fighter1.ShowInfo();
+                
 
                 Console.WriteLine("2й боец: ");
-                if(SelectFighter(out _fighter2))
+                if (SelectFighter(out Fighter fighter2))
+                    _fighter2 = fighter2;
                     _fighter2.ShowInfo();
 
                 Console.ReadKey();
@@ -88,10 +86,10 @@ namespace HomeWork_30
             public void AddFighters()
             {
                 _fighters.Add(new Thief("Вор", 600, 50, "Украсть оружие", 10, false));
-                _fighters.Add(new Warrior("Воин", 1100, 150, "Блок", 30, true));
+                _fighters.Add(new Warrior("Воин", 1100, 120, "Блок", 0, true));
                 _fighters.Add(new Magician("Маг", 600, 50, "Заморозить", 5, true));
                 _fighters.Add(new Nomad("Кочевник", 800, 110, "Оглушить", 1, true));
-                _fighters.Add(new Medic("Медик", 900, 50, "Похитить здоровье", 25, false));
+                _fighters.Add(new Medic("Медик", 900, 50, "Похитить здоровье", 15, false));
             }
 
             private void ShowFighters()
@@ -113,7 +111,7 @@ namespace HomeWork_30
             public string SpecialAtackName { get; private set; }
             public int Armor { get; private set; }
             public bool IsWeapon { get; protected set; }
-            private int _handDamage = 50;
+            public int HandDamage { get; protected set; }
 
             public Fighter(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon)
             {
@@ -123,6 +121,7 @@ namespace HomeWork_30
                 SpecialAtackName = specialAtackName;
                 Armor = armor;
                 IsWeapon = isWeapon;
+                HandDamage = 50;
             }
 
             public Fighter() { }
@@ -132,7 +131,7 @@ namespace HomeWork_30
                 if (isWeapon == true)
                     Health -= damage - Armor;
                 else
-                    Health -= _handDamage - Armor;
+                    Health -= HandDamage - Armor;
             }
 
             public void ShowInfo()
@@ -140,26 +139,62 @@ namespace HomeWork_30
                 Console.WriteLine($"Класс: {Name}   Хп: {Health}   Урон: {Damage}   Броня: {Armor}   Оружие: {IsWeapon}   Навык: {SpecialAtackName}");
             }
 
-            public virtual void UseSpecialAtack(){  }
+            public void TakeWeapon()
+            {
+                IsWeapon = false;
+            }
+
+            public void GiveWeapon()
+            {
+                IsWeapon = true;
+            }
+
+            public virtual void UseSpecialAtack() { }
         }
 
         class Thief : Fighter
         {
             public Thief(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
 
+            Random random = new Random();
+            Fighter fighter = new Fighter();
+            Arena arena = new Arena();
+
             public override void UseSpecialAtack()
             {
+                int count = 0;
+                int maxPercent = 50;
+                int randomNumber = random.Next(0, 100);
+
+                if(randomNumber <= maxPercent && randomNumber >= 0)
+                {
+                    count++;
+
+                    fighter.GiveWeapon();
+
+                    Console.WriteLine(arena._fighter1.Name );
+
+                    Console.WriteLine("Вор украл оружие");
+                }
             }
         }
 
         class Warrior : Fighter
         {
-
             public Warrior(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
 
-            public void BlockBlow()
+            static Random random = new Random();
+
+            public override void UseSpecialAtack()
             {
-              
+                int maxPercent = 10;
+                int randomNumber = random.Next(0, 100);
+
+                if (randomNumber <= maxPercent && randomNumber >= 0)
+                {
+                    Console.WriteLine("Воин блокировал удар");
+                    Health += HandDamage;
+                }
             }
         }
 
@@ -167,9 +202,9 @@ namespace HomeWork_30
         {
             public Magician(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
 
-            public void UseFreeze()
+            public override void UseSpecialAtack()
             {
-               
+
             }
         }
 
@@ -177,9 +212,9 @@ namespace HomeWork_30
         {
             public Nomad(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
 
-            public void StunEnemy()
+            public override void UseSpecialAtack()
             {
-                
+
             }
         }
 
@@ -187,25 +222,21 @@ namespace HomeWork_30
         {
             public Medic(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
 
+            static Random random = new Random();
+
             public override void UseSpecialAtack()
             {
-                Random random = new Random();
-
                 int MaxPercent = 10;
 
-                int countStealHealth = random.Next(1, 100);
+                int countStealHealth = random.Next(30, 100);
+                int randomNumber = random.Next(0, 100);
 
-                if (countStealHealth <= MaxPercent && countStealHealth >= 0)
+                if (randomNumber <= MaxPercent && randomNumber >= 0)
                 {
                     Health += countStealHealth;
 
                     Console.WriteLine($"{Name} поглотил {countStealHealth} здоровья");
-                    TakeDamage(countStealHealth, true);
-                }
-
-                else
-                {
-                    Console.WriteLine("проверка рандома" + countStealHealth);
+                    
                 }
             }
         }
