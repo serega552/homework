@@ -26,24 +26,14 @@ namespace HomeWork_30
 
                 while (_fighter1.Health > 0 && _fighter2.Health > 0)
                 {
-                    _fighter1.TakeDamage(_fighter2.Damage, _fighter2.IsWeapon);
-                    Console.WriteLine($"2 {_fighter1.Health} ХП У {_fighter1.Name}");
+                    Console.WriteLine($"{_fighter1.Health} ХП У {_fighter1.Name}");
+                    Console.WriteLine($"{_fighter2.Health} ХП У {_fighter2.Name}");
 
-                    _fighter2.TakeDamage(_fighter1.Damage, _fighter1.IsWeapon);
-                    Console.WriteLine($"1 {_fighter2.Health} ХП У {_fighter2.Name}");
-
-                    _fighter1.UseSpecialAtack();
-
-                    _fighter2.UseSpecialAtack();
+                    _fighter1.Attack(_fighter2);
+                    _fighter2.Attack(_fighter1);
                 }
 
-                if (_fighter2.Health <= 0)
-                    Console.WriteLine("1й крутой");
-
-                if (_fighter1.Health <= 0)
-                    Console.WriteLine("2й крутой");
-
-                Console.WriteLine(_fighter1.Health + " " + _fighter2.Health);
+                ShowWinners();
             }
 
             public void SelectFighters()
@@ -54,7 +44,6 @@ namespace HomeWork_30
                 if (SelectFighter(out Fighter fighter))
                 {
                     _fighter1 = fighter;
-                    _fighter1.Number = 1;
                     _fighter1.ShowInfo();
                 }
 
@@ -62,7 +51,6 @@ namespace HomeWork_30
                 if (SelectFighter(out Fighter fighter2))
                 {
                     _fighter2 = fighter2;
-                    _fighter1.Number = 2;
                     _fighter2.ShowInfo();
                 }
 
@@ -90,11 +78,11 @@ namespace HomeWork_30
 
             public void AddFighters()
             {
-                _fighters.Add(new Thief("Вор", 600, 50, "Украсть оружие", 10, false, 0));
-                _fighters.Add(new Warrior("Воин", 1100, 120, "Блок", 0, true, 0));
-                _fighters.Add(new Magician("Маг", 600, 50, "Заморозить", 5, true, 0));
-                _fighters.Add(new Nomad("Кочевник", 800, 110, "Оглушить", 1, true, 0));
-                _fighters.Add(new Medic("Медик", 900, 50, "Похитить здоровье", 15, false, 0));
+                _fighters.Add(new Thief("Вор", 600, 50, "Украсть оружие", 10, false));
+                _fighters.Add(new Warrior("Воин", 1100, 120, "Блок", 0, true));
+                _fighters.Add(new Magician("Маг", 600, 60, "Заморозить", 10, true));
+                _fighters.Add(new Nomad("Кочевник", 800, 110, "Крит", 1, true));
+                _fighters.Add(new Medic("Медик", 900, 50, "Похитить здоровье", 5, false));
             }
 
             private void ShowFighters()
@@ -106,6 +94,15 @@ namespace HomeWork_30
                 }
             }
 
+            private void ShowWinners()
+            {
+                if (_fighter1.Health <= 0 && _fighter2.Health <= 0)
+                    Console.WriteLine("ничья");
+                else if (_fighter2.Health <= 0)
+                    Console.WriteLine($"{_fighter1.Name} победил");
+                else
+                    Console.WriteLine($"{_fighter2.Name} победил");
+            }
         }
 
         class Fighter
@@ -117,9 +114,9 @@ namespace HomeWork_30
             public int Armor { get; private set; }
             public bool IsWeapon { get; protected set; }
             public int HandDamage { get; protected set; }
-            public int Number;
+            static Random random = new Random();
 
-            public Fighter(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon, int number)
+            public Fighter(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon)
             {
                 Name = name;
                 Health = health;
@@ -128,10 +125,15 @@ namespace HomeWork_30
                 Armor = armor;
                 IsWeapon = isWeapon;
                 HandDamage = 50;
-                Number = number;
             }
 
             public Fighter() { }
+
+            public void Attack(Fighter fighter)
+            {
+                fighter.TakeDamage(Damage, IsWeapon);
+                UseSpecialAtack(fighter);
+            }
 
             public void TakeDamage(int damage, bool isWeapon)
             {
@@ -152,96 +154,128 @@ namespace HomeWork_30
                 Damage = HandDamage;
             }
 
-            public void GiveWeapon(int damage)
+            public void GiveWeapon(int damage, bool isWeapon)
             {
-                IsWeapon = true;
-                Damage +=damage;
+                if (isWeapon == true)
+                {
+                    IsWeapon = true;
+                    Damage += damage - HandDamage;
+                }
             }
 
-            public virtual void UseSpecialAtack() { }
+            public void Freeze(bool isWeapon)
+            {
+                if (isWeapon == true)
+                {
+                    Damage = Damage / 2;
+                }
+            }
+
+            public virtual void UseSpecialAtack(Fighter fighter) { }
+
+            public int NumberRandom()
+            {
+                int randomNumber = random.Next(0, 100);
+                return randomNumber;
+            }
         }
 
         class Thief : Fighter
         {
-            public Thief(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon, int number) : base(name, health, damage, specialAtackName, armor, isWeapon, number) { }
+            private int _count;
 
-            Random random = new Random();
+            public Thief(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
 
-            public override void UseSpecialAtack()
+            public override void UseSpecialAtack(Fighter fighter)
             {
-                int maxPercent = 50;
-                int randomNumber = random.Next(0, 100);
+                int maxPercent = 40;
 
-                if (randomNumber <= maxPercent && randomNumber >= 0)
+                if (NumberRandom() <= maxPercent && NumberRandom() >= 0 && _count == 0)
                 {
-                    
-                    TakeWeapon(); //чтобы использовать эти два метода
-                    GiveWeapon();
-
-                        Console.WriteLine("Вор украл оружие");
+                    _count++;
+                    fighter.TakeWeapon();
+                    GiveWeapon(fighter.Damage, fighter.IsWeapon);
+                    Console.WriteLine("Вор украл оружие");
                 }
             }
         }
 
         class Warrior : Fighter
         {
-            public Warrior(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon, int number) : base(name, health, damage, specialAtackName, armor, isWeapon, number) { }
-            public Warrior() { } 
+            public Warrior(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
 
-            static Random random = new Random();
-
-            public override void UseSpecialAtack()
+            public override void UseSpecialAtack(Fighter fighter)
             {
                 int maxPercent = 10;
-                int randomNumber = random.Next(0, 100);
 
-                if (randomNumber <= maxPercent && randomNumber >= 0)
+                if (NumberRandom() <= maxPercent && NumberRandom() >= 0)
                 {
                     Console.WriteLine("Воин блокировал удар");
-                    Health += HandDamage;
+                    Health += fighter.Damage;
                 }
             }
         }
 
         class Magician : Fighter
         {
-            public Magician(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon, int number) : base(name, health, damage, specialAtackName, armor, isWeapon, number) { }
+            private int _count;
 
-            public override void UseSpecialAtack()
+            public Magician(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
+
+            public override void UseSpecialAtack(Fighter fighter)
             {
+                int maxPercent = 20;
 
+                if (NumberRandom() <= maxPercent && NumberRandom() >= 0 && _count <= 3)
+                {
+                    _count++;
+                    fighter.Freeze(fighter.IsWeapon);
+                    Console.WriteLine("Маг использовал заморозку");
+                }
             }
         }
 
         class Nomad : Fighter
         {
-            public Nomad(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon, int number) : base(name, health, damage, specialAtackName, armor, isWeapon, number) { }
+            private int _count;
 
-            public override void UseSpecialAtack()
+            public Nomad(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
+
+            public override void UseSpecialAtack(Fighter fighter)
             {
+                int maxPercent = 10;
 
+                if (NumberRandom() <= maxPercent && NumberRandom() >= 0 && _count <= 2 && IsWeapon == true)
+                {
+                    _count++;
+                    fighter.TakeDamage(60, IsWeapon);
+                    Console.WriteLine(Name + " ударил дубинкой по голове");
+
+                    if (_count == 2 && IsWeapon == true)
+                    {
+                        IsWeapon = false;
+                        Console.WriteLine($"У {Name} сломалась дубинка ):");
+                    }
+                }
             }
         }
 
         class Medic : Fighter
         {
-            public Medic(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon, int number) : base(name, health, damage, specialAtackName, armor, isWeapon, number) { }
+            Random random = new Random();
 
-            static Random random = new Random();
+            public Medic(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon) : base(name, health, damage, specialAtackName, armor, isWeapon) { }
 
-            public override void UseSpecialAtack()
+            public override void UseSpecialAtack(Fighter fighter)
             {
                 int MaxPercent = 10;
-
                 int countStealHealth = random.Next(30, 100);
-                int randomNumber = random.Next(0, 100);
 
-                if (randomNumber <= MaxPercent && randomNumber >= 0)
+                if (NumberRandom() <= MaxPercent && NumberRandom() >= 0)
                 {
                     Health += countStealHealth;
-
+                    fighter.TakeDamage(countStealHealth, true);
                     Console.WriteLine($"{Name} поглотил {countStealHealth} здоровья");
-
                 }
             }
         }
