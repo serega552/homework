@@ -50,8 +50,15 @@ namespace HomeWork_30
                 Console.WriteLine("2й боец: ");
                 if (SelectFighter(out Fighter fighter2))
                 {
-                    _fighter2 = fighter2;
-                    _fighter2.ShowInfo();
+                    if (fighter2 != fighter)
+                    {
+                        _fighter2 = fighter2;
+                        _fighter2.ShowInfo();
+                    }
+                    else
+                    {
+                        SelectFighters();
+                    }
                 }
 
                 Console.ReadKey();
