@@ -17,8 +17,8 @@ namespace HomeWork_30
         class Arena
         {
             private List<Fighter> _fighters = new List<Fighter>();
-            public Fighter _fighter1 { get; private set; }
-            public Fighter _fighter2 { get; private set; }
+            private Fighter _fighter1;
+            private Fighter _fighter2;
             public void Fight()
             {
                 if (_fighter1 == null || _fighter2 == null)
@@ -121,7 +121,7 @@ namespace HomeWork_30
             public int Armor { get; private set; }
             public bool IsWeapon { get; protected set; }
             public int HandDamage { get; protected set; }
-            static Random random = new Random();
+            private static Random random = new Random();
 
             public Fighter(string name, int health, int damage, string specialAtackName, int armor, bool isWeapon)
             {
@@ -174,13 +174,14 @@ namespace HomeWork_30
             {
                 if (isWeapon == true)
                 {
-                    Damage = Damage / 2;
+                    int numberReduceDamage = 2;
+                    Damage = Damage / numberReduceDamage;
                 }
             }
 
             public virtual void UseSpecialAtack(Fighter fighter) { }
 
-            public int NumberRandom()
+            public int UseNumberRandom()
             {
                 int randomNumber = random.Next(0, 100);
                 return randomNumber;
@@ -196,8 +197,9 @@ namespace HomeWork_30
             public override void UseSpecialAtack(Fighter fighter)
             {
                 int maxPercent = 40;
+                int numberAttempts = 0;
 
-                if (NumberRandom() <= maxPercent && NumberRandom() >= 0 && _count == 0)
+                if (UseNumberRandom() <= maxPercent && UseNumberRandom() >= 0 && _count == numberAttempts)
                 {
                     _count++;
                     fighter.TakeWeapon();
@@ -215,7 +217,7 @@ namespace HomeWork_30
             {
                 int maxPercent = 10;
 
-                if (NumberRandom() <= maxPercent && NumberRandom() >= 0)
+                if (UseNumberRandom() <= maxPercent && UseNumberRandom() >= 0)
                 {
                     Console.WriteLine("Воин блокировал удар");
                     Health += fighter.Damage;
@@ -232,8 +234,9 @@ namespace HomeWork_30
             public override void UseSpecialAtack(Fighter fighter)
             {
                 int maxPercent = 20;
+                int numberAttempts = 3;
 
-                if (NumberRandom() <= maxPercent && NumberRandom() >= 0 && _count <= 3)
+                if (UseNumberRandom() <= maxPercent && UseNumberRandom() >= 0 && _count <= numberAttempts)
                 {
                     _count++;
                     fighter.Freeze(fighter.IsWeapon);
@@ -251,8 +254,9 @@ namespace HomeWork_30
             public override void UseSpecialAtack(Fighter fighter)
             {
                 int maxPercent = 10;
+                int numberAttempts = 2;
 
-                if (NumberRandom() <= maxPercent && NumberRandom() >= 0 && _count <= 2 && IsWeapon == true)
+                if (UseNumberRandom() <= maxPercent && UseNumberRandom() >= 0 && _count <= numberAttempts && IsWeapon == true)
                 {
                     _count++;
                     fighter.TakeDamage(60, IsWeapon);
@@ -275,10 +279,11 @@ namespace HomeWork_30
 
             public override void UseSpecialAtack(Fighter fighter)
             {
-                int MaxPercent = 10;
-                int countStealHealth = random.Next(30, 100);
+                int minStealHealth = 30;
+                int maxPercent = 10;
+                int countStealHealth = random.Next(minStealHealth, 100);
 
-                if (NumberRandom() <= MaxPercent && NumberRandom() >= 0)
+                if (UseNumberRandom() <= maxPercent && UseNumberRandom() >= 0)
                 {
                     Health += countStealHealth;
                     fighter.TakeDamage(countStealHealth, true);
