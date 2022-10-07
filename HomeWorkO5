@@ -91,19 +91,18 @@ namespace HomeWork_30
             switch (userInput)
             {
                 case NameCommand:
-                    UseNameFilter();
+                    ShowBookName();
                     break;
 
                 case AuthorCommand:
-                    UseAuthorFilter();
+                    ShowBookAuthor();
                     break;
 
                 case YearCommand:
-                    UseYearFilter();
+                    ShowBookYear();
                     break;
             }
         }
-
 
         public void ShowInfo()
         {
@@ -130,7 +129,8 @@ namespace HomeWork_30
                 return false;
             }
         }
-        private void UseNameFilter()
+
+        private void ShowBookName()
         {
             Console.WriteLine("Введите название книги: ");
             string userInput = Console.ReadLine();
@@ -140,11 +140,12 @@ namespace HomeWork_30
                 if (userInput == _books[i].Name)
                 {
                     Console.WriteLine("Id книги: " + (i + 1));
+                    _books[i].ShowBook();
                 }
             }
         }
 
-        private void UseAuthorFilter()
+        private void ShowBookAuthor()
         {
             Console.WriteLine("Введите автора книги: ");
             string userInput = Console.ReadLine();
@@ -154,11 +155,12 @@ namespace HomeWork_30
                 if (userInput == _books[i].Author)
                 {
                     Console.WriteLine("Id книги: " + (i + 1));
+                    _books[i].ShowBook();
                 }
             }
         }
 
-        private void UseYearFilter()
+        private void ShowBookYear()
         {
             Console.WriteLine("Введите год книги: ");
             string userInput = Console.ReadLine();
@@ -170,6 +172,7 @@ namespace HomeWork_30
                 if (year == _books[i].Year)
                 {
                     Console.WriteLine("Id книги: " + (i + 1));
+                    _books[i].ShowBook();
                 }
             }
         }
@@ -186,6 +189,11 @@ namespace HomeWork_30
             Name = name;
             Author = author;
             Year = year;
+        }
+
+        public void ShowBook()
+        {
+            Console.WriteLine($"ID:  {Name}     {Author}     {Year}");
         }
     }
 }
