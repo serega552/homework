@@ -1,0 +1,112 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Zoo zoo = new Zoo();
+            zoo.Work();
+        }
+    }  
+
+    class Zoo
+    {
+        private List<Aviary> _aviary = new List<Aviary>();
+        private bool _isWork = true;
+
+        public void Work()
+        {
+            CreateAviary();
+
+            while (_isWork)
+            {
+                Console.WriteLine("Вы заходите в зоопарк и видите табличку");
+
+                SelectAviary(out Aviary aviary);
+                ShowInfoAviary(aviary);
+
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+
+        public bool SelectAviary(out Aviary aviary)
+        {
+            ShowNameAviary();
+
+            Console.Write("Выберите номер вальера: ");
+            string id = Console.ReadLine();
+            int.TryParse(id, out int inputId);
+
+            if(inputId > 0 && inputId <= _aviary.Count)
+            {
+                aviary = _aviary[inputId - 1];
+                return true;
+            }
+            else
+            {
+                aviary = null;
+                return false;
+            }
+
+        }
+
+        public void CreateAviary()
+        {
+            Animal Elephant = new Animal("Слон", "самец", "uwu");
+            _aviary.Add(new Aviary("Слоняры", 5, Elephant));
+
+            Animal Capybara = new Animal("Капибара", "самка", "трррр");
+            _aviary.Add(new Aviary("Капибары", 20, Capybara));                  
+
+            Animal Raccoon = new Animal("Енот", "самец", "крррр");
+            _aviary.Add(new Aviary("Еноты", 20, Raccoon));                  
+
+            Animal Giraffe = new Animal("Жираф", "самка", "ууу");
+            _aviary.Add(new Aviary("Жирафы", 8, Giraffe));                  
+        }
+
+        public void ShowNameAviary()
+        {
+            for(int i = 0; i < _aviary.Count; i++)
+            {
+                Console.WriteLine(i + 1 + " " + _aviary[i].NameAviary);
+            }
+        }
+
+        public void ShowInfoAviary(Aviary aviary)
+        {
+            Console.WriteLine($"В это вальере находиться {aviary.AmountAnimal} {aviary.TypeAnimal.Name}ов вы слышите {aviary.TypeAnimal.Sound} это {aviary.TypeAnimal.Gender}");
+        }
+    }
+
+    class Animal
+    {
+        public string Name { get; private set; }
+        public string Gender { get; private set; }
+        public string Sound { get; private set; }
+
+        public Animal (string name, string gender, string sound)
+        {
+            Name = name;
+            Gender = gender;
+            Sound = sound;
+        }
+    }
+
+    class Aviary
+    {
+        public string NameAviary { get; private set; }
+        public int AmountAnimal { get; private set; }
+        public Animal TypeAnimal { get; private set; }
+        public Aviary(string nameAviary, int amountAnimal, Animal typeAnimal)
+        {
+            NameAviary = nameAviary;
+            AmountAnimal = amountAnimal;
+            TypeAnimal = typeAnimal;
+        }
+    }
+}
