@@ -10,11 +10,11 @@ namespace HomeWork_30
             Zoo zoo = new Zoo();
             zoo.Work();
         }
-    }  
+    }
 
     class Zoo
     {
-        private List<Aviary> _aviary = new List<Aviary>();
+        private List<Aviary> _aviarys = new List<Aviary>();
         private bool _isWork = true;
 
         public void Work()
@@ -26,6 +26,8 @@ namespace HomeWork_30
                 Console.WriteLine("Вы заходите в зоопарк и видите табличку");
 
                 SelectAviary(out Aviary aviary);
+
+                if(aviary != null)
                 ShowInfoAviary(aviary);
 
                 Console.ReadKey();
@@ -41,9 +43,9 @@ namespace HomeWork_30
             string id = Console.ReadLine();
             int.TryParse(id, out int inputId);
 
-            if(inputId > 0 && inputId <= _aviary.Count)
+            if (inputId > 0 && inputId <= _aviarys.Count)
             {
-                aviary = _aviary[inputId - 1];
+                aviary = _aviarys[inputId - 1];
                 return true;
             }
             else
@@ -56,57 +58,64 @@ namespace HomeWork_30
 
         public void CreateAviary()
         {
-            Animal Elephant = new Animal("Слон", "самец", "uwu");
-            _aviary.Add(new Aviary("Слоняры", 5, Elephant));
+            Animal elephant = new Animal("Слон", "английский", "uwu");
+            _aviarys.Add(new Aviary("Слоняры", 5, elephant));
 
-            Animal Capybara = new Animal("Капибара", "самка", "трррр");
-            _aviary.Add(new Aviary("Капибары", 20, Capybara));                  
+            Animal capybara = new Animal("Капибара", "мексиканская", "трррр");
+            _aviarys.Add(new Aviary("Капибары", 20, capybara));
 
-            Animal Raccoon = new Animal("Енот", "самец", "крррр");
-            _aviary.Add(new Aviary("Еноты", 20, Raccoon));                  
+            Animal raccoon = new Animal("Енот", "афганистанский", "крррр");
+            _aviarys.Add(new Aviary("Еноты", 20, raccoon));
 
-            Animal Giraffe = new Animal("Жираф", "самка", "ууу");
-            _aviary.Add(new Aviary("Жирафы", 8, Giraffe));                  
+            Animal giraffe = new Animal("Жираф", "норвежский", "ууу");
+            _aviarys.Add(new Aviary("Жирафы", 8, giraffe));
         }
 
         public void ShowNameAviary()
         {
-            for(int i = 0; i < _aviary.Count; i++)
+            for (int i = 0; i < _aviarys.Count; i++)
             {
-                Console.WriteLine(i + 1 + " " + _aviary[i].NameAviary);
+                Console.WriteLine(i + 1 + " " + _aviarys[i].Name);
             }
         }
 
         public void ShowInfoAviary(Aviary aviary)
         {
-            Console.WriteLine($"В это вальере находиться {aviary.AmountAnimal} {aviary.TypeAnimal.Name}ов вы слышите {aviary.TypeAnimal.Sound} это {aviary.TypeAnimal.Gender}");
+            aviary.ShowInfo();
         }
     }
 
     class Animal
     {
         public string Name { get; private set; }
-        public string Gender { get; private set; }
+        public string Country { get; private set; }
         public string Sound { get; private set; }
 
-        public Animal (string name, string gender, string sound)
+        public Animal(string name, string country, string sound)
         {
             Name = name;
-            Gender = gender;
+            Country = country;
             Sound = sound;
         }
     }
 
     class Aviary
     {
-        public string NameAviary { get; private set; }
+        public string Name { get; private set; }
         public int AmountAnimal { get; private set; }
         public Animal TypeAnimal { get; private set; }
-        public Aviary(string nameAviary, int amountAnimal, Animal typeAnimal)
+
+        public Aviary(string name, int amountAnimal, Animal typeAnimal)
         {
-            NameAviary = nameAviary;
+            Name = name;
             AmountAnimal = amountAnimal;
             TypeAnimal = typeAnimal;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"В это вальере находиться {AmountAnimal} {TypeAnimal.Name}ов " +
+                $"вы слышите {TypeAnimal.Sound} этом {TypeAnimal.Country} {TypeAnimal.Name}");
         }
     }
 }
