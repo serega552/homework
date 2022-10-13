@@ -1,0 +1,224 @@
+using System;
+using System.Collections.Generic;
+
+namespace HomeWork_37
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            CarService carService = new CarService();
+            carService.Work();
+        }
+    }
+
+    class CarService
+    {
+        private static Random _random = new Random();
+        private List<Stock> _details = new List<Stock>();
+        private Queue<Client> _clients = new Queue<Client>();
+        private int _money = 15000;
+
+        public void Work()
+        {
+            CreateDetail();
+            CreateClients();
+
+            while (_clients.Count > 0)
+            {
+                ShowMainMenu();
+            }
+
+            Console.WriteLine($"Клиенты кончились, ваш баланс: {_money}");
+        }
+
+        private void CreateDetail()
+        {
+            Detail brakeDisk = new Detail(SparePartType.BrakeDisk.ToString(), 8000);
+            _details.Add(new Stock(brakeDisk, 10));
+
+            Detail tieRod = new Detail(SparePartType.TieRod.ToString(), 8000);
+            _details.Add(new Stock(tieRod, 5));
+
+            Detail windshield = new Detail(SparePartType.Windshield.ToString(), 23000);
+            _details.Add(new Stock(windshield, 7));
+
+            Detail exhaust = new Detail(SparePartType.Exhaust.ToString(), 13000);
+            _details.Add(new Stock(exhaust, 15));
+        }
+
+        private void CreateClients()
+        {
+            int count = 20;
+
+            for (int i = 0; i <= count; i++)
+            {
+                int indexType = _random.Next(0, Enum.GetNames(typeof(SparePartType)).Length);
+
+                SparePartType type = (SparePartType)Enum.GetValues(typeof(SparePartType)).GetValue(indexType);
+                _clients.Enqueue(new Client(type.ToString()));
+            }
+        }
+
+        private void ServeClient()
+        {
+            int id = SearchDetail();
+
+            if (id >= 0 && id <= _details.Count && _clients.Peek().Breaking == _details[id].Detail.Name)
+            {
+                bool thereDetail = _details[id].ReplaceDetail();
+
+                if (thereDetail)
+                {
+                    Check(id);
+                    _clients.Dequeue();
+                }
+                else
+                {
+                    IssueFine(id);
+                    _clients.Dequeue();
+                }
+
+            }
+            else
+            {
+                IssueFine(id);
+                _clients.Dequeue();
+            }
+        }
+
+        private int SearchDetail()
+        {
+            Console.WriteLine("Введите номер детали");
+            string id = Console.ReadLine();
+            int.TryParse(id, out int inputId);
+
+            if (inputId > 0 && inputId <= _details.Count)
+            {
+                return inputId - 1;
+            }
+            else
+            {
+                inputId = 5;
+                return inputId;
+            }
+        }
+
+        private void ShowDetails()
+        {
+            for (int i = 0; i < _details.Count; i++)
+            {
+                Console.WriteLine(i + 1 + " " + _details[i].Detail.Name + " " + _details[i].Detail.FullPrice + " " + _details[i].AmountDetails + "шт.");
+            }
+        }
+
+        private void ShowMainMenu()
+        {
+            Console.WriteLine($"БАЛАНС: {_money}");
+
+            Console.WriteLine("--------------------------------------------");
+
+            ShowDetails();
+
+            Console.WriteLine("Enter - отказать");
+            Console.WriteLine("--------------------------------------------");
+
+            _clients.Peek().ShowClient();
+
+            Console.WriteLine("--------------------------------------------");
+
+            ServeClient();
+
+            Console.WriteLine("--------------------------------------------");
+
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        private void IssueFine(int id)
+        {
+            if (id >= 0 && id <= _details.Count)
+            {
+                Console.WriteLine($"Вы заменили не ту деталь, клиент уехал, вы получаете штраф в размере {_details[id].Detail.FullPrice}");
+                _money -= _details[id].Detail.FullPrice;
+                _details[id].ReplaceDetail();
+            }
+            else
+            {
+                Console.WriteLine("Вы отказали клиенту, он ушёл расстроенный");
+            }
+        }
+
+        private void Check(int id)
+        {
+            _money += _details[id].Detail.FullPrice;
+
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine($"Вы заменили: {_details[id].Detail.Name}");
+            Console.WriteLine($"Полная сумма ремонта: {_details[id].Detail.FullPrice}");
+            Console.WriteLine($"Баланс бизнеса: {_money}");
+            Console.WriteLine($"Таких же деталей: {_details[id].AmountDetails}");
+        }
+    }
+
+    class Client
+    {
+        public string Breaking { get; private set; }
+
+        public Client(string breaking)
+        {
+            Breaking = breaking;
+        }
+
+        public void ShowClient()
+        {
+            Console.WriteLine($"Требуется заменить {Breaking}");
+        }
+    }
+
+    class Stock
+    {
+        public Detail Detail { get; private set; }
+        public int AmountDetails { get; private set; }
+
+        public Stock(Detail detail, int amountDetails)
+        {
+            Detail = detail;
+            AmountDetails = amountDetails;
+        }
+
+        public bool ReplaceDetail()
+        {
+            if (AmountDetails > 0)
+            {
+                AmountDetails--;
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Деталей нет");
+                return false;
+            }
+        }
+    }
+
+    class Detail
+    {
+        public string Name { get; private set; }
+        public int FullPrice { get; private set; }
+
+        public Detail(string name, int fullPrice)
+        {
+            Name = name;
+            FullPrice = fullPrice;
+        }
+    }
+
+    enum SparePartType
+    {
+        BrakeDisk,
+        TieRod,
+        Windshield,
+        Exhaust,
+    }
+}
