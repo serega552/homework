@@ -25,17 +25,17 @@ namespace HomeWork_30
             {
                 Console.WriteLine("Вы заходите в зоопарк и видите табличку");
 
-                SelectAviary(out Aviary aviary);
+                TryGetAviary(out Aviary aviary);
 
-                if(aviary != null)
-                ShowInfoAviary(aviary);
+                if (aviary != null)
+                    ShowInfoAviary(aviary);
 
                 Console.ReadKey();
                 Console.Clear();
             }
         }
 
-        public bool SelectAviary(out Aviary aviary)
+        public bool TryGetAviary(out Aviary aviary)
         {
             ShowNameAviary();
 
