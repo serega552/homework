@@ -62,7 +62,7 @@ namespace HomeWork_37
 
         private void ServeClient()
         {
-            int id = SearchDetail();
+            int id = SearchIdDetail();
 
             if (id >= 0 && id <= _details.Count && _clients.Peek().Breaking == _details[id].Detail.Name)
             {
@@ -70,7 +70,7 @@ namespace HomeWork_37
 
                 if (thereDetail)
                 {
-                    Check(id);
+                    ShowPurchase(id);
                     _clients.Dequeue();
                 }
                 else
@@ -87,7 +87,7 @@ namespace HomeWork_37
             }
         }
 
-        private int SearchDetail()
+        private int SearchIdDetail()
         {
             Console.WriteLine("Введите номер детали");
             string id = Console.ReadLine();
@@ -149,7 +149,7 @@ namespace HomeWork_37
             }
         }
 
-        private void Check(int id)
+        private void ShowPurchase(int id)
         {
             _money += _details[id].Detail.FullPrice;
 
