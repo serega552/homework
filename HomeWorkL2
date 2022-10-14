@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Criminal> criminals = new List<Criminal> { new Criminal("Олежа", "Петров", "Владимирович", "антиправительственное"), new Criminal ("Иосиф", "Сталин", "Виссарионович", "убийство"), new Criminal("Роза", "Шмарайрданова", "Александровна", "грабёж"), new Criminal ("Александр", "Прокудин", "Сергеевич", "антиправительственное")};
+
+            foreach(var criminal in criminals)
+            {
+                criminal.ShowInfo();
+            }
+
+            Console.WriteLine("-----------------------------------");
+
+            var filtredCrimnals = from Criminal criminal in criminals where criminal.Crime.ToLower() != "антиправительственное" select criminal;
+
+            foreach(var filtredCrimnal in filtredCrimnals)
+            {
+                filtredCrimnal.ShowInfo();
+            }
+        }
+    }
+
+    class Criminal
+    {
+        public string Name { get;private set; }
+        public string SurName { get;private set; }
+        public string Patronymic { get;private set; }
+        public string Crime { get; private set; }
+
+        public Criminal(string name, string surName, string patronymic, string crime)
+        {
+            Name = name;
+            SurName = surName;
+            Patronymic = patronymic;
+            Crime = crime;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"ФИО: {Name} {SurName} {Patronymic} преступление: {Crime}");
+        }
+    }
+}
