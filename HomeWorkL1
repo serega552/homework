@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Detective detective = new Detective();
+
+            detective.AddCriminals();;
+            detective.Work();
+        }  
+    }
+
+    class Detective
+    {
+        private List<Criminal> _criminals = new List<Criminal>();
+
+        public void Work()
+        {
+            Console.Write("Введите рост: ");
+            string growth = Console.ReadLine();
+            int.TryParse(growth, out int inputGrowth);
+
+            Console.Write("Введите вес: ");
+            string weight = Console.ReadLine();
+            int.TryParse(weight, out int inputWeight);
+
+            Console.Write("Введите национальность: ");
+            string nationality = Console.ReadLine();
+
+            var filteredCriminals = from Criminal criminal in _criminals where
+            criminal.Growth == inputGrowth && 
+            criminal.Weight == inputWeight && 
+            criminal.Nationality == nationality &&
+            criminal.TakenCustody == false
+             select criminal;
+
+            foreach (var criminal in filteredCriminals)
+            {
+                criminal.ShowInfo();
+            }
+        }
+
+        public void AddCriminals()
+        {
+            _criminals.Add(new Criminal("Олежа", "Петров", "Владимирович", "русский", 200, 90, true));
+            _criminals.Add(new Criminal("Иосиф", "Сталин", "Виссарионович", "грузин", 167, 62, false));
+            _criminals.Add(new Criminal("Роза", "Шамарайрданова", "Александровна", "тварь", 150, 50, false));
+        }
+    }
+
+    class Criminal
+    {
+        public string Name { get; private set; }
+        public string SurName { get; private set; }
+        public string Patronymic { get; private set; }
+        public string Nationality { get; private set; }
+        public int Growth { get; private set; }
+        public int Weight { get; private set; }
+        public bool TakenCustody { get; private set; }
+
+        public Criminal(string name, string surName, string patronymic, string nationality, int growth, int weight, bool takenCustody)
+        {
+            Name = name;
+            SurName = surName;
+            Patronymic = patronymic;
+            Growth = growth;
+            Weight = weight;
+            TakenCustody = takenCustody;
+            Nationality = nationality;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"ФИО: {Name} {SurName} {Patronymic} {Nationality} рост - вес: {Growth} - {Weight} заключен: {TakenCustody}");
+        }
+    }
+}
