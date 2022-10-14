@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        private static List<Player> _players = new List<Player>();
+
+        static void Main(string[] args)
+        {
+            AddPatient();
+            
+            var filteredLevel = from Player player in _players where
+        }
+
+        static void AddPatient()
+        {
+            _players.Add(new Player("Герасимов", 10, 124124));
+            _players.Add(new Player("Литвинов", 8, 634));
+            _players.Add(new Player("Горбачева", 23, 754));
+            _players.Add(new Player("Зайцев", 12, 736));
+            _players.Add(new Player("Лукьянова", 3, 67854));
+            _players.Add(new Player("Власов", 60, 3458));
+            _players.Add(new Player("Богомолова", 89, 452165));
+            _players.Add(new Player("Воронина", 17, 7345));
+            _players.Add(new Player("Иванова", 36, 64367));
+            _players.Add(new Player("Рогов", 45, 517678));
+        }
+    }
+
+    class Player
+    {
+        public string Nickname { get; private set; }
+        public int Level { get; private set; }
+        public int Strong { get; private set; }
+
+        public Player(string nuckname, int level, int strong)
+        {
+            Nickname = nuckname;
+            Level = level;
+            Strong = strong;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"НИК: {Nickname} Уровень: {Level} Сила: {Strong}");
+        }
+    }
+}
