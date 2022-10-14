@@ -49,7 +49,7 @@ namespace HomeWork_30
         {
             _criminals.Add(new Criminal("Олежа", "Петров", "Владимирович", "русский", 200, 90, true));
             _criminals.Add(new Criminal("Иосиф", "Сталин", "Виссарионович", "грузин", 167, 62, false));
-            _criminals.Add(new Criminal("Роза", "Шамарайрданова", "Александровна", "тварь", 150, 50, false));
+            _criminals.Add(new Criminal("Роза", "Шмарайрданова", "Александровна", "тварь", 150, 50, false));
         }
     }
 
