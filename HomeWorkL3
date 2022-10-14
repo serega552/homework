@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Hospital hospital = new Hospital();
+
+            hospital.AddPatient();
+            hospital.Work();
+        }
+    }
+
+    class Hospital
+    {
+        const string NameSort = "1";
+        const string AgeSort = "2";
+        const string DiseaseSort = "3";
+
+        private List<Patient> _patients = new List<Patient>();
+
+        public void Work()
+        {
+            Console.WriteLine("Выберите параметр по которому хотите отсортировать: \n1 - по фио\n2 - по возросту\n3 - ввести заболевание");
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case NameSort:
+                    SortName();
+                    break;
+
+                case AgeSort:
+                    SortAge();
+                    break;
+
+                case DiseaseSort:
+                    SortDisease();
+                    break;
+            }
+        }
+
+        private void SortName()
+        {
+            var filteredName = from Patient patient in _patients orderby patient.FullName select patient;
+
+            foreach (Patient patient in filteredName)
+            {
+                patient.ShowInfo();
+            }
+        }
+
+        private void SortAge()
+        {
+            var filteredAge = from Patient patient in _patients orderby patient.Age select patient;
+
+            foreach (Patient patient in filteredAge)
+            {
+                patient.ShowInfo();
+            }
+        }
+
+        private void SortDisease()
+        {
+            Console.WriteLine("Введите заболевание");
+            string userInput = Console.ReadLine();
+
+            var filteredDisease = from Patient patient in _patients where patient.Disease.ToLower() == userInput.ToLower() select patient;
+
+            foreach (Patient patient in filteredDisease)
+            {
+                patient.ShowInfo();
+            }
+        }
+
+        public void AddPatient()
+        {
+            _patients.Add(new Patient("Герасимов Марк Иванович", 10, "ангина"));
+            _patients.Add(new Patient("Литвинов Лев Александрович", 8, "короновирус"));
+            _patients.Add(new Patient("Горбачева Маргарита Михайловна", 23, "ангина"));
+            _patients.Add(new Patient("Зайцев Никита Захарович", 12, "короновирус"));
+            _patients.Add(new Patient("Лукьянова Ярослава Мирославовна", 3, "ангина"));
+            _patients.Add(new Patient("Власов Тимофей Захарович", 60, "рак"));
+            _patients.Add(new Patient("Богомолова Сафия Степановна", 89, "рак"));
+            _patients.Add(new Patient("Воронина Мария Михайловна", 17, "ангина"));
+            _patients.Add(new Patient("Иванова Виктория Максимовна", 36, "ангина"));
+            _patients.Add(new Patient("Рогов Сергей Егорович", 45, "рак"));
+        }
+    }
+
+    class Patient
+    {
+        public string FullName { get; private set; }
+        public int Age { get; private set; }
+        public string Disease { get; private set; }
+
+        public Patient(string fullName, int age, string disease)
+        {
+            FullName = fullName;
+            Age = age;
+            Disease = disease;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"ФИО: {FullName} возраст: {Age} заболевание: {Disease}");
+        }
+    }
+}
