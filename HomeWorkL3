@@ -25,26 +25,26 @@ namespace HomeWork_30
 
         public void Work()
         {
-            Console.WriteLine("Выберите параметр по которому хотите отсортировать: \n1 - по фио\n2 - по возросту\n3 - ввести заболевание");
+            Console.WriteLine($"Выберите параметр по которому хотите отсортировать: \n{NameSort} - по фио\n{AgeSort} - по возросту\n{DiseaseSort} - ввести заболевание");
             string userInput = Console.ReadLine();
 
             switch (userInput)
             {
                 case NameSort:
-                    SortName();
+                    ShowPatientName();
                     break;
 
                 case AgeSort:
-                    SortAge();
+                    ShowPatientAge();
                     break;
 
                 case DiseaseSort:
-                    SortDisease();
+                    ShowPatientDisease();
                     break;
             }
         }
 
-        private void SortName()
+        private void ShowPatientName()
         {
             var filteredName = from Patient patient in _patients orderby patient.FullName select patient;
 
@@ -54,7 +54,7 @@ namespace HomeWork_30
             }
         }
 
-        private void SortAge()
+        private void ShowPatientAge()
         {
             var filteredAge = from Patient patient in _patients orderby patient.Age select patient;
 
@@ -64,7 +64,7 @@ namespace HomeWork_30
             }
         }
 
-        private void SortDisease()
+        private void ShowPatientDisease()
         {
             Console.WriteLine("Введите заболевание");
             string userInput = Console.ReadLine();
@@ -76,7 +76,7 @@ namespace HomeWork_30
                 patient.ShowInfo();
             }
         }
-
+      
         public void AddPatient()
         {
             _patients.Add(new Patient("Герасимов Марк Иванович", 10, "ангина"));
