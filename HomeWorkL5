@@ -11,7 +11,7 @@ namespace HomeWork_30
             Army army = new Army();
 
             army.AddSoldier();
-            army.work();
+            army.Work();
         }
     }
 
@@ -19,14 +19,14 @@ namespace HomeWork_30
     {
         private List<Soldier> _soldiers = new List<Soldier>();
 
-        public void work()
+        public void Work()
         {
             ShowSoldier();
             Console.WriteLine("-----------------------");
-            ShowNameRankSoldier();
+            ShowFiltredSoldier();
         }
 
-        public void ShowNameRankSoldier()
+        public void ShowFiltredSoldier()
         {
             var filteredSoldiers = _soldiers.Select(soldier => new
             {
@@ -34,7 +34,7 @@ namespace HomeWork_30
                 Rank = soldier.Rank,
             });
 
-            foreach(var soldir in filteredSoldiers)
+            foreach (var soldir in filteredSoldiers)
             {
                 Console.WriteLine(soldir.Name + " " + soldir.Rank);
             }
@@ -42,7 +42,7 @@ namespace HomeWork_30
 
         public void ShowSoldier()
         {
-            foreach(var soldier in _soldiers)
+            foreach (var soldier in _soldiers)
             {
                 soldier.ShowInfo();
             }
@@ -50,22 +50,22 @@ namespace HomeWork_30
 
         public void AddSoldier()
         {
-            _soldiers.Add(new Soldier("Валера","мачета","ефрейтор", 10));
-            _soldiers.Add(new Soldier("Серёга","пулемёт","президент", 192));
-            _soldiers.Add(new Soldier("Денис","гранатомёт","прапорщик", 30));
-            _soldiers.Add(new Soldier("Слава","зубочистка","опущенный", 5));
-            _soldiers.Add(new Soldier("Ильдар","боевой вертолёт","генерал вч", 60));
+            _soldiers.Add(new Soldier("Валера", "мачета", "ефрейтор", 10));
+            _soldiers.Add(new Soldier("Серёга", "пулемёт", "президент", 192));
+            _soldiers.Add(new Soldier("Денис", "гранатомёт", "прапорщик", 30));
+            _soldiers.Add(new Soldier("Слава", "зубочистка", "опущенный", 5));
+            _soldiers.Add(new Soldier("Ильдар", "боевой вертолёт", "генерал вч", 60));
         }
     }
 
     class Soldier
     {
-        public string Name { get;private set; }
+        public string Name { get; private set; }
         public string Armament { get; private set; }
         public string Rank { get; private set; }
         public int LifeTime { get; private set; }
 
-        public Soldier(string name, string armament, string rank,int lifeTime)
+        public Soldier(string name, string armament, string rank, int lifeTime)
         {
             Name = name;
             Armament = armament;
