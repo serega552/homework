@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Army army = new Army();
+
+            army.AddSoldierOnePlatoon();
+            army.AddSoldierTwoPlatoon();
+            army.work();
+        }
+    }
+
+    class Army
+    {
+        private List<Soldier> _onePlatoon = new List<Soldier>();
+        private List<Soldier> _twoPlatoon = new List<Soldier>();
+
+        public void work()
+        {
+            Console.WriteLine("-----------------------");
+            ShowFullArmy();
+            Console.WriteLine("-----------------------");
+            ShowFilteredOnePlatoon();
+
+        }
+
+        public void ShowFilteredOnePlatoon()
+        {
+            var filteredSurnameOnePlatoon = from Soldier soldier in _onePlatoon where soldier.SurName.ToUpper().StartsWith("Б") select soldier;
+
+            var transferPlatoon = _twoPlatoon.Union(filteredSurnameOnePlatoon);
+
+            foreach (var soldier in _twoPlatoon)
+            {
+                soldier.ShowInfo();
+            }
+        }
+
+        public void ShowFullArmy()
+        {
+            Console.WriteLine("1й взвод");
+
+            foreach(Soldier soldier in _onePlatoon)
+            {
+                soldier.ShowInfo();
+            }
+
+            Console.WriteLine("2й взвод");
+            foreach (Soldier soldier in _twoPlatoon)
+            {
+                soldier.ShowInfo();
+            }
+        }
+
+        public void AddSoldierOnePlatoon()
+        {
+            _onePlatoon.Add(new Soldier("Кулагин"));
+            _onePlatoon.Add(new Soldier("Битников"));
+            _onePlatoon.Add(new Soldier("Лебедев"));
+            _onePlatoon.Add(new Soldier("Савельев"));
+            _onePlatoon.Add(new Soldier("Батаев"));
+        }
+
+
+        public void AddSoldierTwoPlatoon()
+        {
+            _twoPlatoon.Add(new Soldier("Игнатьев"));
+            _twoPlatoon.Add(new Soldier("Фомин"));
+            _twoPlatoon.Add(new Soldier("Лелов"));
+            _twoPlatoon.Add(new Soldier("Дмитриев"));
+            _twoPlatoon.Add(new Soldier("Келкин"));
+        }
+    }
+}
+
+class Soldier
+{
+    public string SurName { get; private set; }
+
+    public Soldier(string surName)
+    {
+        SurName = surName;
+    }
+
+    public void ShowInfo()
+    {
+        Console.WriteLine($"Фамилие: {SurName}");
+    }
+}
