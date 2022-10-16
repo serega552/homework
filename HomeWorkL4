@@ -18,11 +18,38 @@ namespace HomeWork_30
     class Database
     {
         private List<Player> _players = new List<Player>();
-        Player player = new Player();
 
         public void work()
         {
-            var TakePlayersLevel = _players.Where(player.Level >= player.Level > 100).OrderBy(player >= player.Level);
+            ShowPlayers();
+            Console.WriteLine("---------------------");
+            ShowTopPlayersOnLevel();
+            Console.WriteLine("---------------------");
+            ShowTopPlayersOnStrong();
+        }
+
+        public void ShowTopPlayersOnLevel()
+        {
+            var takePlayersOnLevel = _players.OrderByDescending(player => player.Level).Take(3).ToList();
+
+            Console.WriteLine("Топ 3 игроков по Уровню:");
+            ShowTopPlayers(takePlayersOnLevel);
+        }
+
+        public void ShowTopPlayersOnStrong()
+        {
+            var takePlayersOnStrong = _players.OrderByDescending(player => player.Strong).Take(3).ToList();
+
+            Console.WriteLine("Топ 3 игроков по силе: ");
+            ShowTopPlayers(takePlayersOnStrong);
+        }
+
+        public void ShowPlayers()
+        {
+            foreach(var player in _players)
+            {
+                player.ShowInfo();
+            }
         }
 
         public void AddPlayers()
@@ -38,6 +65,14 @@ namespace HomeWork_30
             _players.Add(new Player("Моргенштерн",757,65));
             _players.Add(new Player("Люблю_ЖеСтКа",23,876));
         }
+
+        public void ShowTopPlayers(List<Player> players)
+        {
+            foreach(var player in players)
+            {
+                player.ShowInfo();
+            }
+        }
     }
 
     class Player
@@ -52,8 +87,6 @@ namespace HomeWork_30
             Level = level;
             Strong = strong;
         }
-
-        public Player() { }
 
         public void ShowInfo()
         {
