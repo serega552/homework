@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace HomeWork_30
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Army army = new Army();
+
+            army.AddSoldier();
+            army.work();
+        }
+    }
+
+    class Army
+    {
+        private List<Soldier> _soldiers = new List<Soldier>();
+
+        public void work()
+        {
+            ShowSoldier();
+            Console.WriteLine("-----------------------");
+            ShowNameRankSoldier();
+        }
+
+        public void ShowNameRankSoldier()
+        {
+            var filteredSoldiers = _soldiers.Select(soldier => new
+            {
+                Name = soldier.Name,
+                Rank = soldier.Rank,
+            });
+
+            foreach(var soldir in filteredSoldiers)
+            {
+                Console.WriteLine(soldir.Name + " " + soldir.Rank);
+            }
+        }
+
+        public void ShowSoldier()
+        {
+            foreach(var soldier in _soldiers)
+            {
+                soldier.ShowInfo();
+            }
+        }
+
+        public void AddSoldier()
+        {
+            _soldiers.Add(new Soldier("Валера","мачета","ефрейтор", 10));
+            _soldiers.Add(new Soldier("Серёга","пулемёт","президент", 192));
+            _soldiers.Add(new Soldier("Денис","гранатомёт","прапорщик", 30));
+            _soldiers.Add(new Soldier("Слава","зубочистка","опущенный", 5));
+            _soldiers.Add(new Soldier("Ильдар","боевой вертолёт","генерал вч", 60));
+        }
+    }
+
+    class Soldier
+    {
+        public string Name { get;private set; }
+        public string Armament { get; private set; }
+        public string Rank { get; private set; }
+        public int LifeTime { get; private set; }
+
+        public Soldier(string name, string armament, string rank,int lifeTime)
+        {
+            Name = name;
+            Armament = armament;
+            Rank = rank;
+            LifeTime = lifeTime;
+        }
+
+        public void ShowInfo()
+        {
+            Console.WriteLine($"Имя: {Name} Вооружение: {Armament} Звание: {Rank} Срок Службы: {LifeTime}");
+        }
+    }
+}
