@@ -25,6 +25,8 @@ namespace HomeWork_30
 
         public void Work()
         {
+            ShowInfo();
+            Console.WriteLine("-----------------------------------------------------------");
             Console.WriteLine($"Выберите параметр по которому хотите отсортировать: \n{NameSort} - по фио\n{AgeSort} - по возросту\n{DiseaseSort} - ввести заболевание");
             string userInput = Console.ReadLine();
 
@@ -47,21 +49,13 @@ namespace HomeWork_30
         private void ShowPatientName()
         {
             var filteredName = from Patient patient in _patients orderby patient.FullName select patient;
-
-            foreach (Patient patient in filteredName)
-            {
-                patient.ShowInfo();
-            }
+            ShowFilteredPatient(filteredName.ToList());
         }
 
         private void ShowPatientAge()
         {
             var filteredAge = from Patient patient in _patients orderby patient.Age select patient;
-
-            foreach (Patient patient in filteredAge)
-            {
-                patient.ShowInfo();
-            }
+            ShowFilteredPatient(filteredAge.ToList());
         }
 
         private void ShowPatientDisease()
@@ -71,12 +65,25 @@ namespace HomeWork_30
 
             var filteredDisease = from Patient patient in _patients where patient.Disease.ToLower() == userInput.ToLower() select patient;
 
-            foreach (Patient patient in filteredDisease)
+            ShowFilteredPatient(filteredDisease.ToList());
+        }
+      
+        public void ShowFilteredPatient(List<Patient> FilteredPatients)
+        {
+            foreach(var patient in FilteredPatients)
             {
                 patient.ShowInfo();
             }
         }
-      
+
+        public void ShowInfo()
+        {
+            foreach (var patient in _patients)
+            {
+                patient.ShowInfo();
+            }
+        }
+
         public void AddPatient()
         {
             _patients.Add(new Patient("Герасимов Марк Иванович", 10, "ангина"));
