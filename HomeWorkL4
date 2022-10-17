@@ -18,6 +18,7 @@ namespace HomeWork_30
     class Database
     {
         private List<Player> _players = new List<Player>();
+        private int _topAmount = 3;
 
         public void work()
         {
@@ -30,23 +31,23 @@ namespace HomeWork_30
 
         public void ShowTopPlayersOnLevel()
         {
-            var takePlayersOnLevel = _players.OrderByDescending(player => player.Level).Take(3).ToList();
+            var takePlayersOnLevel = _players.OrderByDescending(player => player.Level).Take(_topAmount).ToList();
 
-            Console.WriteLine("Топ 3 игроков по Уровню:");
+            Console.WriteLine($"Топ {_topAmount} игроков по Уровню:");
             ShowTopPlayers(takePlayersOnLevel);
         }
 
         public void ShowTopPlayersOnStrong()
         {
-            var takePlayersOnStrong = _players.OrderByDescending(player => player.Strong).Take(3).ToList();
+            var takePlayersOnStrong = _players.OrderByDescending(player => player.Strong).Take(_topAmount).ToList();
 
-            Console.WriteLine("Топ 3 игроков по силе: ");
+            Console.WriteLine($"Топ {_topAmount} игроков по силе: ");
             ShowTopPlayers(takePlayersOnStrong);
         }
 
         public void ShowPlayers()
         {
-            foreach(var player in _players)
+            foreach (var player in _players)
             {
                 player.ShowInfo();
             }
@@ -54,21 +55,21 @@ namespace HomeWork_30
 
         public void AddPlayers()
         {
-            _players.Add(new Player("Чу4ело",412,5235));
-            _players.Add(new Player("Умственно-отсталый",75,123));
-            _players.Add(new Player("Ромчик228",4,986));
-            _players.Add(new Player("Колдун735",976,524576));
-            _players.Add(new Player("вообще_крутой_ТиП",451,87456));
-            _players.Add(new Player("Насик",845,986));
-            _players.Add(new Player("Лучший_ПаПа",5234,56346125));
-            _players.Add(new Player("Бич",3,5));
-            _players.Add(new Player("Моргенштерн",757,65));
-            _players.Add(new Player("Люблю_ЖеСтКа",23,876));
+            _players.Add(new Player("Чу4ело", 412, 5235));
+            _players.Add(new Player("Умственно-отсталый", 75, 123));
+            _players.Add(new Player("Ромчик228", 4, 986));
+            _players.Add(new Player("Колдун735", 976, 524576));
+            _players.Add(new Player("вообще_крутой_ТиП", 451, 87456));
+            _players.Add(new Player("Насик", 845, 986));
+            _players.Add(new Player("Лучший_ПаПа", 5234, 56346125));
+            _players.Add(new Player("Бич", 3, 5));
+            _players.Add(new Player("Моргенштерн", 757, 65));
+            _players.Add(new Player("Люблю_ЖеСтКа", 23, 876));
         }
 
         public void ShowTopPlayers(List<Player> players)
         {
-            foreach(var player in players)
+            foreach (var player in players)
             {
                 player.ShowInfo();
             }
@@ -77,7 +78,7 @@ namespace HomeWork_30
 
     class Player
     {
-        public string Name { get;private set; }
+        public string Name { get; private set; }
         public int Level { get; private set; }
         public int Strong { get; private set; }
 
