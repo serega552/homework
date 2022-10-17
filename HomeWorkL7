@@ -12,7 +12,7 @@ namespace HomeWork_30
 
             army.AddSoldierOnePlatoon();
             army.AddSoldierTwoPlatoon();
-            army.work();
+            army.Work();
         }
     }
 
@@ -21,7 +21,7 @@ namespace HomeWork_30
         private List<Soldier> _onePlatoon = new List<Soldier>();
         private List<Soldier> _twoPlatoon = new List<Soldier>();
 
-        public void work()
+        public void Work()
         {
             Console.WriteLine("-----------------------");
             ShowFullArmy();
@@ -32,11 +32,14 @@ namespace HomeWork_30
 
         public void ShowFilteredOnePlatoon()
         {
-            var filteredSurnameOnePlatoon = from Soldier soldier in _onePlatoon where soldier.SurName.ToUpper().StartsWith("Б") select soldier;
+            char firstLetterSurname = 'Б';
 
-            var transferPlatoon = _twoPlatoon.Union(filteredSurnameOnePlatoon);
+            var translateSoldier = _onePlatoon.Where(solider => solider.SurName.ToUpper()[0] == firstLetterSurname);
 
-            foreach (var soldier in _twoPlatoon)
+            _twoPlatoon = _twoPlatoon.Union(translateSoldier).ToList();
+            _onePlatoon = _onePlatoon.Where(soldier => soldier.SurName.ToUpper()[0] != firstLetterSurname).ToList();
+
+            foreach (var soldier in _onePlatoon)
             {
                 soldier.ShowInfo();
             }
@@ -46,7 +49,7 @@ namespace HomeWork_30
         {
             Console.WriteLine("1й взвод");
 
-            foreach(Soldier soldier in _onePlatoon)
+            foreach (Soldier soldier in _onePlatoon)
             {
                 soldier.ShowInfo();
             }
@@ -66,7 +69,6 @@ namespace HomeWork_30
             _onePlatoon.Add(new Soldier("Савельев"));
             _onePlatoon.Add(new Soldier("Батаев"));
         }
-
 
         public void AddSoldierTwoPlatoon()
         {
