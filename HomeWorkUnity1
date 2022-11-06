@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ChangeVolume : MonoBehaviour
+{
+    [SerializeField] private AudioSource _audio;
+
+    private void Start()
+    {
+        _audio.volume = 0;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        _audio.Play();
+    }
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        _audio.volume += Mathf.MoveTowards(0, 1, 0.001f);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        _audio.Pause();
+    }
+}
