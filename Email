@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+
+namespace email2
+{
+    internal class Program
+    {
+        const string AddCommand = "1";
+        const string ShowCommand = "2";
+        const string RemoveCommand = "3";
+
+        static List<string> Emails = new List<string>();
+
+        static void Main(string[] args)
+        {
+            bool exitProgram = true;
+
+            while (exitProgram)
+            {
+                Console.WriteLine($"{AddCommand} - Добавить Email\n{ShowCommand} - Все Email\n{RemoveCommand} - Удалить email\nEnter - Выход");
+
+                switch (Console.ReadLine())
+                {
+                    case AddCommand:
+                        AddEmail();
+                        break;
+
+                    case ShowCommand:
+                        ShowListEmail();
+                        break;
+
+                     case RemoveCommand:
+                        RemoveEmail();
+                        break;
+
+                    default:
+                        exitProgram = false;
+                        break;
+                }
+            }
+        }
+
+        static void AddEmail()
+        {
+            string emailInput = Console.ReadLine();
+            Console.WriteLine($"Введите Email: {emailInput}");
+            Emails.Add(emailInput + "@mail.ru");
+
+            Console.Clear();
+        }
+
+        static void RemoveEmail()
+        {
+            ShowListEmail();
+
+            Console.Write($"Выберите id почты для удаления:");
+
+            int id = Convert.ToInt32(Console.ReadLine()); 
+
+            if(id > 0 && id <= Emails.Count)
+            {
+                Emails.RemoveAt(id - 1);
+            }
+
+            Console.Clear();
+        }
+
+        static void ShowListEmail()
+        {
+            int idEmail = 0;
+
+            foreach(string email in Emails)
+            {
+                idEmail++;
+                Console.WriteLine(idEmail + " " + email);
+            }
+            
+            Console.ReadKey();
+        }
+    }
+}
